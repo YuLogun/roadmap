@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 //components
 import Roadmap from "../Roadmap/Roadmap";
@@ -17,6 +18,7 @@ const ManagerView = () => {
   return (
     <div>
       <h1>ManagerView</h1>
+      <Link to="/roadmap">developer</Link>
       <div>
         <Row>
           <div>NAME</div>
@@ -28,6 +30,7 @@ const ManagerView = () => {
             roadmapTitle={vasyaData.roadmap_title}
             coursesTestData={vasyaData.roadmap_info}
             handleState={() => {}}
+            managerView
           />
         </Row>
         <Row>
@@ -36,6 +39,7 @@ const ManagerView = () => {
             roadmapTitle={lenaData.roadmap_title}
             coursesTestData={lenaData.roadmap_info}
             handleState={() => {}}
+            managerView
           />
         </Row>
       </div>

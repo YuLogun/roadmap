@@ -11,13 +11,14 @@ import "./DeveloperView.scss";
 import { coursesTestData } from "./coursesTestData";
 
 const DeveloperView = ({ sendStateToManager }) => {
-  const [state, setState] = useState({});
+  //do not need state here
+  //commented until we decide how to synchronise it between Developer and Manager pages
 
+  /* const [state, setState] = useState({});
   const handleState = (data) => {
     setState((state) => ({ ...state, ...data }));
   };
-
-  console.log("developer state", state);
+  console.log("developer state", state); */
 
   /*   useEffect(() => {
    sendStateToManager(state);
@@ -30,7 +31,7 @@ const DeveloperView = ({ sendStateToManager }) => {
       <Roadmap
         roadmapTitle={coursesTestData[0].roadmap.roadmap_title}
         coursesTestData={coursesTestData[0].roadmap.roadmap_info}
-        handleState={handleState}
+        //handleState={handleState}
       />
     </div>
   );

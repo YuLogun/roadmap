@@ -12,7 +12,7 @@ export const coursesTestData = [
               name: "Course 1",
               url: "https://www.udemy.com/",
               id: 1,
-              completed: false,
+              completed: true,
             },
             {
               name: "Course 2",
@@ -36,7 +36,7 @@ export const coursesTestData = [
               name: "Course 4",
               url: "https://www.udemy.com/",
               id: 4,
-              completed: false,
+              completed: true,
             },
             {
               name: "Course 5",
@@ -98,7 +98,7 @@ export const coursesTestData = [
               name: "Course 5",
               url: "https://www.udemy.com/",
               id: 5,
-              completed: false,
+              completed: true,
             },
             {
               name: "Course 6",

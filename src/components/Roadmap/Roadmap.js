@@ -3,7 +3,12 @@ import React from "react";
 //components
 import Technology from "../Technology/Technology";
 
-const Roadmap = ({ roadmapTitle, coursesTestData, handleState }) => {
+const Roadmap = ({
+  roadmapTitle,
+  coursesTestData,
+  handleState,
+  managerView,
+}) => {
   return (
     <div>
       <ul className="list">
@@ -16,7 +21,8 @@ const Roadmap = ({ roadmapTitle, coursesTestData, handleState }) => {
                 techTitle={it.technology}
                 courses={it.courses}
                 id={it.id}
-                sendStateToParent={handleState}
+                //sendStateToParent={handleState}
+                managerView={managerView}
               />
             ))}
           </ul>

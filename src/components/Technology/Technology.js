@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const Technology = ({ techTitle, courses }) => {
+const Technology = ({ techTitle, courses, sendStateToParent }) => {
   const getState = () => {
     let myState = {};
     for (let item of courses) {
@@ -16,11 +16,14 @@ const Technology = ({ techTitle, courses }) => {
     const { name, checked } = e.target;
     setState((state) => {
       const newState = { ...state, [name]: checked };
+      sendStateToParent(newState);
       return newState;
     });
   };
 
-  console.log("state", state);
+  useEffect(() => {
+    sendStateToParent(state);
+  }, []);
 
   return (
     <li>

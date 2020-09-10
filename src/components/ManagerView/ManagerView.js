@@ -4,57 +4,57 @@ import { Link } from "react-router-dom";
 //components
 import Roadmap from "../Roadmap/Roadmap";
 import Row from "../Row/Row";
+import UserList from "../UserList/UserList";
 
 //test data
 import { coursesTestData } from "../DeveloperView/coursesTestData";
-import UserList from "../UserList/UserList";
 
 //styles
-import './ManagerView.scss';
+import "./ManagerView.scss";
 
 const ManagerView = () => {
-  const vasyaData = coursesTestData.filter((it) => it.employee_id === 0)[0]
+  const getUserRoadmap = (userId) => {
+    const result = coursesTestData.filter(
+      (roadmap) => roadmap.employee_id === userId
+    )[0];
+    return result.roadmap;
+  };
+
+  const [currentRoadmap, setRoadmap] = useState(() => getUserRoadmap(0));
+
+  /* const vasyaData = coursesTestData.filter((it) => it.employee_id === 0)[0]
     .roadmap;
   const lenaData = coursesTestData.filter((it) => it.employee_id === 1)[0]
     .roadmap;
 
-  console.log(vasyaData);
+  console.log(vasyaData); */
 
   const userRoadmapInit = (userId) => {
     let userRoadmap = getUserRoadmap(userId);
-    setRoadmap(prevState => userRoadmap)
+    setRoadmap(userRoadmap);
     // debugger;
-  }
-
-  const getUserRoadmap = (userId) => {
-    const result = coursesTestData.filter(roadmap => roadmap.employee_id === userId)[0];
-    return result.roadmap;
-  }
-
-  const[currentRoadmap, setRoadmap] = useState(getUserRoadmap(0));
-
-
+  };
 
   const getUsersData = () => {
     return [
       {
-          id: 0,
-          name: "Вася"
+        id: 0,
+        name: "Вася",
       },
       {
-          id: 1,
-          name: "Петя"
+        id: 1,
+        name: "Петя",
       },
       {
-          id: 2,
-          name: "Юля"
+        id: 2,
+        name: "Юля",
       },
       {
-          id: 3,
-          name: "Рита"
+        id: 3,
+        name: "Рита",
       },
-    ]
-  }
+    ];
+  };
 
   return (
     <div>
@@ -63,7 +63,7 @@ const ManagerView = () => {
       <div className="adminPanelContainer">
         <UserList
           usersData={getUsersData()}
-          currentUserId={userId => userRoadmapInit(userId)}
+          currentUserId={(userId) => userRoadmapInit(userId)}
         />
         <Roadmap
           roadmapTitle={currentRoadmap.roadmap_title}
@@ -72,7 +72,7 @@ const ManagerView = () => {
           managerView
         />
       </div>
-      
+
       {/* <div>
         <Row>
           <div>NAME</div>

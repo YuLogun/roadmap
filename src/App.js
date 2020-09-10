@@ -18,7 +18,7 @@ function App() {
           <ManagerView />
         </Route>
         <Route exact path="/roadmap">
-          <DeveloperView manager="Иванов И.И." employee="Хаценкевич В.А." />
+          <DeveloperView />
         </Route>
       </Switch>
     </div>

@@ -2,8 +2,8 @@ import React from "react";
 
 //components
 import Roadmap from "../Roadmap/Roadmap";
-import { Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import RolesAppBar from "../RolesAppBar/RolesAppBar";
 
 //test data
 import { coursesTestData } from "./coursesTestData";
@@ -11,26 +11,7 @@ import { coursesTestData } from "./coursesTestData";
 //styles
 import "./DeveloperView.scss";
 
-const useStyles = makeStyles((theme) => ({
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    position: "fixed",
-    zIndex: 100,
-    opacity: 1,
-    background: "#fafafa",
-    width: "100%",
-    border: "1px solid gray",
-  },
-  roleContainer: {
-    display: "flex",
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "column",
-    },
-  },
-  role: {
-    paddingLeft: "0.25em",
-  },
+const useStyles = makeStyles(() => ({
   roadmapContainer: {
     top: "56px",
     position: "relative",
@@ -40,21 +21,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DeveloperView = ({ employee, manager }) => {
+const DeveloperView = () => {
   const classes = useStyles();
   return (
     <div>
-      {/* <MyAppBar manager="Иванов И.И." employee="Хаценкевич В.А." /> */}
-      <Toolbar className={classes.header}>
-        <Typography variant="body1" className={classes.roleContainer}>
-          <b>Сотрудник: </b>
-          <span className={classes.role}>{employee}</span>
-        </Typography>
-        <Typography variant="body1" className={classes.roleContainer}>
-          <b>Менеджер:</b>
-          <span className={classes.role}>{manager}</span>
-        </Typography>
-      </Toolbar>
+      <RolesAppBar manager="Иванов И.И." employee="Хаценкевич В.А." />
       <Roadmap
         styles={classes.roadmapContainer}
         roadmapTitle={coursesTestData[0].roadmap.roadmap_title}

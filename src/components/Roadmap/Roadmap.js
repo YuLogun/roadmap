@@ -9,6 +9,7 @@ const Roadmap = ({
   handleState,
   managerView,
 }) => {
+  debugger;
   return (
     <div>
       <ul className="list">

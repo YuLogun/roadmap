@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
 
 //components
 import Roadmap from "../Roadmap/Roadmap";
-import Row from "../Row/Row";
 import UserList from "../UserList/UserList";
 
 //test data
@@ -12,7 +11,44 @@ import { coursesTestData } from "../DeveloperView/coursesTestData";
 //styles
 import "./ManagerView.scss";
 
+const useStyles = makeStyles((theme) => ({
+  sideMenu: {
+    width: "100%",
+    minWidth: "240px",
+    maxWidth: "300px",
+
+    [theme.breakpoints.down('sm')]: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: "20px",
+      maxWidth: "unset"
+    }
+  },
+  managerPanelContainer: {
+    display: 'flex',
+    marginTop: "20px",
+
+    [theme.breakpoints.down('sm')]: {
+      margin: "20px 30px 0 30px",
+      flexDirection: "column"
+    }
+  },
+  managerBlock: {
+    width: "100%",
+    marginBottom: "30px",
+    fontWeight: "bold",
+
+    [theme.breakpoints.down('sm')]: {
+      width: "auto",
+      margin: 0
+    }
+  }
+}));
+
 const ManagerView = () => {
+  const classes = useStyles();
+
   const getUserRoadmap = (userId) => {
     const result = coursesTestData.filter(
       (roadmap) => roadmap.employee_id === userId
@@ -22,17 +58,9 @@ const ManagerView = () => {
 
   const [currentRoadmap, setRoadmap] = useState(() => getUserRoadmap(0));
 
-  /* const vasyaData = coursesTestData.filter((it) => it.employee_id === 0)[0]
-    .roadmap;
-  const lenaData = coursesTestData.filter((it) => it.employee_id === 1)[0]
-    .roadmap;
-
-  console.log(vasyaData); */
-
   const userRoadmapInit = (userId) => {
     let userRoadmap = getUserRoadmap(userId);
     setRoadmap(userRoadmap);
-    // debugger;
   };
 
   const getUsersData = () => {
@@ -57,14 +85,17 @@ const ManagerView = () => {
   };
 
   return (
-    <div>
-      <h1>ManagerView</h1>
-      <Link to="/roadmap">developer</Link>
-      <div className="adminPanelContainer">
+    <div className={classes.managerPanelContainer}>
+      <div className={classes.sideMenu}>
+        <div className={classes.managerBlock}>
+          <span>Менеджер: Иванов И. И.</span>
+        </div>
         <UserList
           usersData={getUsersData()}
           currentUserId={(userId) => userRoadmapInit(userId)}
         />
+      </div>
+      <div className="adminPanelContent">
         <Roadmap
           roadmapTitle={currentRoadmap.roadmap_title}
           coursesTestData={currentRoadmap.roadmap_info}
@@ -72,31 +103,6 @@ const ManagerView = () => {
           managerView
         />
       </div>
-
-      {/* <div>
-        <Row>
-          <div>NAME</div>
-          <div>ROADMAP</div>
-        </Row>
-        <Row>
-          <div>Vasya</div>
-          <Roadmap
-            roadmapTitle={vasyaData.roadmap_title}
-            coursesTestData={vasyaData.roadmap_info}
-            handleState={() => {}}
-            managerView
-          />
-        </Row>
-        <Row>
-          <div>Lena</div>
-          <Roadmap
-            roadmapTitle={lenaData.roadmap_title}
-            coursesTestData={lenaData.roadmap_info}
-            handleState={() => {}}
-            managerView
-          />
-        </Row>
-      </div> */}
     </div>
   );
 };

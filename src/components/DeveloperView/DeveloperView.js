@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 
 //components
 import Roadmap from "../Roadmap/Roadmap";
+import MyAppBar from "../AppBar/AppBar";
 
 //styles
 import "./DeveloperView.scss";
@@ -10,28 +10,13 @@ import "./DeveloperView.scss";
 //test data
 import { coursesTestData } from "./coursesTestData";
 
-const DeveloperView = ({ sendStateToManager }) => {
-  //do not need state here
-  //commented until we decide how to synchronise it between Developer and Manager pages
-
-  /* const [state, setState] = useState({});
-  const handleState = (data) => {
-    setState((state) => ({ ...state, ...data }));
-  };
-  console.log("developer state", state); */
-
-  /*   useEffect(() => {
-   sendStateToManager(state);
-  }, [state]); */
-
+const DeveloperView = () => {
   return (
     <div>
-      <h1>DeveloperView</h1>
-      <Link to="/">manager</Link>
+      <MyAppBar manager="Иванов И.И." employee="Хаценкевич В.А." />
       <Roadmap
         roadmapTitle={coursesTestData[0].roadmap.roadmap_title}
         coursesTestData={coursesTestData[0].roadmap.roadmap_info}
-        //handleState={handleState}
       />
     </div>
   );

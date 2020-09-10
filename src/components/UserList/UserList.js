@@ -19,10 +19,13 @@ const UserList = ({
 
   return (
     <div className="container">
+        <div className="userListHeader">
+            <span>Список сотрудников</span>
+        </div>
         {
             userList.map((userData, index) => (
-                <div key={index} className="userItem">
-                    <span className="userItemName" onClick={(e) => clickOnUserHandler(userData.id, e)}>{userData.name}</span>
+                <div key={index} className="userItem" onClick={(e) => clickOnUserHandler(userData.id, e)}>
+                    <span className="userItemName">{userData.name}</span>
                 </div>
             ))
         }

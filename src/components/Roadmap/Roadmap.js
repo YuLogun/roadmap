@@ -3,15 +3,20 @@ import React from "react";
 //components
 import Technology from "../Technology/Technology";
 
+//styles
+import "./Roadmap.scss";
+
 const Roadmap = ({
   roadmapTitle,
   coursesTestData,
   handleState,
   managerView,
 }) => {
-  debugger;
   return (
-    <div>
+    <div className="container">
+      <div className="roadmapHeader">
+          <span>Roadmap сотрудника</span>
+      </div>
       <ul className="list">
         <li>
           {roadmapTitle}

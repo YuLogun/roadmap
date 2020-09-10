@@ -1,4 +1,6 @@
 import React from "react";
+
+//components
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -9,29 +11,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const MyAppBar = ({ manager, employee }) => {
+const MyAppBar = () => {
   const classes = useStyles();
   return (
-    <AppBar
-      position="sticky"
-      color={manager && employee ? "transparent" : "primary"}
-    >
+    <AppBar position="sticky">
       <Toolbar className={classes.header}>
-        {manager && employee ? (
-          <>
-            <Typography variant="body1">
-              <b>Сотрудник:</b> {employee}
-            </Typography>
-            <Typography variant="body1">
-              <b>Менеджер:</b> {manager}
-            </Typography>
-          </>
-        ) : (
-          <>
-            <Typography variant="h5">DevRoadMap v 1.1</Typography>
-            <Typography variant="h6">Nietzsche Team</Typography>
-          </>
-        )}
+        <Typography variant="h5">DevRoadMap v 1.1</Typography>
+        <Typography variant="h6">Nietzsche Team</Typography>
       </Toolbar>
     </AppBar>
   );

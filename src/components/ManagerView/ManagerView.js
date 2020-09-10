@@ -7,6 +7,7 @@ import Row from "../Row/Row";
 
 //test data
 import { coursesTestData } from "../DeveloperView/coursesTestData";
+import UserList from "../UserList/UserList";
 
 const ManagerView = () => {
   const vasyaData = coursesTestData.filter((it) => it.employee_id === 0)[0]
@@ -19,6 +20,7 @@ const ManagerView = () => {
     <div>
       <h1>ManagerView</h1>
       <Link to="/roadmap">developer</Link>
+      <UserList></UserList>
       <div>
         <Row>
           <div>NAME</div>

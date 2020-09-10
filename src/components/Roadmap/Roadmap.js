@@ -2,6 +2,7 @@ import React from "react";
 
 //components
 import Technology from "../Technology/Technology";
+import MyAppBar from "../AppBar/AppBar";
 
 const Roadmap = ({
   roadmapTitle,
@@ -11,6 +12,7 @@ const Roadmap = ({
 }) => {
   return (
     <div>
+      <MyAppBar manager="Иванов И.И." employee="Хаценкевич В.А." />
       <ul className="list">
         <li>
           {roadmapTitle}

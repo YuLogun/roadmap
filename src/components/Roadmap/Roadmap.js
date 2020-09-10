@@ -4,6 +4,9 @@ import React from "react";
 import Technology from "../Technology/Technology";
 import MyAppBar from "../AppBar/AppBar";
 
+//styles
+import "./Roadmap.scss";
+
 const Roadmap = ({
   roadmapTitle,
   coursesTestData,
@@ -11,8 +14,10 @@ const Roadmap = ({
   managerView,
 }) => {
   return (
-    <div>
-      <MyAppBar manager="Иванов И.И." employee="Хаценкевич В.А." />
+    <div className="container">
+      <div className="roadmapHeader">
+        <span>Roadmap сотрудника</span>
+      </div>
       <ul className="list">
         <li>
           {roadmapTitle}

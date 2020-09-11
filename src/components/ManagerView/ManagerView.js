@@ -72,15 +72,7 @@ const ManagerView = () => {
       {
         id: 1,
         name: "Петя",
-      },
-      {
-        id: 2,
-        name: "Юля",
-      },
-      {
-        id: 3,
-        name: "Рита",
-      },
+      }
     ];
   };
 

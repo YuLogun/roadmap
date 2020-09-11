@@ -1,37 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 
 //components
 import Roadmap from "../Roadmap/Roadmap";
-
-//styles
-import "./DeveloperView.scss";
+import { makeStyles } from "@material-ui/core/styles";
+import RolesAppBar from "../RolesAppBar/RolesAppBar";
 
 //test data
 import { coursesTestData } from "./coursesTestData";
 
-const DeveloperView = ({ sendStateToManager }) => {
-  //do not need state here
-  //commented until we decide how to synchronise it between Developer and Manager pages
+//styles
+import "./DeveloperView.scss";
 
-  /* const [state, setState] = useState({});
-  const handleState = (data) => {
-    setState((state) => ({ ...state, ...data }));
-  };
-  console.log("developer state", state); */
+const useStyles = makeStyles(() => ({
+  roadmapContainer: {
+    top: "56px",
+    position: "relative",
+    border: "1px solid gray",
+    borderTop: "none",
+    padding: " 1em 2em",
+  },
+}));
 
-  /*   useEffect(() => {
-   sendStateToManager(state);
-  }, [state]); */
-
+const DeveloperView = () => {
+  const classes = useStyles();
   return (
     <div>
-      <h1>DeveloperView</h1>
-      <Link to="/">manager</Link>
+      <RolesAppBar manager="Иванов И.И." employee="Хаценкевич В.А." />
       <Roadmap
+        styles={classes.roadmapContainer}
         roadmapTitle={coursesTestData[0].roadmap.roadmap_title}
         coursesTestData={coursesTestData[0].roadmap.roadmap_info}
-        //handleState={handleState}
       />
     </div>
   );

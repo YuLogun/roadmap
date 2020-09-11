@@ -1,5 +1,27 @@
+* {
+    font-family: "Roboto";
+    font-size: 20px
+}
+
 .adminPanelContainer {
+    display: flex;
+}
+
+.adminPanelSideMenu {
+    width: 100%;
+    min-width: 240px;
+    max-width: 300px;
+}
+
+.managerBlock {
+    width: 100%;
+    margin: 10px auto 30px;
+    font-weight: bold;
+}
+
+.adminPanelContent {
     display: flex;
     justify-content: center;
     align-items: stretch;
+    width: 100%;
 }

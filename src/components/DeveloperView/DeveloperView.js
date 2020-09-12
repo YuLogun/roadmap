@@ -2,24 +2,13 @@ import React from "react";
 
 //components
 import Roadmap from "../Roadmap/Roadmap";
-import { makeStyles } from "@material-ui/core/styles";
 import RolesAppBar from "../RolesAppBar/RolesAppBar";
 
 //test data
 import { coursesTestData } from "./coursesTestData";
 
 //styles
-import "./DeveloperView.scss";
-
-const useStyles = makeStyles(() => ({
-  roadmapContainer: {
-    top: "56px",
-    position: "relative",
-    border: "1px solid gray",
-    borderTop: "none",
-    padding: " 1em 2em",
-  },
-}));
+import { useStyles } from "./DeveloperView.styles";
 
 const DeveloperView = () => {
   const classes = useStyles();

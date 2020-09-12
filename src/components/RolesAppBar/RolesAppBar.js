@@ -2,29 +2,9 @@ import React from "react";
 
 //components
 import { Toolbar, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    position: "fixed",
-    zIndex: 100,
-    opacity: 1,
-    background: "#fafafa",
-    width: "100%",
-    border: "1px solid gray",
-  },
-  roleContainer: {
-    display: "flex",
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "column",
-    },
-  },
-  role: {
-    paddingLeft: "0.25em",
-  },
-}));
+//styles
+import { useStyles } from "./RolesAppBar.styles";
 
 const RolesAppBar = ({ manager, employee }) => {
   const classes = useStyles();

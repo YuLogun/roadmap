@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import { Typography } from "@material-ui/core";
 
 //styles
-import './Technology.scss';
+import { useStyles } from "./Technology.styles";
 
 const Technology = React.memo(({ techTitle, courses, managerView }) => {
+  const classes = useStyles();
+
   const getState = () => {
     let myState = {};
     for (let item of courses) {
@@ -27,7 +29,7 @@ const Technology = React.memo(({ techTitle, courses, managerView }) => {
   };
 
   return (
-    <li className="roadMapItem">
+    <li className={classes.roadMapItem}>
       <Typography variant="subtitle1">{techTitle}</Typography>
       <ul>
         {courses.map(({ id, name, url }) => (

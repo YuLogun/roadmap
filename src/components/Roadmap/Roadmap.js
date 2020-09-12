@@ -4,15 +4,9 @@ import React from "react";
 import Technology from "../Technology/Technology";
 import { Typography } from "@material-ui/core";
 
-//styles
-import "./Roadmap.scss";
-
 const Roadmap = ({ roadmapTitle, coursesTestData, managerView, styles }) => {
   return (
     <div className={`container ${styles}`}>
-      {/* <div className="roadmapHeader">
-        <span>Roadmap сотрудника</span>
-      </div> */}
       <ul className="list">
         <li>
           <Typography variant="h1">{roadmapTitle}</Typography>

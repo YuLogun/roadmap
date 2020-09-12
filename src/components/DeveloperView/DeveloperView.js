@@ -1,27 +1,50 @@
-import React from "react";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getDataAction } from '../../redux/reducer';
 
 //components
-import Roadmap from "../Roadmap/Roadmap";
-import RolesAppBar from "../RolesAppBar/RolesAppBar";
+import Roadmap from '../Roadmap/Roadmap';
+import RolesAppBar from '../RolesAppBar/RolesAppBar';
 
 //test data
-import { coursesTestData } from "./coursesTestData";
+//import { coursesTestData } from './coursesTestData';
 
 //styles
-import { useStyles } from "./DeveloperView.styles";
+import { useStyles } from './DeveloperView.styles';
 
-const DeveloperView = () => {
+const DeveloperView = ({ data, loading, getData }) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  console.log(data);
+
   return (
     <div>
       <RolesAppBar manager="Иванов И.И." employee="Хаценкевич В.А." />
-      <Roadmap
-        styles={classes.roadmapContainer}
-        roadmapTitle={coursesTestData[0].roadmap.roadmap_title}
-        coursesTestData={coursesTestData[0].roadmap.roadmap_info}
-      />
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <Roadmap
+          styles={classes.roadmapContainer}
+          roadmapTitle={data[0].roadmap.roadmap_title}
+          coursesTestData={data[0].roadmap.roadmap_info}
+        />
+      )}
     </div>
   );
 };
 
-export default DeveloperView;
+const mapStateToProps = ({ data, loading }) => {
+  return { data, loading };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getData: () => dispatch(getDataAction)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeveloperView);

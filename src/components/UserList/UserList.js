@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   formControl: {
-    width: "150px"
+    width: "200px"
   }
 }));
 
@@ -42,6 +42,7 @@ const UserList = ({ currentUserId, usersData }) => {
   const classes = useStyles();
 
   const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedUserId, setUserId] = React.useState(0);
 
   //Функция для выбора пользователя в списке
   const handleListItemClick = (event, userId) => {
@@ -85,7 +86,7 @@ const UserList = ({ currentUserId, usersData }) => {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={0}
+            value={selectedIndex}
             onChange={handleChange}
           >
             {

@@ -6,22 +6,22 @@ export const coursesTestData = [
       roadmap_info: [
         {
           id: 0,
-          technology: "Technology 1",
+          technology: "Javascript",
           courses: [
             {
-              name: "Course 1",
+              name: "JavaScript. Уровень 1. Интерактивные веб-приложения",
               url: "https://www.udemy.com/",
               id: 1,
               completed: true,
             },
             {
-              name: "Course 2",
+              name: "Практический JavaScript (Продвинутый уровень)",
               url: "https://www.udemy.com/",
               id: 2,
               completed: false,
             },
             {
-              name: "Course 3",
+              name: "Асинхронная разработка на JS",
               url: "https://www.udemy.com/",
               id: 3,
               completed: false,
@@ -30,22 +30,22 @@ export const coursesTestData = [
         },
         {
           id: 1,
-          technology: "Technology 2",
+          technology: "CSS",
           courses: [
             {
-              name: "Course 4",
+              name: "CSS: Позиционирование",
               url: "https://www.udemy.com/",
               id: 4,
               completed: true,
             },
             {
-              name: "Course 5",
+              name: "CSS: Адаптивность",
               url: "https://www.udemy.com/",
               id: 5,
               completed: false,
             },
             {
-              name: "Course 6",
+              name: "HTML/CSS. Интерактивный курс",
               url: "https://www.udemy.com/",
               id: 6,
               completed: false,
@@ -62,50 +62,32 @@ export const coursesTestData = [
       roadmap_info: [
         {
           id: 0,
-          technology: "Technology 11",
+          technology: "PHP",
           courses: [
             {
-              name: "Course 1",
+              name: "Программист PHP от GeekBrains",
               url: "https://www.udemy.com/",
               id: 1,
               completed: false,
-            },
-            {
-              name: "Course 2",
-              url: "https://www.udemy.com/",
-              id: 2,
-              completed: false,
-            },
-            {
-              name: "Course 3",
-              url: "https://www.udemy.com/",
-              id: 3,
-              completed: false,
-            },
+            }
           ],
         },
         {
           id: 1,
-          technology: "Technology 22",
+          technology: "PostgreSQL",
           courses: [
             {
-              name: "Course 4",
+              name: "Администрирование PostgreSQL 10. Базовый курс",
               url: "https://www.udemy.com/",
               id: 4,
               completed: false,
             },
             {
-              name: "Course 5",
+              name: "Администрирование PostgreSQL 10. Настройка и мониторинг",
               url: "https://www.udemy.com/",
               id: 5,
               completed: true,
-            },
-            {
-              name: "Course 6",
-              url: "https://www.udemy.com/",
-              id: 6,
-              completed: false,
-            },
+            }
           ],
         },
       ],

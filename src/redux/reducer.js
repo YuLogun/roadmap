@@ -1,19 +1,25 @@
-import { coursesTestData } from '../components/DeveloperView/coursesTestData';
+const GET_DATA = 'GET_DATA';
 
 const initialState = {
   data: [],
   loading: true
 };
 
-export const getDataAction = { type: 'GET_DATA' };
-
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_DATA':
-      return { ...state, data: coursesTestData, loading: false };
+    case GET_DATA:
+      return { ...state, data: action.data, loading: action.loading };
     default:
       return state;
   }
 };
 
 export default reducer;
+
+export function getData(data) {
+  return {
+    type: GET_DATA,
+    data,
+    loading: false
+  };
+}

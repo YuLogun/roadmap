@@ -1,23 +1,28 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { getDataAction } from '../../redux/reducer';
+import { useSelector, useDispatch } from 'react-redux';
+import { getData } from '../../redux/reducer';
 
 //components
 import Roadmap from '../Roadmap/Roadmap';
 import RolesAppBar from '../RolesAppBar/RolesAppBar';
 
 //test data
-//import { coursesTestData } from './coursesTestData';
+import { coursesTestData } from './coursesTestData';
 
 //styles
 import { useStyles } from './DeveloperView.styles';
 
-const DeveloperView = ({ data, loading, getData }) => {
+const DeveloperView = () => {
   const classes = useStyles();
 
+  //redux hooks
+  const data = useSelector((state) => state.data);
+  const loading = useSelector((state) => state.loading);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getData();
-  }, [getData]);
+    dispatch(getData(coursesTestData));
+  }, []);
 
   console.log(data);
 
@@ -37,14 +42,4 @@ const DeveloperView = ({ data, loading, getData }) => {
   );
 };
 
-const mapStateToProps = ({ data, loading }) => {
-  return { data, loading };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getData: () => dispatch(getDataAction)
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(DeveloperView);
+export default DeveloperView;

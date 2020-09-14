@@ -9,34 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 //styles
-import "./UserList.scss";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-  userItem: {
-    paddingLeft: '30px'
-  },
-  wideScreenList: {
-    [theme.breakpoints.down('sm')]: {
-      display: "none"
-    }
-  },
-  mobileScreenList: {
-    display: "flex",
-    alignItems: "center",
-
-    [theme.breakpoints.up('md')]: {
-      display: "none"
-    }
-  },
-  formControl: {
-    width: "200px"
-  }
-}));
+import { useStyles } from './UserList.styles';
 
 const UserList = ({ currentUserId, usersData }) => {
   const classes = useStyles();
@@ -81,11 +54,9 @@ const UserList = ({ currentUserId, usersData }) => {
         </List>
       </div>
       <div className={classes.mobileScreenList}>
-        <span className="selectLabel">Сотрудник:</span>
+        <span className={classes.selectLabel}>Сотрудник:</span>
         <FormControl className={classes.formControl}>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
             value={selectedIndex}
             onChange={handleChange}
           >
@@ -96,8 +67,8 @@ const UserList = ({ currentUserId, usersData }) => {
             }
           </Select>
         </FormControl>
-      </div>  
-    </div>  
+      </div>
+    </div>
   );
 };
 

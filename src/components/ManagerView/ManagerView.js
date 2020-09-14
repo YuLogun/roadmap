@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { makeStyles } from '@material-ui/core/styles';
 
 //components
 import Roadmap from "../Roadmap/Roadmap";
@@ -9,42 +8,7 @@ import UserList from "../UserList/UserList";
 import { coursesTestData } from "../DeveloperView/coursesTestData";
 
 //styles
-import "./ManagerView.scss";
-
-const useStyles = makeStyles((theme) => ({
-  sideMenu: {
-    width: "100%",
-    minWidth: "240px",
-    maxWidth: "300px",
-
-    [theme.breakpoints.down('sm')]: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: "20px",
-      maxWidth: "unset"
-    }
-  },
-  managerPanelContainer: {
-    display: 'flex',
-    marginTop: "20px",
-
-    [theme.breakpoints.down('sm')]: {
-      margin: "20px 30px 0 30px",
-      flexDirection: "column"
-    }
-  },
-  managerBlock: {
-    width: "100%",
-    marginBottom: "30px",
-    fontWeight: "bold",
-
-    [theme.breakpoints.down('sm')]: {
-      width: "auto",
-      margin: 0
-    }
-  }
-}));
+import { useStyles } from './ManagerView.styles';
 
 const ManagerView = () => {
   const classes = useStyles();
@@ -87,7 +51,7 @@ const ManagerView = () => {
           currentUserId={(userId) => userRoadmapInit(userId)}
         />
       </div>
-      <div className="adminPanelContent">
+      <div className={classes.adminPanelContent}>
         <Roadmap
           roadmapTitle={currentRoadmap.roadmap_title}
           coursesTestData={currentRoadmap.roadmap_info}

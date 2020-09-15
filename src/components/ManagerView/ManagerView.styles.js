@@ -23,8 +23,9 @@ export const useStyles = makeStyles((theme) => ({
     },
     adminPanelContent: {
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'stretch',
+        alignItems: 'flex-start',
         width: '100%'
     },
     sideMenu: {

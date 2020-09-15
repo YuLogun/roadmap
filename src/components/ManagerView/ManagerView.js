@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
 //components
+import Button from '@material-ui/core/Button';
+
+// import Modals from '../Modals/Modals';
+import PresetAdder from '../ModalsList/PresetAdder/PresetAdder';
 import Roadmap from '../Roadmap/Roadmap';
 import UserList from '../UserList/UserList';
 
@@ -34,12 +38,21 @@ const ManagerView = () => {
       {
         id: 1,
         name: 'Петров К.Ф.'
+      },
+      {
+        id: 2,
+        name: 'Васичкин П.В.'
       }
     ];
   };
 
+  const showPresetAdder = () => {
+    debugger;
+  }
+
   return (
     <div className={classes.managerPanelContainer}>
+      <PresetAdder />
       <div className={classes.sideMenu}>
         <div className={classes.managerBlock}>
           <span>Менеджер: Иванов И. И.</span>
@@ -47,6 +60,9 @@ const ManagerView = () => {
         <UserList usersData={getUsersData()} currentUserId={(userId) => userRoadmapInit(userId)} />
       </div>
       <div className={classes.adminPanelContent}>
+        <Button variant="contained" color="primary" onClick={showPresetAdder}>
+          Назначить
+        </Button>
         <Roadmap
           roadmapTitle={currentRoadmap.roadmap_title}
           coursesTestData={currentRoadmap.roadmap_info}

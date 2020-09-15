@@ -1,25 +1,43 @@
-import React from "react";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getData } from '../../redux/reducer';
 
 //components
-import Roadmap from "../Roadmap/Roadmap";
-import RolesAppBar from "../RolesAppBar/RolesAppBar";
+import Roadmap from '../Roadmap/Roadmap';
+import RolesAppBar from '../RolesAppBar/RolesAppBar';
 
 //test data
-import { coursesTestData } from "./coursesTestData";
+import { coursesTestData } from './coursesTestData';
 
 //styles
-import { useStyles } from "./DeveloperView.styles";
+import { useStyles } from './DeveloperView.styles';
 
 const DeveloperView = () => {
   const classes = useStyles();
+
+  //redux hooks
+  const data = useSelector((state) => state.data);
+  const loading = useSelector((state) => state.loading);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getData(coursesTestData));
+  }, []);
+
+  console.log(data);
+
   return (
     <div>
       <RolesAppBar manager="Иванов И.И." employee="Хаценкевич В.А." />
-      <Roadmap
-        styles={classes.roadmapContainer}
-        roadmapTitle={coursesTestData[0].roadmap.roadmap_title}
-        coursesTestData={coursesTestData[0].roadmap.roadmap_info}
-      />
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <Roadmap
+          styles={classes.roadmapContainer}
+          roadmapTitle={data[0].roadmap.roadmap_title}
+          coursesTestData={data[0].roadmap.roadmap_info}
+        />
+      )}
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 //components
-import Roadmap from "../Roadmap/Roadmap";
-import UserList from "../UserList/UserList";
+import Roadmap from '../Roadmap/Roadmap';
+import UserList from '../UserList/UserList';
 
 //test data
-import { coursesTestData } from "../DeveloperView/coursesTestData";
+import { coursesTestData } from '../DeveloperView/coursesTestData';
 
 //styles
 import { useStyles } from './ManagerView.styles';
@@ -14,9 +14,7 @@ const ManagerView = () => {
   const classes = useStyles();
 
   const getUserRoadmap = (userId) => {
-    const result = coursesTestData.filter(
-      (roadmap) => roadmap.employee_id === userId
-    )[0];
+    const result = coursesTestData.filter((roadmap) => roadmap.employee_id === userId)[0];
     return result.roadmap;
   };
 
@@ -31,11 +29,11 @@ const ManagerView = () => {
     return [
       {
         id: 0,
-        name: "Хаценкевич В.А.",
+        name: 'Хаценкевич В.А.'
       },
       {
         id: 1,
-        name: "Петров К.Ф.",
+        name: 'Петров К.Ф.'
       }
     ];
   };
@@ -46,10 +44,7 @@ const ManagerView = () => {
         <div className={classes.managerBlock}>
           <span>Менеджер: Иванов И. И.</span>
         </div>
-        <UserList
-          usersData={getUsersData()}
-          currentUserId={(userId) => userRoadmapInit(userId)}
-        />
+        <UserList usersData={getUsersData()} currentUserId={(userId) => userRoadmapInit(userId)} />
       </div>
       <div className={classes.adminPanelContent}>
         <Roadmap

@@ -1,46 +1,46 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 //components
-import Roadmap from "../Roadmap/Roadmap";
-import UserList from "../UserList/UserList";
+import Roadmap from '../Roadmap/Roadmap';
+import UserList from '../UserList/UserList';
 
 //test data
-import { coursesTestData } from "../DeveloperView/coursesTestData";
+import { coursesTestData } from '../DeveloperView/coursesTestData';
 
 //styles
-import "./ManagerView.scss";
+import './ManagerView.scss';
 
 const useStyles = makeStyles((theme) => ({
   sideMenu: {
-    width: "100%",
-    minWidth: "240px",
-    maxWidth: "300px",
+    width: '100%',
+    minWidth: '240px',
+    maxWidth: '300px',
 
     [theme.breakpoints.down('sm')]: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: "20px",
-      maxWidth: "unset"
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: '20px',
+      maxWidth: 'unset'
     }
   },
   managerPanelContainer: {
     display: 'flex',
-    marginTop: "20px",
+    marginTop: '20px',
 
     [theme.breakpoints.down('sm')]: {
-      margin: "20px 30px 0 30px",
-      flexDirection: "column"
+      margin: '20px 30px 0 30px',
+      flexDirection: 'column'
     }
   },
   managerBlock: {
-    width: "100%",
-    marginBottom: "30px",
-    fontWeight: "bold",
+    width: '100%',
+    marginBottom: '30px',
+    fontWeight: 'bold',
 
     [theme.breakpoints.down('sm')]: {
-      width: "auto",
+      width: 'auto',
       margin: 0
     }
   }
@@ -50,9 +50,7 @@ const ManagerView = () => {
   const classes = useStyles();
 
   const getUserRoadmap = (userId) => {
-    const result = coursesTestData.filter(
-      (roadmap) => roadmap.employee_id === userId
-    )[0];
+    const result = coursesTestData.filter((roadmap) => roadmap.employee_id === userId)[0];
     return result.roadmap;
   };
 
@@ -67,11 +65,11 @@ const ManagerView = () => {
     return [
       {
         id: 0,
-        name: "Хаценкевич В.А.",
+        name: 'Хаценкевич В.А.'
       },
       {
         id: 1,
-        name: "Петров К.Ф.",
+        name: 'Петров К.Ф.'
       }
     ];
   };
@@ -82,10 +80,7 @@ const ManagerView = () => {
         <div className={classes.managerBlock}>
           <span>Менеджер: Иванов И. И.</span>
         </div>
-        <UserList
-          usersData={getUsersData()}
-          currentUserId={(userId) => userRoadmapInit(userId)}
-        />
+        <UserList usersData={getUsersData()} currentUserId={(userId) => userRoadmapInit(userId)} />
       </div>
       <div className="adminPanelContent">
         <Roadmap

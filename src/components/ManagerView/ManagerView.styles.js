@@ -24,7 +24,7 @@ export const useStyles = makeStyles((theme) => ({
     adminPanelContent: {
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'flex-start',
         width: '100%'
     },
@@ -59,5 +59,11 @@ export const useStyles = makeStyles((theme) => ({
           width: "auto",
           margin: 0
         }
+      },
+      adminPanelFooter: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'flex-end',
+        paddingRight: '50px'
       }
 }));

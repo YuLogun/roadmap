@@ -3,11 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 export const useStyles = makeStyles((theme) => ({
     formWindow: {
         minWidth: '420px',
-        // width: '500px',
-        // height: '500px',
         padding: '20px 30px',
         backgroundColor: 'white',
-        borderRadius: '4px'
+        borderRadius: '4px',
+        outline: 'none'
     },
     modalHeader: {
         width: '100%',

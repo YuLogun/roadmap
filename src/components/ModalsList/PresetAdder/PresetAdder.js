@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 //components
 import Modal from '@material-ui/core/Modal';
@@ -8,19 +8,40 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { useStyles } from './PresetAdder.styles';
 
+//for tests
+import { userToken } from '../../../APISettings/APISettings';
+
 const PresetAdder = ({
-    isOpen, onCancel, onSubmit, currentUser
+    isOpen, onCancel, onSubmit, currentUser, employeeList
 }) => {
     const classes = useStyles();
 
     const [isLoading, setData] = React.useState(true);
     const [userList, setUsers] = React.useState([]);
     const [presetsList, setPresets] = React.useState([]);
+    const [sCurrentUser, setCurrentUser] = React.useState(currentUser);
+    const [sCurrentPreset, setCurrentPreset] = React.useState(-1);
 
-    useEffect(() => {
+    const userSelectChangeHandler = (param) => {
+        setCurrentUser(param.target.value);
+    }
+
+    const presetSelectChangeHandler = (param) => {
+        setCurrentPreset(param.target.value);
+    }
+
+    const presetsRequestOptions = {
+        method: 'GET',
+        headers: {
+            "Authorization": "Bearer " + userToken
+        }
+    }
+
+    const getPresets = () => {
         fetch('http://influx-roadmap.herokuapp.com/api/presets', presetsRequestOptions)
             .then(res => res.json())
             .then(data => {
@@ -28,13 +49,6 @@ const PresetAdder = ({
                 setData(false);
                 console.log(data.data);
             });
-    }, [])
-
-    const presetsRequestOptions = {
-        method: 'GET',
-        headers: {
-            "Authorization": "Bearer 10|0xb75qbdLjI6cUQfLCI2jgCsA2NjNY0rNKAw2uP7"
-        }
     }
 
     const body = (
@@ -48,13 +62,16 @@ const PresetAdder = ({
                             Сотрудник
                         </InputLabel>
                         <Select
-                            value={currentUser}
+                            value={sCurrentUser}
                             displayEmpty
                             className={classes.modalInput}
+                            onChange={userSelectChangeHandler}
                         >
-                            <MenuItem className={classes.menuItem} value={0}>Хаценкевич В.А.</MenuItem>
-                            <MenuItem className={classes.menuItem} value={1}>Петров К.Ф.</MenuItem>
-                            <MenuItem className={classes.menuItem} value={2}>Васичкин П.В.</MenuItem>
+                            {
+                                employeeList.map((employeeData, index) => (
+                                    <MenuItem key={index} className={classes.menuItem} value={employeeData.username}>{employeeData.name}</MenuItem>
+                                ))
+                            }
                         </Select>
                         <FormHelperText>Выберите сотрудника</FormHelperText>
                     </FormControl>
@@ -63,15 +80,21 @@ const PresetAdder = ({
                             Пресет
                         </InputLabel>
                         <Select
-                            value={isLoading ? 0 : presetsList[0].name}
+                            value={sCurrentPreset}
                             displayEmpty
                             className={classes.modalInput}
+                            onChange={presetSelectChangeHandler}
+                            onOpen={getPresets}
                         >
+                            <MenuItem className={classes.menuItem} value={-1}>Выберите пресет</MenuItem>
                             {
-                                isLoading ? "" :
+                                isLoading ? (
+                                    <MenuItem className={classes.menuItem} value={-2}><CircularProgress /></MenuItem>
+                                ) : (
                                     presetsList.map((presetItem, index) => (
                                         <MenuItem className={classes.menuItem} key={index} value={presetItem.name}>{presetItem.name}</MenuItem>
                                     ))
+                                ) 
                             }
                         </Select>
                         <FormHelperText>Выберите пресет для сотрудника</FormHelperText>

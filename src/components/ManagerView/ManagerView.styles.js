@@ -65,5 +65,13 @@ export const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'flex-end',
         paddingRight: '50px'
+      },
+      buttonBlock: {
+        width: '30%',
+        display: 'flex',
+        flexDirection: 'column'
+      },
+      footerBtn: {
+        marginBottom: '15px'
       }
 }));

@@ -14,8 +14,8 @@ import { useStyles } from './UserList.styles';
 const UserList = ({ currentUserId, usersData }) => {
   const classes = useStyles();
 
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const [selectedUserId, setUserId] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = React.useState(usersData[0].username);
+  const [selectedUserId, setUserId] = React.useState(usersData[0].username);
 
   //Функция для выбора пользователя в списке
   const handleListItemClick = (event, userId) => {
@@ -30,7 +30,6 @@ const UserList = ({ currentUserId, usersData }) => {
     currentUserId(userId)
   };
 
-
   return (
     <div>
       <div className={classes.wideScreenList}>
@@ -42,10 +41,10 @@ const UserList = ({ currentUserId, usersData }) => {
             usersData.map((userData, index) => (
               <ListItem
                 button
-                selected={selectedIndex === userData.id}
+                selected={selectedIndex === userData.username}
                 key={index}
                 className={classes.userItem}
-                onClick={(e) => handleListItemClick(e, userData.id)}
+                onClick={(e) => handleListItemClick(e, userData.username)}
               >
                 <ListItemText primary={userData.name} />
               </ListItem>
@@ -62,7 +61,7 @@ const UserList = ({ currentUserId, usersData }) => {
           >
             {
               usersData.map((userData, index) => (
-                <MenuItem value={userData.id}>{userData.name}</MenuItem>
+                <MenuItem key={index} value={userData.username}>{userData.name}</MenuItem>
               ))
             }
           </Select>

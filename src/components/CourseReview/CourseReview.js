@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 //components
 import { Modal, Typography, Box, Button } from '@material-ui/core';
@@ -25,7 +25,7 @@ const CourseReview = ({ isModalOpen, closeModal }) => {
   let sampleCertificate =
     'https://github.com/Sponom/xss-fe-2020-state-management/tree/master/1-react-class-local-state';
   const [certificate, setCertificate] = useState(sampleCertificate);
-  const handleGettingCertificate = (certificate) => setCertificate(certificate);
+  const handleGettingCertificate = (e) => setCertificate(e.target.value);
 
   //update courses's rating and add certificate
   const getUrl = (courseName = 'iusto-velit-sed') =>
@@ -71,7 +71,7 @@ const CourseReview = ({ isModalOpen, closeModal }) => {
         <Typography component="legend" variant="h6">
           Прикрепите, пожалуйста, сертификат
         </Typography>
-        <input value={certificate} onChange={handleGettingCertificate} />
+        <input value={certificate} onChange={handleGettingCertificate} type="text" />
       </Box>
       <Button onClick={submitHandler} variant="contained" color="primary">
         Submit

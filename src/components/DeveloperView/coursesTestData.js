@@ -13,7 +13,7 @@ export const coursesTestData = [
               name: 'JavaScript. Уровень 1. Интерактивные веб-приложения',
               url: 'https://www.udemy.com/',
               id: 1,
-              completed: true
+              completed: false
             },
             {
               name: 'Практический JavaScript (Продвинутый уровень)',
@@ -37,7 +37,7 @@ export const coursesTestData = [
               name: 'CSS: Позиционирование',
               url: 'https://www.udemy.com/',
               id: 4,
-              completed: true
+              completed: false
             },
             {
               name: 'CSS: Адаптивность',
@@ -88,7 +88,7 @@ export const coursesTestData = [
               name: 'Администрирование PostgreSQL 10. Настройка и мониторинг',
               url: 'https://www.udemy.com/',
               id: 5,
-              completed: true
+              completed: false
             }
           ]
         }

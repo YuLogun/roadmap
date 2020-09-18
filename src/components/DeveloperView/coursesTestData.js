@@ -2,92 +2,95 @@ export const coursesTestData = [
   {
     employee_id: 0,
     roadmap: {
-      roadmap_title: "Roadmap 1",
+      roadmap_title: 'Become the Greatest Frontend Developer',
+      roadmap_id: 111,
       roadmap_info: [
         {
           id: 0,
-          technology: "Javascript",
+          technology: 'Javascript',
           courses: [
             {
-              name: "JavaScript. Уровень 1. Интерактивные веб-приложения",
-              url: "https://www.udemy.com/",
+              name: 'JavaScript. Уровень 1. Интерактивные веб-приложения',
+              url: 'https://www.udemy.com/',
               id: 1,
-              completed: true,
+              completed: false
             },
             {
-              name: "Практический JavaScript (Продвинутый уровень)",
-              url: "https://www.udemy.com/",
+              name: 'Практический JavaScript (Продвинутый уровень)',
+              url: 'https://www.udemy.com/',
               id: 2,
-              completed: false,
+              completed: false
             },
             {
-              name: "Асинхронная разработка на JS",
-              url: "https://www.udemy.com/",
+              name: 'Асинхронная разработка на JS',
+              url: 'https://www.udemy.com/',
               id: 3,
-              completed: false,
-            },
-          ],
+              completed: false
+            }
+          ]
         },
         {
           id: 1,
-          technology: "CSS",
+          technology: 'CSS',
           courses: [
             {
-              name: "CSS: Позиционирование",
-              url: "https://www.udemy.com/",
+              name: 'CSS: Позиционирование',
+              url: 'https://www.udemy.com/',
               id: 4,
-              completed: true,
+              completed: false
             },
             {
-              name: "CSS: Адаптивность",
-              url: "https://www.udemy.com/",
+              name: 'CSS: Адаптивность',
+              url: 'https://www.udemy.com/',
               id: 5,
-              completed: false,
+              completed: false
             },
             {
-              name: "HTML/CSS. Интерактивный курс",
-              url: "https://www.udemy.com/",
+              name: 'HTML/CSS. Интерактивный курс',
+              url: 'https://www.udemy.com/',
               id: 6,
-              completed: false,
-            },
-          ],
-        },
-      ],
-    },
+              completed: false
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     employee_id: 1,
     roadmap: {
-      roadmap_title: "Roadmap 2",
+      roadmap_title: 'Level Up Your Backend Skills',
+      roadmap_id: 112,
       roadmap_info: [
         {
           id: 0,
-          technology: "PHP",
+          technology: 'PHP',
           courses: [
             {
-              name: "Программист PHP от GeekBrains",
-              url: "https://www.udemy.com/",
+              name: 'Программист PHP от GeekBrains',
+              url: 'https://www.udemy.com/',
               id: 1,
-              completed: false,
+              completed: false
             }
-          ],
+          ]
         },
         {
           id: 1,
-          technology: "PostgreSQL",
+          technology: 'PostgreSQL',
           courses: [
             {
-              name: "Администрирование PostgreSQL 10. Базовый курс",
-              url: "https://www.udemy.com/",
+              name: 'Администрирование PostgreSQL 10. Базовый курс',
+              url: 'https://www.udemy.com/',
               id: 4,
-              completed: false,
+              completed: false
             },
             {
-              name: "Администрирование PostgreSQL 10. Настройка и мониторинг",
-              url: "https://www.udemy.com/",
+              name: 'Администрирование PostgreSQL 10. Настройка и мониторинг',
+              url: 'https://www.udemy.com/',
               id: 5,
-              completed: true,
+              completed: false
             }
+<<<<<<< HEAD
           ],
         },
       ],
@@ -96,5 +99,11 @@ export const coursesTestData = [
   {
     employee_id: 2,
     roadmap: null
+=======
+          ]
+        }
+      ]
+    }
+>>>>>>> master
   }
 ];

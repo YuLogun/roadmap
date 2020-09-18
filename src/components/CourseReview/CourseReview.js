@@ -1,64 +1,57 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Modal, Typography, Box } from "@material-ui/core";
-import { Rating } from "@material-ui/lab";
+import React, { useState, useEffect } from 'react';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: "absolute",
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  modalWindow: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-}));
+//components
+import { Modal, Typography, Box, Button } from '@material-ui/core';
+import { Rating } from '@material-ui/lab';
+
+//styles
+import { useStyles } from './CourseReview.styles';
 
 const CourseReview = ({ isModalOpen, closeModal }) => {
   const classes = useStyles();
 
   //rating
   const [ratingValue, setRatingValue] = useState(2);
+  const [valueOftheRating, setValue] = useState('');
   const changeRatingValue = (e, newValue) => {
-    console.log("rating", e.target);
-    setRatingValue(newValue);
+    setRatingValue((state) => {
+      console.log('rating', newValue);
+      return newValue;
+    });
+    setValue(newValue);
   };
 
-  //update courses's rating
-  const getUrl = (courseName = "ducimus-et-voluptatem") =>
+  //cerificate
+  let sampleCertificate =
+    'https://github.com/Sponom/xss-fe-2020-state-management/tree/master/1-react-class-local-state';
+  const [certificate, setCertificate] = useState(sampleCertificate);
+  const handleGettingCertificate = (certificate) => setCertificate(certificate);
+
+  //update courses's rating and add certificate
+  const getUrl = (courseName = 'iusto-velit-sed') =>
     `http://influx-roadmap.herokuapp.com/api/courses/${courseName}/completions`;
 
   const ratingAndCertificate = {
     rating: ratingValue,
-    certificate:
-      "https://github.com/Sponom/xss-fe-2020-state-management/tree/master/1-react-class-local-state",
+    certificate: certificate
   };
 
   const PUTrequestOptions = {
-    method: "PUT",
+    method: 'PUT',
     headers: {
-      Authorization: "Bearer 108|Sy6Xipmq6TkiCiCAVCdpRw2wnw2c7xbXwfENHKIE",
-      "Content-Type": "application/json",
+      Authorization: 'Bearer 171|49RqSGZ7IuvLUEBT4RHDXDXyfSjLx09HDRA2YLE6',
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify(ratingAndCertificate),
+    body: JSON.stringify(ratingAndCertificate)
   };
-
-  /* useEffect(() => {
-    
-  }, [ratingValue]); */
 
   const submitHandler = () => {
     fetch(getUrl(), PUTrequestOptions)
       .then((res) => {
-        console.log("rating updated");
+        console.log('rating updated');
         return res.json();
       })
-      .then(({ data }) => console.log(data));
+      .then((res) => console.log(res));
     closeModal();
   };
 
@@ -66,16 +59,23 @@ const CourseReview = ({ isModalOpen, closeModal }) => {
     <div className={classes.paper}>
       <Box component="fieldset" mb={3} borderColor="transparent">
         <Typography component="legend" variant="h6">
-          Оцените, пожалуйста, пройденный курс
+          Оцените, пожалуйста, пройденный курс:
         </Typography>
+        <div>{valueOftheRating}</div>
         <Rating
           name="simple-controlled"
           value={ratingValue}
           onChange={changeRatingValue}
           max={10}
         />
+        <Typography component="legend" variant="h6">
+          Прикрепите, пожалуйста, сертификат
+        </Typography>
+        <input value={certificate} onChange={handleGettingCertificate} />
       </Box>
-      <button onClick={submitHandler}>Submit</button>
+      <Button onClick={submitHandler} variant="contained" color="primary">
+        Submit
+      </Button>
     </div>
   );
 

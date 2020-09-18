@@ -25,14 +25,18 @@ const DeveloperView = () => {
     dispatch(getData(coursesTestData));
   }, []);
 
-  const getUserRoadmap = (roadmapId) => {
+  const getUserRoadmap = (roadmapId, coursesTestData) => {
+
     const result = coursesTestData.filter(
-      (employee) => employee.roadmap.roadmap_id === roadmapId
+      (employee) => {
+        return employee.roadmap.roadmap_id === roadmapId
+      }
     )[0];
     return result.roadmap;
   };
 
-  const [currentRoadmap, setCurrentRoadmap] = useState(() => getUserRoadmap(111));
+  const [currentRoadmap, setCurrentRoadmap] = useState(() => getUserRoadmap(111, coursesTestData));
+  const [currentRoadmap1, setCurrentRoadmap1] = useState(() => getUserRoadmap(111, coursesTestData));
 
   const userRoadmapInit = (roadmapId) => {
     let userRoadmap = getUserRoadmap(roadmapId);
@@ -56,12 +60,12 @@ const DeveloperView = () => {
           <RoadmapList
             styles={classes.roadmapList}
             roadmapsData={roadmapsTitlesAndIds}
-            setCurrentRoadmap={(userId) => userRoadmapInit(userId)}
+            setCurrentRoadmap={(userId, coursesTestData) => userRoadmapInit(userId, coursesTestData)}
           />
           <Roadmap
             styles={classes.roadmapContainer}
-            roadmapTitle={currentRoadmap.roadmap_title}
-            coursesTestData={currentRoadmap.roadmap_info}
+            roadmapTitle={currentRoadmap1.roadmap_title}
+            coursesTestData={currentRoadmap1.roadmap_info}
           />
         </div>
       )}

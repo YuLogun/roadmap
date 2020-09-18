@@ -4,13 +4,20 @@ import React from "react";
 import Technology from "../Technology/Technology";
 import { Typography } from "@material-ui/core";
 
+//styles
+import { useStyles } from './Roadmap.styles';
+
 const Roadmap = ({ roadmapTitle, coursesTestData, managerView, styles }) => {
+  const classes = useStyles();
+
   return (
-    <div className={`container ${styles}`}>
-      <ul className="list">
+    <div className={classes.container}>
+    {/* <div className={`container ${styles}`}> */}
+      <ul className={classes.roadmapTitle}>
+      {/* <ul className="list"> */}
         <li>
           <Typography variant="h1">{roadmapTitle}</Typography>
-          <ul>
+          <ul className={classes.technologyTitle}>
             {coursesTestData.map((it) => (
               <Technology
                 key={it.id}

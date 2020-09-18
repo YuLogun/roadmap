@@ -35,12 +35,16 @@ const ManagerView = () => {
 
   const getUserRoadmap = (userId) => {
     const result = coursesTestData.filter((roadmap) => roadmap.employee_id === userId)[0];
+    // debugger;
     return result.roadmap;
   };
 
   const [employeeList, setEmployeeList] = useState(getEmployees());
   const [currentEmployeeUsername, setcurrentEmployeeUsername] = useState(employeeList[0].username);
-  const [currentRoadmaps, setRoadmaps] = useState([].push(getUserRoadmap(0)));
+  //TODO: Когда будет готово переделать на реальные данные
+  // const [currentRoadmaps, setRoadmaps] = useState([].push(getUserRoadmap(0)));
+  const [currentRoadmaps, setRoadmaps] = useState([ getUserRoadmap(0) ]);
+  // debugger;
 
   const [isPresetAdderOpen, setPresetAdderDisplay] = React.useState(false);
   const [isCourseAdderOpen, setCourseAdderDisplay] = React.useState(false);

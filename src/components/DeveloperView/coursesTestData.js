@@ -90,20 +90,13 @@ export const coursesTestData = [
               id: 5,
               completed: false
             }
-<<<<<<< HEAD
           ],
         },
       ],
     },
   },
-  {
-    employee_id: 2,
-    roadmap: null
-=======
-          ]
-        }
-      ]
-    }
->>>>>>> master
-  }
+  // {
+  //   employee_id: 2,
+  //   roadmap: null
+  // }
 ];

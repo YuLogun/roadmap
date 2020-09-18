@@ -66,15 +66,16 @@ const Technology = React.memo(({ techTitle, courses, managerView, courseName }) 
   return (
     <li className={classes.roadMapItem}>
       <Typography variant="subtitle1">{techTitle}</Typography>
-      <ul>
+      <ul className={classes.coursesList}>
         {courses.map(({ id, name, url }) => (
-          <li key={id}>
+          <li key={id} className={classes.courseItem}>
             <input
               type="checkbox"
               checked={state[id]}
               name={id}
               disabled={managerView ? true : false}
               onChange={handleChange}
+              className={classes.checkbox}
             />
             {/* open modal window to review the course */}
             {isModalOpen && (

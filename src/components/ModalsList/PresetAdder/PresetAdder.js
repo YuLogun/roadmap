@@ -92,30 +92,32 @@ const PresetAdder = ({
                                     <MenuItem className={classes.menuItem} value={-2}><CircularProgress /></MenuItem>
                                 ) : (
                                     presetsList.map((presetItem, index) => (
-                                        <MenuItem className={classes.menuItem} key={index} value={presetItem.name}>{presetItem.name}</MenuItem>
+                                        <MenuItem className={classes.menuItem} key={index} value={presetItem.slug}>{presetItem.name}</MenuItem>
                                     ))
-                                ) 
+                                )
                             }
                         </Select>
                         <FormHelperText>Выберите пресет для сотрудника</FormHelperText>
                     </FormControl>
                 </div>
                 <div className={classes.modalFooter}>
-                    <Button 
+                    <Button
                         variant="contained"
                         onClick={onCancel}
                     >
                         Отмена
                     </Button>
-                    <Button 
-                        variant="contained" 
+                    <Button
+                        variant="contained"
                         color="primary"
-                        onClick={onSubmit}
+                        onClick={(e) => {
+                            onSubmit(sCurrentUser, sCurrentPreset)
+                        }}
                     >
                         Назначить
                     </Button>
                 </div>
-                
+
             </div>
       );
 

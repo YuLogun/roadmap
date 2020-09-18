@@ -14,6 +14,7 @@ import UserList from '../UserList/UserList';
 //test data
 import { coursesTestData } from '../DeveloperView/coursesTestData';
 import { managerViewData } from '../../APISettings/manager_dashboard';
+import { getEmployees, getRoadmapByUsername } from './ManagetTest';
 import { userToken } from '../../APISettings/APISettings';
 
 //styles
@@ -37,30 +38,10 @@ const ManagerView = () => {
     return result.roadmap;
   };
 
-  const getUserRoadmap1 = (username, data) => {
-    let currentUser = data.employees.filter(employee => employee.user.username === username)[0];
-    return currentUser.roadmaps;
-  };
+  const [employeeList, setEmployeeList] = useState(getEmployees());
+  const [currentEmployeeUsername, setcurrentEmployeeUsername] = useState(employeeList[0].username);
+  const [currentRoadmaps, setRoadmaps] = useState([].push(getUserRoadmap(0)));
 
-  const getEmployees = (data) => {
-    let result = [ ];
-    if (data.data.employees.length > 0) {
-      result = data.data.employees.map(employee => {
-        return {
-          username: employee.user.username,
-          name: employee.user.name
-        }
-      })
-    }
-    return result;
-  }
-
-  const [employeeList, setEmployeeList] = useState(getEmployees(managerViewData));
-  const [currentEmployee, setcurrentEmployee] = useState(employeeList[0].username);
-  const [currentRoadmap1, setRoadmap1] = useState(getUserRoadmap1(currentEmployee, managerViewData.data));
-
-  const [currentUser, setUserId] = React.useState(0);
-  const [currentRoadmap, setRoadmap] = useState(() => getUserRoadmap(0));
   const [isPresetAdderOpen, setPresetAdderDisplay] = React.useState(false);
   const [isCourseAdderOpen, setCourseAdderDisplay] = React.useState(false);
 
@@ -72,20 +53,7 @@ const ManagerView = () => {
   }
 
   const userRoadmapInit = (username) => {
-    debugger;
-
-    fetch('http://influx-roadmap.herokuapp.com/api/dashboard/employees/' + username, roadmapRequestOptions)
-            .then(res => res.json())
-            .then(data => {
-              debugger;
-                // setPresets(data.data);
-                // setData(false);
-                // console.log(data.data);
-            });
-
-    // setUserId(userId);
-    // let userRoadmap = getUserRoadmap(userId);
-    // setRoadmap(userRoadmap);
+    //TODO: Добавить запрос на получение Roadmap к пользователю
   };
 
   const showPresetAdder = () => {
@@ -96,7 +64,25 @@ const ManagerView = () => {
     setPresetAdderDisplay(false);
   }
 
-  const submitPresetAdder = () => {
+  const submitPresetAdder = (sCurrentUser, sCurrentPreset) => {
+    const setPresetRequestOptions = {
+      method: 'POST',
+      headers: {
+        "Authorization": "Bearer " + userToken
+      },
+      body: JSON.stringify({
+        employee: sCurrentUser,
+        preset: sCurrentPreset
+      })
+    }
+
+    //TODO: раскоментировать когда начну получать валидные данные
+    //Запрос на отправку данных о прикреплении пресета для сотрудника
+    // fetch('http://influx-roadmap.herokuapp.com/api/roadmaps', setPresetRequestOptions)
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     debugger;
+    //   });
     setPresetAdderDisplay(false);
   }
 
@@ -109,13 +95,6 @@ const ManagerView = () => {
   }
 
   const submitCourseAdder = () => {
-    // fetch('http://influx-roadmap.herokuapp.com/api/presets', presetsRequestOptions)
-    //   .then(res => res.json())
-    //   .then(data => {
-    //       setPresets(data.data);
-    //       setData(false);
-    //       console.log(data.data);
-    //   });
     setCourseAdderDisplay(false);
   }
 
@@ -125,7 +104,7 @@ const ManagerView = () => {
         isOpen={isPresetAdderOpen}
         onCancel={hidePresetAdder}
         onSubmit={submitPresetAdder}
-        currentUser={currentEmployee}
+        currentUser={currentEmployeeUsername}
         employeeList={employeeList}
       />
       <CourseAdder
@@ -146,19 +125,22 @@ const ManagerView = () => {
             loading ? (
               <div>Loading...</div>
             ) : (
-              currentRoadmap ? (
-                <Roadmap
-                  roadmapTitle={currentRoadmap.roadmap_title}
-                  coursesTestData={currentRoadmap.roadmap_info}
-                  managerView
-                />
+              currentRoadmaps.length > 0 ? (
+                currentRoadmaps.map(roadmap => (
+                  <Roadmap
+                    roadmapData={roadmap}
+                    roadmapTitle={roadmap.roadmap_title}
+                    coursesTestData={roadmap.roadmap_info}
+                    managerView
+                  />
+                ))
               ) : ( <div>Empty</div> )
-            )          
+            )
           }
         </div>
         <div className={classes.adminPanelFooter}>
           <div className={classes.buttonBlock}>
-            <Button 
+            <Button
               variant="contained"
               color="primary"
               onClick={showCourseAdder}
@@ -166,9 +148,9 @@ const ManagerView = () => {
             >
               Добавить курс
             </Button>
-            <Button 
-              variant="contained" 
-              color="primary" 
+            <Button
+              variant="contained"
+              color="primary"
               onClick={showPresetAdder}
               className={classes.footerBtn}
             >

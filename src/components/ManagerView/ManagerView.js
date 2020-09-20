@@ -23,17 +23,20 @@ import { useStyles } from './ManagerView.styles';
 const ManagerView = () => {
   const classes = useStyles();
 
-  //redux hooks
-  const data = useSelector((state) => state.data);
-  const loading = useSelector((state) => state.loading);
-  const dispatch = useDispatch();
+  const loading = false;
 
-  useEffect(() => {
-    dispatch(getManagerViewData(managerViewData));
-    dispatch(getData(coursesTestData));
-  }, []);
+  //redux hooks
+  // const data = useSelector((state) => state.data);
+  // const loading = useSelector((state) => state.loading);
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(getManagerViewData(managerViewData));
+  //   dispatch(getData(coursesTestData));
+  // }, []);
 
   const getUserRoadmap = (userId) => {
+    // debugger;
     const result = coursesTestData.filter((roadmap) => roadmap.employee_id === userId)[0];
     // debugger;
     return result.roadmap;
@@ -46,6 +49,8 @@ const ManagerView = () => {
   const [currentRoadmaps, setRoadmaps] = useState([ getUserRoadmap(0) ]);
   // debugger;
 
+  const [currentRoadmaps1, setRoadmaps1] = useState([ ]);
+
   const [isPresetAdderOpen, setPresetAdderDisplay] = React.useState(false);
   const [isCourseAdderOpen, setCourseAdderDisplay] = React.useState(false);
 
@@ -57,6 +62,21 @@ const ManagerView = () => {
   }
 
   const userRoadmapInit = (username) => {
+    // debugger;
+    const requestUrl = "http://influx-roadmap.herokuapp.com/api/roadmaps/" + username;
+    const requestParams = {
+      method: 'GET',
+      headers: {
+        "Authorization": "Bearer " + userToken
+      }
+    };
+
+    fetch(requestUrl, requestParams)
+      .then(res => res.json())
+      .then(data => {
+        setRoadmaps1(data.data);
+        debugger;
+      })
     //TODO: Добавить запрос на получение Roadmap к пользователю
   };
 
@@ -98,8 +118,35 @@ const ManagerView = () => {
     setCourseAdderDisplay(false);
   }
 
-  const submitCourseAdder = () => {
-    setCourseAdderDisplay(false);
+  const submitCourseAdder = (e, courseLink) => {
+    const requestUrl = "http://influx-roadmap.herokuapp.com/api/courses/suggestions";
+    const requestParams = {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + userToken
+      },
+      body: JSON.stringify({
+        source: courseLink
+      })
+    };
+
+    fetch(requestUrl, requestParams)
+      .then(res => res.json())
+      .then(data => {
+        if (data.errors) {
+          let errorMsg = "";
+          for (let key in data.errors) {
+            errorMsg += data.errors[key][0];
+            console.error(data.errors[key])
+          }
+          alert(errorMsg);
+
+          return false;
+        }
+
+        setCourseAdderDisplay(false);
+      })
   }
 
   return (
@@ -120,12 +167,12 @@ const ManagerView = () => {
         <div className={classes.managerBlock}>
           <span>Менеджер: Иванов И. И.</span>
         </div>
-        <UserList usersData={employeeList} currentUserId={(userId) => userRoadmapInit(userId)} />
+        <UserList currentUserId={(username) => userRoadmapInit(username)} />
       </div>
       <div className={classes.adminPanelContent}>
         <div className={classes.adminPanelHeader}></div>
         <div className={classes.adminPanelBody}>
-          {
+          {/* {
             loading ? (
               <div>Loading...</div>
             ) : (
@@ -135,6 +182,22 @@ const ManagerView = () => {
                     roadmapData={roadmap}
                     roadmapTitle={roadmap.roadmap_title}
                     coursesTestData={roadmap.roadmap_info}
+                    managerView
+                  />
+                ))
+              ) : ( <div>Empty</div> )
+            )
+          } */}
+          {
+            loading ? (
+              <div>Loading...</div>
+            ) : (
+              currentRoadmaps1.length > 0 ? (
+                currentRoadmaps1.map(roadmap => (
+                  <Roadmap
+                    roadmapData={roadmap.preset}
+                    // roadmapTitle={roadmap.roadmap_title}
+                    // coursesTestData={roadmap.roadmap_info}
                     managerView
                   />
                 ))

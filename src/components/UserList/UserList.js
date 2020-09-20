@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -11,24 +11,53 @@ import Select from '@material-ui/core/Select';
 //styles
 import { useStyles } from './UserList.styles';
 
-const UserList = ({ currentUserId, usersData }) => {
+//testData
+import { userToken } from '../../APISettings/APISettings';
+
+const UserList = ({ currentUserId }) => {
   const classes = useStyles();
 
-  const [selectedIndex, setSelectedIndex] = React.useState(usersData[0].username);
-  const [selectedUserId, setUserId] = React.useState(usersData[0].username);
+  const [isLoading, setData] = useState(true);
+  const [usersList, setUsersList] = useState([ ]);
+  const [selectedUser, setSelectedUser] = useState("");
+  // const [selectedUserId, setUserId] = useState(usersData[0].username);
+
+  useEffect(() => {
+    const requestUrl = "http://influx-roadmap.herokuapp.com/api/employees";
+    const requestParams = {
+      method: 'GET',
+      headers: {
+        "Authorization": "Bearer " + userToken
+      }
+    };
+
+    fetch(requestUrl, requestParams)
+      .then(res => res.json())
+      .then(data => {
+        if (data.errors) {
+          alert('?');
+        }
+
+        console.log(data.data);
+        setUsersList(data.data);
+        setData(false);
+      })
+  }, []);
 
   //Функция для выбора пользователя в списке
-  const handleListItemClick = (event, userId) => {
-    setSelectedIndex(userId);
-    currentUserId(userId);
+  const handleListItemClick = (event, username) => {
+    setSelectedUser(username);
+    currentUserId(username);
   };
 
   //Функция для выбора пользователя в Select
   const handleChange = (event) => {
-    const userId = event.target.value;
-    setSelectedIndex(userId);
-    currentUserId(userId);
+    const username = event.target.value;
+    setSelectedUser(username);
+    currentUserId(username);
   };
+
+  // debugger;
 
   return (
     <div>
@@ -38,17 +67,21 @@ const UserList = ({ currentUserId, usersData }) => {
         </div>
         <List component="nav">
           {
-            usersData.map((userData, index) => (
-              <ListItem
-                button
-                selected={selectedIndex === userData.username}
-                key={index}
-                className={classes.userItem}
-                onClick={(e) => handleListItemClick(e, userData.username)}
-              >
-                <ListItemText primary={userData.name} />
-              </ListItem>
-            ))
+            isLoading ? (
+              <div>Loading...</div>
+            ) : (
+              usersList.map((userData, index) => (
+                <ListItem
+                  button
+                  selected={selectedUser === userData.username}
+                  key={index}
+                  className={classes.userItem}
+                  onClick={(e) => handleListItemClick(e, userData.username)}
+                >
+                  <ListItemText primary={userData.name} />
+                </ListItem>
+              ))
+            )
           }
         </List>
       </div>
@@ -56,13 +89,17 @@ const UserList = ({ currentUserId, usersData }) => {
         <span className={classes.selectLabel}>Сотрудник:</span>
         <FormControl className={classes.formControl}>
           <Select
-            value={selectedIndex}
+            value={selectedUser}
             onChange={handleChange}
           >
             {
-              usersData.map((userData, index) => (
-                <MenuItem key={index} value={userData.username}>{userData.name}</MenuItem>
-              ))
+              isLoading ? (
+                <div>Loading...</div>
+              ) : (
+                usersList.map((userData, index) => (
+                  <MenuItem key={index} value={userData.username}>{userData.name}</MenuItem>
+                ))
+              )
             }
           </Select>
         </FormControl>

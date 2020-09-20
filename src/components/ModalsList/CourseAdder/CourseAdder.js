@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 //components
 import Modal from '@material-ui/core/Modal';
@@ -17,7 +17,8 @@ const CourseAdder = ({
 }) => {
     const classes = useStyles();
 
-    const [isLoading, setData] = React.useState(true);
+    const [isLoading, setData] = useState(true);
+    const [courseLink, setCourseLink] = useState('');
     // const [userList, setUsers] = React.useState([]);
     // const [presetsList, setPresets] = React.useState([]);
 
@@ -45,7 +46,10 @@ const CourseAdder = ({
                 </div>
                 <div className={classes.modalBody}>
                     <form className={classes.formControl}>
-                        <TextField label="Ссылка" />
+                        <TextField 
+                            label="Ссылка"
+                            onChange={(e) => setCourseLink(e.target.value)}
+                        />
                     </form>
                 </div>
                 <div className={classes.modalFooter}>
@@ -58,7 +62,7 @@ const CourseAdder = ({
                     <Button 
                         variant="contained" 
                         color="primary"
-                        onClick={onSubmit}
+                        onClick={(e) => { onSubmit(e, courseLink) }}
                     >
                         Отправить
                     </Button>

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getData, getManagerViewData } from '../../redux/reducer';
+import { getDataFromAPI } from '../../redux/reducer';
 
 //components
 import Button from '@material-ui/core/Button';
@@ -23,17 +23,15 @@ import { useStyles } from './ManagerView.styles';
 const ManagerView = () => {
   const classes = useStyles();
 
-  const loading = false;
+  //const loading = false;
 
   //redux hooks
-  // const data = useSelector((state) => state.data);
-  // const loading = useSelector((state) => state.loading);
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(getManagerViewData(managerViewData));
-  //   dispatch(getData(coursesTestData));
-  // }, []);
+  const courses = useSelector((state) => state.courses);
+  const loading = useSelector((state) => state.loading);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getDataFromAPI(userToken));
+  }, []);
 
   const getUserRoadmap = (userId) => {
     // debugger;
@@ -46,59 +44,59 @@ const ManagerView = () => {
   const [currentEmployeeUsername, setcurrentEmployeeUsername] = useState(employeeList[0].username);
   //TODO: Когда будет готово переделать на реальные данные
   // const [currentRoadmaps, setRoadmaps] = useState([].push(getUserRoadmap(0)));
-  const [currentRoadmaps, setRoadmaps] = useState([ getUserRoadmap(0) ]);
+  const [currentRoadmaps, setRoadmaps] = useState([getUserRoadmap(0)]);
   // debugger;
 
-  const [currentRoadmaps1, setRoadmaps1] = useState([ ]);
+  const [currentRoadmaps1, setRoadmaps1] = useState([]);
 
   const [isPresetAdderOpen, setPresetAdderDisplay] = React.useState(false);
   const [isCourseAdderOpen, setCourseAdderDisplay] = React.useState(false);
 
   const roadmapRequestOptions = {
-      method: 'GET',
-      headers: {
-          "Authorization": "Bearer " + userToken
-      }
-  }
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + userToken
+    }
+  };
 
   const userRoadmapInit = (username) => {
     // debugger;
-    const requestUrl = "http://influx-roadmap.herokuapp.com/api/roadmaps/" + username;
+    const requestUrl = 'http://influx-roadmap.herokuapp.com/api/roadmaps/' + username;
     const requestParams = {
       method: 'GET',
       headers: {
-        "Authorization": "Bearer " + userToken
+        Authorization: 'Bearer ' + userToken
       }
     };
 
     fetch(requestUrl, requestParams)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setRoadmaps1(data.data);
         debugger;
-      })
+      });
     //TODO: Добавить запрос на получение Roadmap к пользователю
   };
 
   const showPresetAdder = () => {
     setPresetAdderDisplay(true);
-  }
+  };
 
   const hidePresetAdder = () => {
     setPresetAdderDisplay(false);
-  }
+  };
 
   const submitPresetAdder = (sCurrentUser, sCurrentPreset) => {
     const setPresetRequestOptions = {
       method: 'POST',
       headers: {
-        "Authorization": "Bearer " + userToken
+        Authorization: 'Bearer ' + userToken
       },
       body: JSON.stringify({
         employee: sCurrentUser,
         preset: sCurrentPreset
       })
-    }
+    };
 
     //TODO: раскоментировать когда начну получать валидные данные
     //Запрос на отправку данных о прикреплении пресета для сотрудника
@@ -108,23 +106,23 @@ const ManagerView = () => {
     //     debugger;
     //   });
     setPresetAdderDisplay(false);
-  }
+  };
 
   const showCourseAdder = () => {
     setCourseAdderDisplay(true);
-  }
+  };
 
   const hideCourseAdder = () => {
     setCourseAdderDisplay(false);
-  }
+  };
 
   const submitCourseAdder = (e, courseLink) => {
-    const requestUrl = "http://influx-roadmap.herokuapp.com/api/courses/suggestions";
+    const requestUrl = 'http://influx-roadmap.herokuapp.com/api/courses/suggestions';
     const requestParams = {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + userToken
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + userToken
       },
       body: JSON.stringify({
         source: courseLink
@@ -132,13 +130,13 @@ const ManagerView = () => {
     };
 
     fetch(requestUrl, requestParams)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data.errors) {
-          let errorMsg = "";
+          let errorMsg = '';
           for (let key in data.errors) {
             errorMsg += data.errors[key][0];
-            console.error(data.errors[key])
+            console.error(data.errors[key]);
           }
           alert(errorMsg);
 
@@ -146,11 +144,17 @@ const ManagerView = () => {
         }
 
         setCourseAdderDisplay(false);
-      })
-  }
+      });
+  };
+  console.log('COURSES', courses);
 
   return (
     <div className={classes.managerPanelContainer}>
+      <pre>
+        {courses.map((course) => (
+          <div key={course.id}>{course.name}</div>
+        ))}
+      </pre>
       <PresetAdder
         isOpen={isPresetAdderOpen}
         onCancel={hidePresetAdder}
@@ -188,22 +192,20 @@ const ManagerView = () => {
               ) : ( <div>Empty</div> )
             )
           } */}
-          {
-            loading ? (
-              <div>Loading...</div>
-            ) : (
-              currentRoadmaps1.length > 0 ? (
-                currentRoadmaps1.map(roadmap => (
-                  <Roadmap
-                    roadmapData={roadmap.preset}
-                    // roadmapTitle={roadmap.roadmap_title}
-                    // coursesTestData={roadmap.roadmap_info}
-                    managerView
-                  />
-                ))
-              ) : ( <div>Empty</div> )
-            )
-          }
+          {loading ? (
+            <div>Loading...</div>
+          ) : currentRoadmaps1.length > 0 ? (
+            currentRoadmaps1.map((roadmap) => (
+              <Roadmap
+                roadmapData={roadmap.preset}
+                // roadmapTitle={roadmap.roadmap_title}
+                // coursesTestData={roadmap.roadmap_info}
+                managerView
+              />
+            ))
+          ) : (
+            <div>Empty</div>
+          )}
         </div>
         <div className={classes.adminPanelFooter}>
           <div className={classes.buttonBlock}>

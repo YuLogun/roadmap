@@ -1,1 +1,1 @@
-export const userToken = "210|ZaNpYF0VvNKN9x0VoMY6RAyjIoZa3Fd0Bb6VBf6Q";
+export const userToken = '621|282MCWc0r0Et0Wn9QCmQvfoMoNAWd2GK0lfX8au3';

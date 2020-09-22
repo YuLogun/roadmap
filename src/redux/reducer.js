@@ -1,10 +1,33 @@
+import { setToken } from '../services/Authorization.service';
+
+const BaseUrl = "http://influx-roadmap.herokuapp.com/api";
+
 const GET_DATA = 'GET_DATA';
 const UPDATE_COURSES = 'UPDATE_COURSES';
+const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 const initialState = {
   loading: true,
-  courses: []
+  courses: [ ],
+  currentUser: null
 };
+
+function errorHandler(res) {
+  switch(res.status) {
+    case 200: {
+      return res.json();
+    }
+    case 422: {
+      alert("Данные введены не корректно");
+      break;
+    }
+    default: {
+      debugger;
+      alert('Неизвестная ошибка');
+    }
+  }
+  return
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -12,6 +35,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, courses: action.courses, loading: action.loading };
     case GET_DATA:
       return { ...state, data: action.data, loading: action.loading };
+    case SET_CURRENT_USER:
+      return { ...state, currentUser: action.user };
     default:
       return state;
   }
@@ -42,3 +67,31 @@ export function getDataFromAPI(token) {
       });
   };
 }
+
+export function login(login, password) {
+  const requestParams = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: login,
+      password: password
+    })
+  }
+
+  return (dispatch => {
+    //kenny59@example.org
+    fetch(BaseUrl + '/login', requestParams)
+      .then(res => errorHandler(res))
+      .then(data => {
+        if (data) {
+          setToken(data.access_token);
+          dispatch({ type: SET_CURRENT_USER, user: data.user, loading: false });
+          debugger;
+        }
+      })
+  })
+}
+
+

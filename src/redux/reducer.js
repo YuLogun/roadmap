@@ -1,4 +1,4 @@
-import { storeUserData, getToken } from '../services/Authorization.service';
+import { storeUserData, getToken, clearUserData } from '../services/Authorization.service';
 
 const BaseUrl = "http://influx-roadmap.herokuapp.com/api";
 
@@ -22,7 +22,6 @@ const initialState = {
 };
 
 function errorHandler(res) {
-  // debugger;
   switch(res.status) {
     case 200: {
       return res.json();
@@ -30,6 +29,12 @@ function errorHandler(res) {
     case 201: {
       alert("Данные сохранены");
       return res.json();
+    }
+    case 405: {
+      alert("Авторизуйтесь");
+      clearUserData();
+      document.location.reload();
+      break;
     }
     case 422: {
       debugger;
@@ -55,7 +60,6 @@ const reducer = (state = initialState, action) => {
     case SET_AUTH:
       return { ...state, isAuthorized: action.isAuth }
     case SET_DEVELOPER_LIST:
-      // debugger;
       return { ...state, developersList: action.developersList, loading: action.loading }
     case SET_LOADING:
       return { ...state, loading: action.loading }

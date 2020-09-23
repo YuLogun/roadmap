@@ -22,6 +22,7 @@ const initialState = {
 };
 
 function errorHandler(res) {
+  debugger;
   switch(res.status) {
     case 200: {
       return res.json();
@@ -39,8 +40,8 @@ function errorHandler(res) {
     case 422: {
       debugger;
       alert("Данные введены не корректно");
-      return res.json();
-      // break;
+      // return res.json();
+      break;
     }
     default: {
       debugger;

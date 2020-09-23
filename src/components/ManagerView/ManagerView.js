@@ -186,14 +186,16 @@ const ManagerView = () => {
           } */}
           {
             currentRoadmaps ? (
-              currentRoadmaps.map(roadmap => (
+              currentRoadmaps.map(roadmap => {
+                // debugger;
+                return(
                 <Roadmap
                   roadmapData={roadmap.preset}
                   // roadmapTitle={roadmap.roadmap_title}
                   // coursesTestData={roadmap.roadmap_info}
                   managerView
                 />
-              ))
+              )})
             ) : (
               <div>Empty</div>
             )

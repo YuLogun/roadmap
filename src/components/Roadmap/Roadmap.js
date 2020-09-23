@@ -7,10 +7,11 @@ import { Typography } from '@material-ui/core';
 //styles
 import { useStyles } from './Roadmap.styles';
 
-const Roadmap = ({ roadmapData, roadmapTitle, coursesTestData, managerView, styles }) => {
+const Roadmap = ({ roadmapData, managerView, styles }) => {
   const classes = useStyles();
 
   const roadmapMapper = (roadmapInfo) => {
+    // debugger;
     let result = {
       slug: roadmapInfo.slug,
       name: roadmapInfo.name,
@@ -36,10 +37,14 @@ const Roadmap = ({ roadmapData, roadmapTitle, coursesTestData, managerView, styl
     return result;
   }
 
-  const [currentRoadmap, setRoadmap] = useState(roadmapMapper(roadmapData));
+  ////Юля, вот так стало.
+  const currentRoadmap = roadmapMapper(roadmapData);
 
+  //Юля, вот так было
+  // const [currentRoadmap, setRoadmap] = useState(roadmapMapper(roadmapData)); 
 
   console.log(roadmapData.name);
+  console.warn(currentRoadmap.name);
   // debugger;
   return (
     <div className={classes.container}>

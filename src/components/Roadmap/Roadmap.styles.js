@@ -9,6 +9,9 @@ export const useStyles = makeStyles((theme) => ({
         marginLeft: '30px',
         listStyleType: 'none'
     },
+    skillLevelTitle: {
+        textDecoration: 'underline'
+    },
     technologyTitle: {
         marginLeft: '30px',
         listStyleType: "none"

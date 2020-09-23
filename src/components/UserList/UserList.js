@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { setLoading, getDevelopers } from '../../redux/reducer';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -12,15 +12,10 @@ import Select from '@material-ui/core/Select';
 //styles
 import { useStyles } from './UserList.styles';
 
-//testData
-import { userToken } from '../../APISettings/APISettings';
-import { useDispatch, useSelector } from 'react-redux';
-
 const UserList = ({ currentUserId }) => {
   const classes = useStyles();
 
-  const [selectedUser, setSelectedUser] = useState("");
-  // const [selectedUserId, setUserId] = useState(usersData[0].username);
+  const [selectedUser, setSelectedUser] = useState(-1);
 
   const isLoading = useSelector(state => state.loading);
   const developersList = useSelector(state => state.developersList);

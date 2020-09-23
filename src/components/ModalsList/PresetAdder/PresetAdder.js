@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllPresets } from '../../../redux/reducer';
 
 //components
 import Modal from '@material-ui/core/Modal';
@@ -12,18 +14,15 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { useStyles } from './PresetAdder.styles';
 
-//for tests
-import { userToken } from '../../../APISettings/APISettings';
-
 const PresetAdder = ({
-    isOpen, onCancel, onSubmit, currentUser, employeeList
+    isOpen, onCancel, onSubmit, employeeList
 }) => {
     const classes = useStyles();
 
-    const [isLoading, setData] = React.useState(true);
-    const [userList, setUsers] = React.useState([]);
-    const [presetsList, setPresets] = React.useState([]);
-    const [sCurrentUser, setCurrentUser] = React.useState(currentUser);
+    const presetsList = useSelector(state => state.presetsList);
+    const dispatch = useDispatch();
+
+    const [sCurrentUser, setCurrentUser] = React.useState(-1);
     const [sCurrentPreset, setCurrentPreset] = React.useState(-1);
 
     const userSelectChangeHandler = (param) => {
@@ -32,23 +31,6 @@ const PresetAdder = ({
 
     const presetSelectChangeHandler = (param) => {
         setCurrentPreset(param.target.value);
-    }
-
-    const presetsRequestOptions = {
-        method: 'GET',
-        headers: {
-            "Authorization": "Bearer " + userToken
-        }
-    }
-
-    const getPresets = () => {
-        fetch('http://influx-roadmap.herokuapp.com/api/presets', presetsRequestOptions)
-            .then(res => res.json())
-            .then(data => {
-                setPresets(data.data);
-                setData(false);
-                console.log(data.data);
-            });
     }
 
     const body = (
@@ -89,17 +71,17 @@ const PresetAdder = ({
                             displayEmpty
                             className={classes.modalInput}
                             onChange={presetSelectChangeHandler}
-                            onOpen={getPresets}
+                            onOpen={() => dispatch(getAllPresets())}
                         >
                             <MenuItem className={classes.menuItem} value={-1}>Выберите пресет</MenuItem>
                             {
-                                isLoading ? (
-                                    <MenuItem className={classes.menuItem} value={-2}><CircularProgress /></MenuItem>
-                                ) : (
+                                presetsList ? (
                                     presetsList.map((presetItem, index) => (
                                         <MenuItem className={classes.menuItem} key={index} value={presetItem.slug}>{presetItem.name}</MenuItem>
                                     ))
-                                )
+                                ) : (
+                                    <MenuItem className={classes.menuItem} value={-2}><CircularProgress /></MenuItem>
+                                ) 
                             }
                         </Select>
                         <FormHelperText>Выберите пресет для сотрудника</FormHelperText>
@@ -116,7 +98,7 @@ const PresetAdder = ({
                         variant="contained"
                         color="primary"
                         onClick={(e) => {
-                            onSubmit(sCurrentUser, sCurrentPreset)
+                            if (sCurrentUser !== -1 && sCurrentPreset !== -1) onSubmit(sCurrentUser, sCurrentPreset)
                         }}
                     >
                         Назначить

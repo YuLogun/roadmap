@@ -9,6 +9,7 @@ const SET_AUTH = 'SET_AUTH';
 const SET_DEVELOPER_LIST = 'SET_DEVELOPER_LIST';
 const SET_LOADING = 'SET_LOADING';
 const SET_CURRENT_DEVELOPER_ROADMAPS = 'SET_CURRENT_DEVELOPER_ROADMAPS';
+const SET_PRESETS_LIST = 'SET_PRESETS_LIST';
 
 const initialState = {
   loading: true,
@@ -16,7 +17,8 @@ const initialState = {
   currentUser: null,
   isAuthorized: false,
   developersList: null,
-  currentDeveloperRoadmaps: null
+  currentDeveloperRoadmaps: null,
+  presetsList: null
 };
 
 function errorHandler(res) {
@@ -25,9 +27,15 @@ function errorHandler(res) {
     case 200: {
       return res.json();
     }
+    case 201: {
+      alert("Данные сохранены");
+      return res.json();
+    }
     case 422: {
+      debugger;
       alert("Данные введены не корректно");
-      break;
+      return res.json();
+      // break;
     }
     default: {
       debugger;
@@ -47,11 +55,14 @@ const reducer = (state = initialState, action) => {
     case SET_AUTH:
       return { ...state, isAuthorized: action.isAuth }
     case SET_DEVELOPER_LIST:
+      // debugger;
       return { ...state, developersList: action.developersList, loading: action.loading }
     case SET_LOADING:
       return { ...state, loading: action.loading }
     case SET_CURRENT_DEVELOPER_ROADMAPS:
       return { ...state, currentDeveloperRoadmaps: action.roadmaps, loading: action.loading }
+    case SET_PRESETS_LIST:
+      return { ...state, presetsList: action.presetsList }
     default:
       return state;
   }
@@ -127,19 +138,6 @@ export function setAuthorized() {
     }
 }
 
-// export function savePreset(username, preset) {
-//   const setPresetRequestOptions = {
-//     method: 'POST',
-//     headers: {
-//       Authorization: 'Bearer ' + userToken
-//     },
-//     body: JSON.stringify({
-//       employee: username,
-//       preset: preset
-//     })
-//   };
-// }
-
 export function getDevelopers() {
   const requestParams = {
     method: 'GET',
@@ -152,6 +150,7 @@ export function getDevelopers() {
     fetch(BaseUrl + '/employees', requestParams)
     .then(res => errorHandler(res))
     .then(data => {
+      // debugger;
       if (data.errors) {
         alert('?');
         debugger;
@@ -182,7 +181,7 @@ export function getDeveloperRoadmap(username) {
         // debugger;
         if (data.errors) {
           alert('?');
-          // debugger;
+          debugger;
         } else {
           // debugger;
           dispatch({
@@ -190,6 +189,86 @@ export function getDeveloperRoadmap(username) {
             roadmaps: data.data,
             loading: false
           })
+        }
+      })
+  }
+}
+
+export function getAllPresets() {
+  const requestParams = {
+    method: 'GET',
+    headers: {
+        "Authorization": "Bearer " + getToken()
+    }
+  }
+
+  return dispatch => {
+    fetch(BaseUrl + '/presets', requestParams)
+      .then(res => errorHandler(res))
+      .then(data => {
+        if (data.errors) {
+          alert('?');
+          debugger;
+        } else {
+          dispatch({
+            type: SET_PRESETS_LIST,
+            presetsList: data.data
+          })
+        }
+      })
+  }
+}
+
+
+export function savePresetOnDeveloper(username, preset) {
+  debugger;
+  const requestParams = {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + getToken(),
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      employee: username,
+      preset: preset
+    })
+  };
+
+  return dispatch => {
+    fetch(BaseUrl + '/roadmaps', requestParams)
+      .then(res => errorHandler(res))
+      .then(data => {
+        if (data.errors) {
+          alert('?');
+          debugger;
+        } else {
+          debugger;
+        }
+      })
+  }
+}
+
+export function saveCourse(courseLink) {
+  const requestParams = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + getToken()
+      },
+      body: JSON.stringify({
+        source: courseLink
+      })
+    };
+
+  return dispatch => {
+    fetch(BaseUrl + '/courses/suggestions', requestParams)
+      .then(res => errorHandler(res))
+      .then(data => {
+        if (data.errors) {
+          alert('?');
+          debugger;
+        } else {
+          debugger;
         }
       })
   }

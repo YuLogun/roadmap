@@ -8,7 +8,7 @@ export function getUserRole() {
 }
 
 export function getNameUser() {
-    return localStorage.getItem('name');
+    return localStorage.getItem('user');
 }
 
 export function getUsername() {

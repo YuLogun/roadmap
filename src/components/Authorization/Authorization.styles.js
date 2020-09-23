@@ -4,7 +4,7 @@ export const useStyles = makeStyles((theme) => ({
     authorizationContainer: {
         display: 'flex',
         width: '100vw',
-        height: '93vh'
+        height: '100vh'
     },
     authFormContainer: {
         display: 'flex',

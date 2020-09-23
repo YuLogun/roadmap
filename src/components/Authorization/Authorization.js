@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { login } from '../../redux/reducer';
+import { login, setAuthorized } from '../../redux/reducer';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import { useStyles } from './Authorization.styles.js';
 import { Redirect } from 'react-router-dom';
 
-import { getToken } from '../../services/Authorization.service';
+import { isAuthorized, getUserRole } from '../../services/Authorization.service';
 
 const Authorization = () => {
     const classes = useStyles();
@@ -23,15 +23,13 @@ const Authorization = () => {
 
     const onSubmit = (e, email, password) => {
         //kenny59@example.org
+        //password
         dispatch(login(email, password));
     }
 
-
-    // TODO: Переделать под получение токена (getToken) и по этому токену выгрузить информацию о пользователе, после чего редирект
-
-    if (currentUser) {
-        // debugger;
-        return currentUser.role === "manager" ? (
+    if (isAuthorized()) {
+        dispatch(setAuthorized());
+        return getUserRole() === "manager" ? (
             <Redirect to="/" />
         ) : (
             <Redirect to="/roadmap" />
@@ -44,7 +42,7 @@ const Authorization = () => {
                         <span>Войдите в свой аккаунт</span>
                     </div>
                     <form className={classes.formBody}>
-                        <TextField 
+                        <TextField
                             className={classes.formField}
                             label="Логин"
                             onChange={(e) => setLoginInput(e.target.value)}
@@ -57,7 +55,7 @@ const Authorization = () => {
                         />
                         <Button
                             className={classes.formField}
-                            variant="contained" 
+                            variant="contained"
                             color="primary"
                             onClick={(e) => onSubmit(e, loginInput, passwordInput)}
                         >

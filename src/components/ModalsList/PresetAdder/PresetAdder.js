@@ -67,10 +67,15 @@ const PresetAdder = ({
                             className={classes.modalInput}
                             onChange={userSelectChangeHandler}
                         >
+                            <MenuItem className={classes.menuItem} value={-1}>Выберите сотрудника</MenuItem>
                             {
-                                employeeList.map((employeeData, index) => (
-                                    <MenuItem key={index} className={classes.menuItem} value={employeeData.username}>{employeeData.name}</MenuItem>
-                                ))
+                                employeeList ? (
+                                    employeeList.map((employeeData, index) => (
+                                        <MenuItem key={index} className={classes.menuItem} value={employeeData.username}>{employeeData.name}</MenuItem>
+                                    ))
+                                ) : (
+                                    <MenuItem className={classes.menuItem} value={-2}><CircularProgress /></MenuItem>
+                                )
                             }
                         </Select>
                         <FormHelperText>Выберите сотрудника</FormHelperText>

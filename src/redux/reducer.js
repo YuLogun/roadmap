@@ -1,18 +1,26 @@
-import { setToken } from '../services/Authorization.service';
+import { storeUserData, getToken } from '../services/Authorization.service';
 
 const BaseUrl = "http://influx-roadmap.herokuapp.com/api";
 
 const GET_DATA = 'GET_DATA';
 const UPDATE_COURSES = 'UPDATE_COURSES';
 const SET_CURRENT_USER = 'SET_CURRENT_USER';
+const SET_AUTH = 'SET_AUTH';
+const SET_DEVELOPER_LIST = 'SET_DEVELOPER_LIST';
+const SET_LOADING = 'SET_LOADING';
+const SET_CURRENT_DEVELOPER_ROADMAPS = 'SET_CURRENT_DEVELOPER_ROADMAPS';
 
 const initialState = {
   loading: true,
   courses: [ ],
-  currentUser: null
+  currentUser: null,
+  isAuthorized: false,
+  developersList: null,
+  currentDeveloperRoadmaps: null
 };
 
 function errorHandler(res) {
+  // debugger;
   switch(res.status) {
     case 200: {
       return res.json();
@@ -26,7 +34,6 @@ function errorHandler(res) {
       alert('Неизвестная ошибка');
     }
   }
-  return
 }
 
 const reducer = (state = initialState, action) => {
@@ -36,13 +43,30 @@ const reducer = (state = initialState, action) => {
     case GET_DATA:
       return { ...state, data: action.data, loading: action.loading };
     case SET_CURRENT_USER:
-      return { ...state, currentUser: action.user };
+      return { ...state, currentUser: action.user, isAuthorized: action.isAuth };
+    case SET_AUTH:
+      return { ...state, isAuthorized: action.isAuth }
+    case SET_DEVELOPER_LIST:
+      return { ...state, developersList: action.developersList, loading: action.loading }
+    case SET_LOADING:
+      return { ...state, loading: action.loading }
+    case SET_CURRENT_DEVELOPER_ROADMAPS:
+      return { ...state, currentDeveloperRoadmaps: action.roadmaps, loading: action.loading }
     default:
       return state;
   }
 };
 
 export default reducer;
+
+export function setLoading(isLoading) {
+  return dispatch => {
+    dispatch({
+      type: SET_LOADING,
+      loading: isLoading
+    })
+  }
+}
 
 export function getData(data) {
   return {
@@ -86,12 +110,89 @@ export function login(login, password) {
       .then(res => errorHandler(res))
       .then(data => {
         if (data) {
-          setToken(data.access_token);
-          dispatch({ type: SET_CURRENT_USER, user: data.user, loading: false });
-          debugger;
+          storeUserData(data);
+          dispatch({ type: SET_CURRENT_USER, user: data.user, isAuth: true, loading: false });
+          // debugger;
         }
       })
   })
+}
+
+export function setAuthorized() {
+  return (dispatch) => {
+      dispatch({
+        type: SET_AUTH,
+        isAuth: true,
+      })
+    }
+}
+
+// export function savePreset(username, preset) {
+//   const setPresetRequestOptions = {
+//     method: 'POST',
+//     headers: {
+//       Authorization: 'Bearer ' + userToken
+//     },
+//     body: JSON.stringify({
+//       employee: username,
+//       preset: preset
+//     })
+//   };
+// }
+
+export function getDevelopers() {
+  const requestParams = {
+    method: 'GET',
+    headers: {
+      "Authorization": "Bearer " + getToken()
+    }
+  }
+
+  return dispatch => {
+    fetch(BaseUrl + '/employees', requestParams)
+    .then(res => errorHandler(res))
+    .then(data => {
+      if (data.errors) {
+        alert('?');
+        debugger;
+      } else {
+        dispatch({
+          type: SET_DEVELOPER_LIST,
+          developersList: data.data,
+          loading: false
+        })
+      }
+    })
+  }
+}
+
+export function getDeveloperRoadmap(username) {
+  // debugger;
+  const requestParams = {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + getToken()
+    }
+  }
+
+  return (dispatch) => {
+    fetch(BaseUrl + '/roadmaps/' + username, requestParams)
+      .then(res => errorHandler(res))
+      .then(data => {
+        // debugger;
+        if (data.errors) {
+          alert('?');
+          // debugger;
+        } else {
+          // debugger;
+          dispatch({
+            type: SET_CURRENT_DEVELOPER_ROADMAPS,
+            roadmaps: data.data,
+            loading: false
+          })
+        }
+      })
+  }
 }
 
 

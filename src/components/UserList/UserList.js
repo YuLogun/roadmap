@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { setLoading, getDevelopers } from '../../redux/reducer';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -13,35 +14,21 @@ import { useStyles } from './UserList.styles';
 
 //testData
 import { userToken } from '../../APISettings/APISettings';
+import { useDispatch, useSelector } from 'react-redux';
 
 const UserList = ({ currentUserId }) => {
   const classes = useStyles();
 
-  const [isLoading, setData] = useState(true);
-  const [usersList, setUsersList] = useState([ ]);
   const [selectedUser, setSelectedUser] = useState("");
   // const [selectedUserId, setUserId] = useState(usersData[0].username);
 
+  const isLoading = useSelector(state => state.loading);
+  const developersList = useSelector(state => state.developersList);
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    const requestUrl = "http://influx-roadmap.herokuapp.com/api/employees";
-    const requestParams = {
-      method: 'GET',
-      headers: {
-        "Authorization": "Bearer " + userToken
-      }
-    };
-
-    fetch(requestUrl, requestParams)
-      .then(res => res.json())
-      .then(data => {
-        if (data.errors) {
-          alert('?');
-        }
-
-        console.log(data.data);
-        setUsersList(data.data);
-        setData(false);
-      })
+    dispatch(setLoading(true));
+    dispatch(getDevelopers());
   }, []);
 
   //Функция для выбора пользователя в списке
@@ -57,8 +44,6 @@ const UserList = ({ currentUserId }) => {
     currentUserId(username);
   };
 
-  // debugger;
-
   return (
     <div>
       <div className={classes.wideScreenList}>
@@ -70,7 +55,7 @@ const UserList = ({ currentUserId }) => {
             isLoading ? (
               <div>Loading...</div>
             ) : (
-              usersList.map((userData, index) => (
+              developersList.map((userData, index) => (
                 <ListItem
                   button
                   selected={selectedUser === userData.username}
@@ -96,7 +81,7 @@ const UserList = ({ currentUserId }) => {
               isLoading ? (
                 <div>Loading...</div>
               ) : (
-                usersList.map((userData, index) => (
+                developersList.map((userData, index) => (
                   <MenuItem key={index} value={userData.username}>{userData.name}</MenuItem>
                 ))
               )

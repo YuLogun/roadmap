@@ -29,7 +29,7 @@ const Roadmap = ({ roadmapData, roadmapTitle, coursesTestData, managerView, styl
           courses: currentLevelRawData[technologyName]
         });
       }
-      
+
       result.levels.push(currentLevel);
     }
 
@@ -38,7 +38,7 @@ const Roadmap = ({ roadmapData, roadmapTitle, coursesTestData, managerView, styl
 
   const [currentRoadmap, setRoadmap] = useState(roadmapMapper(roadmapData));
 
-  
+
   console.log(roadmapData.name);
   // debugger;
   return (
@@ -51,8 +51,8 @@ const Roadmap = ({ roadmapData, roadmapTitle, coursesTestData, managerView, styl
             <ul className={classes.skillLevelList}>
               {
                 currentRoadmap.levels.map(skillLevel => (
-                  <li className={classes.skillLevelTitle}>
-                    {skillLevel.name}
+                  <li className={classes.skillLevelBlock}>
+                    <span className={classes.skillLevelTitle}>{skillLevel.name}</span>
                     <ul className={classes.technologyTitle}>
                       {
                         skillLevel.technologies.map((technology, index) => (
@@ -69,7 +69,7 @@ const Roadmap = ({ roadmapData, roadmapTitle, coursesTestData, managerView, styl
                 ))
               }
             </ul>
-            
+
               {/* {roadmapData.courses.Junior.map((it) => (
                 <Technology
                   key={it.slug}
@@ -79,7 +79,7 @@ const Roadmap = ({ roadmapData, roadmapTitle, coursesTestData, managerView, styl
                   managerView={managerView}
                 />
               ))} */}
-            
+
           </li>
         </ul>
       </div>

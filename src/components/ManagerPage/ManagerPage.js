@@ -77,11 +77,11 @@ const ManagerPage = () => {
               id="vertical-tab-1"
               aria-controls="vertical-tabpanel-1"
             />
-            <Tab
+            {/* <Tab
               label="Статистика"
               id="vertical-tab-2"
               aria-controls="vertical-tabpanel-2"
-            />
+            /> */}
         </Tabs>
       </div>
 
@@ -100,9 +100,9 @@ const ManagerPage = () => {
         <TabPanel value={currentTab} index={1} className={classes.tabPanelContainer}>
           <PresetsList />
         </TabPanel>
-        <TabPanel value={currentTab} index={2} className={classes.tabPanelContainer}>
+        {/* <TabPanel value={currentTab} index={2} className={classes.tabPanelContainer}>
             Item Three
-        </TabPanel>
+        </TabPanel> */}
     </div>
   ) : (
     <Redirect to="/auth" />

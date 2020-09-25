@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { useStyles } from './ManagerPage.styles';
 import EmployeeList from '../EmployeeList/EmployeeList';
 import EmployeeRoadmap from '../EmployeeRoadmap/EmployeeRoadmap';
+import PresetsList from '../PresetsList/PresetsList';
 import { getDeveloperRoadmap } from '../../redux/reducer';
 // import {  } from '@material-ui/core';
 
@@ -21,7 +22,6 @@ const ManagerPage = () => {
   //redux hooks
   const courses = useSelector((state) => state.courses);
   const isAuthorized = useSelector(state => state.isAuthorized);
-  // const developersList = useSelector(state => state.developersList);
   const currentRoadmaps = useSelector(state => state.currentDeveloperRoadmaps);
   const dispatch = useDispatch();
 
@@ -98,7 +98,7 @@ const ManagerPage = () => {
           }
         </TabPanel>
         <TabPanel value={currentTab} index={1} className={classes.tabPanelContainer}>
-            Item Two
+          <PresetsList />
         </TabPanel>
         <TabPanel value={currentTab} index={2} className={classes.tabPanelContainer}>
             Item Three

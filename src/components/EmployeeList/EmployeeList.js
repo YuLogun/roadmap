@@ -50,7 +50,7 @@ const EmployeeList = ({ currentUsername }) => {
             </div>
             <div className={classes.adderButtonBlock}>
                 <Button variant="contained" color="primary">
-                    Primary
+                    Добавить +
                 </Button>
             </div>
         </div>

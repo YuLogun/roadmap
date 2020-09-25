@@ -11,6 +11,7 @@ const SET_LOADING = 'SET_LOADING';
 const SET_CURRENT_DEVELOPER_ROADMAPS = 'SET_CURRENT_DEVELOPER_ROADMAPS';
 const SET_PRESETS_LIST = 'SET_PRESETS_LIST';
 const UNSET_CURRENT_ROADMAPS = 'UNSET_CURRENT_ROADMAPS';
+const SET_CURRENT_PRESET = 'SET_CURRENT_PRESET';
 
 const initialState = {
   loading: true,
@@ -19,7 +20,8 @@ const initialState = {
   isAuthorized: false,
   developersList: null,
   currentDeveloperRoadmaps: null,
-  presetsList: null
+  presetsList: null,
+  currentPreset: null
 };
 
 function errorHandler(res) {
@@ -71,6 +73,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, presetsList: action.presetsList }
     case UNSET_CURRENT_ROADMAPS:
       return { ...state, currentDeveloperRoadmaps: action.currentDeveloperRoadmaps }
+    case SET_CURRENT_PRESET:
+      return { ...state, currentPreset: action.currentPreset }
     default:
       return state;
   }
@@ -289,4 +293,13 @@ export function saveCourse(courseLink) {
         }
       });
   };
+}
+
+export function setCurrentPreset(preset) {
+  return dispatch => {
+    dispatch({
+      type: SET_CURRENT_PRESET,
+      currentPreset: preset
+    })
+  }
 }

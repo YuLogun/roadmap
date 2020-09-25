@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { setLoading, getDevelopers } from '../../redux/reducer';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -9,52 +10,33 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 //styles
-import './UserList.scss';
+import { useStyles } from './UserList.styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
-  },
-  userItem: {
-    paddingLeft: '30px'
-  },
-  wideScreenList: {
-    [theme.breakpoints.down('sm')]: {
-      display: 'none'
-    }
-  },
-  mobileScreenList: {
-    display: 'flex',
-    alignItems: 'center',
-
-    [theme.breakpoints.up('md')]: {
-      display: 'none'
-    }
-  },
-  formControl: {
-    width: '200px'
-  }
-}));
-
-const UserList = ({ currentUserId, usersData }) => {
+const UserList = ({ currentUserId }) => {
   const classes = useStyles();
 
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const [selectedUserId, setUserId] = React.useState(0);
+  const [selectedUser, setSelectedUser] = useState(-1);
+
+  const isLoading = useSelector(state => state.loading);
+  const developersList = useSelector(state => state.developersList);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setLoading(true));
+    dispatch(getDevelopers());
+  }, []);
 
   //Функция для выбора пользователя в списке
-  const handleListItemClick = (event, userId) => {
-    setSelectedIndex(userId);
-    currentUserId(userId);
+  const handleListItemClick = (event, username) => {
+    setSelectedUser(username);
+    currentUserId(username);
   };
 
   //Функция для выбора пользователя в Select
   const handleChange = (event) => {
-    const userId = event.target.value;
-    setSelectedIndex(userId);
-    currentUserId(userId);
+    const username = event.target.value;
+    setSelectedUser(username);
+    currentUserId(username);
   };
 
   return (
@@ -64,31 +46,41 @@ const UserList = ({ currentUserId, usersData }) => {
           <span>Сотрудник:</span>
         </div>
         <List component="nav">
-          {usersData.map((userData, index) => (
-            <ListItem
-              button
-              selected={selectedIndex === userData.id}
-              key={index}
-              className={classes.userItem}
-              onClick={(e) => handleListItemClick(e, userData.id)}
-            >
-              <ListItemText primary={userData.name} />
-            </ListItem>
-          ))}
+          {
+            isLoading ? (
+              <div>Loading...</div>
+            ) : (
+              developersList.map((userData, index) => (
+                <ListItem
+                  button
+                  selected={selectedUser === userData.username}
+                  key={index}
+                  className={classes.userItem}
+                  onClick={(e) => handleListItemClick(e, userData.username)}
+                >
+                  <ListItemText primary={userData.name} />
+                </ListItem>
+              ))
+            )
+          }
         </List>
       </div>
       <div className={classes.mobileScreenList}>
-        <span className="selectLabel">Сотрудник:</span>
+        <span className={classes.selectLabel}>Сотрудник:</span>
         <FormControl className={classes.formControl}>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={selectedIndex}
+            value={selectedUser}
             onChange={handleChange}
           >
-            {usersData.map((userData, index) => (
-              <MenuItem value={userData.id}>{userData.name}</MenuItem>
-            ))}
+            {
+              isLoading ? (
+                <div>Loading...</div>
+              ) : (
+                developersList.map((userData, index) => (
+                  <MenuItem key={index} value={userData.username}>{userData.name}</MenuItem>
+                ))
+              )
+            }
           </Select>
         </FormControl>
       </div>

@@ -18,6 +18,6 @@ export const useStyles = makeStyles((theme) => ({
   roadmapList: {
     top: '56px',
     position: 'relative',
-    border: '1px solid red'
+    border: '1px solid gray'
   }
 }));

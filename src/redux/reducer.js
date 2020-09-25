@@ -1,6 +1,6 @@
 import { storeUserData, getToken, clearUserData } from '../services/Authorization.service';
 
-const BaseUrl = "http://influx-roadmap.herokuapp.com/api";
+const BaseUrl = 'http://influx-roadmap.herokuapp.com/api';
 
 const GET_DATA = 'GET_DATA';
 const UPDATE_COURSES = 'UPDATE_COURSES';
@@ -13,7 +13,7 @@ const SET_PRESETS_LIST = 'SET_PRESETS_LIST';
 
 const initialState = {
   loading: true,
-  courses: [ ],
+  courses: [],
   currentUser: null,
   isAuthorized: false,
   developersList: null,
@@ -22,25 +22,26 @@ const initialState = {
 };
 
 function errorHandler(res) {
-  switch(res.status) {
+  console.log(res);
+  switch (res.status) {
     case 200: {
       return res.json();
     }
     case 201: {
-      alert("Данные сохранены");
+      alert('Данные сохранены');
       return res.json();
     }
     case 405: {
-      alert("Авторизуйтесь");
+      alert('Авторизуйтесь');
       clearUserData();
       document.location.reload();
       break;
     }
     case 422: {
       debugger;
-      alert("Данные введены не корректно");
-      return res.json();
-      // break;
+      alert('Данные введены не корректно');
+      //return res.json();
+      break;
     }
     default: {
       debugger;
@@ -58,15 +59,15 @@ const reducer = (state = initialState, action) => {
     case SET_CURRENT_USER:
       return { ...state, currentUser: action.user, isAuthorized: action.isAuth };
     case SET_AUTH:
-      return { ...state, isAuthorized: action.isAuth }
+      return { ...state, isAuthorized: action.isAuth };
     case SET_DEVELOPER_LIST:
-      return { ...state, developersList: action.developersList, loading: action.loading }
+      return { ...state, developersList: action.developersList, loading: action.loading };
     case SET_LOADING:
-      return { ...state, loading: action.loading }
+      return { ...state, loading: action.loading };
     case SET_CURRENT_DEVELOPER_ROADMAPS:
-      return { ...state, currentDeveloperRoadmaps: action.roadmaps, loading: action.loading }
+      return { ...state, currentDeveloperRoadmaps: action.roadmaps, loading: action.loading };
     case SET_PRESETS_LIST:
-      return { ...state, presetsList: action.presetsList }
+      return { ...state, presetsList: action.presetsList };
     default:
       return state;
   }
@@ -75,12 +76,12 @@ const reducer = (state = initialState, action) => {
 export default reducer;
 
 export function setLoading(isLoading) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({
       type: SET_LOADING,
       loading: isLoading
-    })
-  }
+    });
+  };
 }
 
 export function getData(data) {
@@ -111,62 +112,62 @@ export function login(login, password) {
   const requestParams = {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       email: login,
       password: password
     })
-  }
+  };
 
-  return (dispatch => {
+  return (dispatch) => {
     //kenny59@example.org
     fetch(BaseUrl + '/login', requestParams)
-      .then(res => errorHandler(res))
-      .then(data => {
+      .then((res) => errorHandler(res))
+      .then((data) => {
         if (data) {
           storeUserData(data);
           dispatch({ type: SET_CURRENT_USER, user: data.user, isAuth: true, loading: false });
           // debugger;
         }
-      })
-  })
+      });
+  };
 }
 
 export function setAuthorized() {
   return (dispatch) => {
-      dispatch({
-        type: SET_AUTH,
-        isAuth: true,
-      })
-    }
+    dispatch({
+      type: SET_AUTH,
+      isAuth: true
+    });
+  };
 }
 
 export function getDevelopers() {
   const requestParams = {
     method: 'GET',
     headers: {
-      "Authorization": "Bearer " + getToken()
+      Authorization: 'Bearer ' + getToken()
     }
-  }
+  };
 
-  return dispatch => {
+  return (dispatch) => {
     fetch(BaseUrl + '/employees', requestParams)
-    .then(res => errorHandler(res))
-    .then(data => {
-      // debugger;
-      if (data.errors) {
-        alert('?');
-        debugger;
-      } else {
-        dispatch({
-          type: SET_DEVELOPER_LIST,
-          developersList: data.data,
-          loading: false
-        })
-      }
-    })
-  }
+      .then((res) => errorHandler(res))
+      .then((data) => {
+        // debugger;
+        if (data.errors) {
+          alert('?');
+          debugger;
+        } else {
+          dispatch({
+            type: SET_DEVELOPER_LIST,
+            developersList: data.data,
+            loading: false
+          });
+        }
+      });
+  };
 }
 
 export function getDeveloperRoadmap(username) {
@@ -176,12 +177,12 @@ export function getDeveloperRoadmap(username) {
     headers: {
       Authorization: 'Bearer ' + getToken()
     }
-  }
+  };
 
   return (dispatch) => {
     fetch(BaseUrl + '/roadmaps/' + username, requestParams)
-      .then(res => errorHandler(res))
-      .then(data => {
+      .then((res) => errorHandler(res))
+      .then((data) => {
         // debugger;
         if (data.errors) {
           alert('?');
@@ -192,24 +193,24 @@ export function getDeveloperRoadmap(username) {
             type: SET_CURRENT_DEVELOPER_ROADMAPS,
             roadmaps: data.data,
             loading: false
-          })
+          });
         }
-      })
-  }
+      });
+  };
 }
 
 export function getAllPresets() {
   const requestParams = {
     method: 'GET',
     headers: {
-        "Authorization": "Bearer " + getToken()
+      Authorization: 'Bearer ' + getToken()
     }
-  }
+  };
 
-  return dispatch => {
+  return (dispatch) => {
     fetch(BaseUrl + '/presets', requestParams)
-      .then(res => errorHandler(res))
-      .then(data => {
+      .then((res) => errorHandler(res))
+      .then((data) => {
         if (data.errors) {
           alert('?');
           debugger;
@@ -217,12 +218,11 @@ export function getAllPresets() {
           dispatch({
             type: SET_PRESETS_LIST,
             presetsList: data.data
-          })
+          });
         }
-      })
-  }
+      });
+  };
 }
-
 
 export function savePresetOnDeveloper(username, preset) {
   debugger;
@@ -230,7 +230,7 @@ export function savePresetOnDeveloper(username, preset) {
     method: 'POST',
     headers: {
       Authorization: 'Bearer ' + getToken(),
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       employee: username,
@@ -238,44 +238,42 @@ export function savePresetOnDeveloper(username, preset) {
     })
   };
 
-  return dispatch => {
+  return (dispatch) => {
     fetch(BaseUrl + '/roadmaps', requestParams)
-      .then(res => errorHandler(res))
-      .then(data => {
+      .then((res) => errorHandler(res))
+      .then((data) => {
         if (data.errors) {
           alert('?');
           debugger;
         } else {
           debugger;
         }
-      })
-  }
+      });
+  };
 }
 
 export function saveCourse(courseLink) {
   const requestParams = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + getToken()
-      },
-      body: JSON.stringify({
-        source: courseLink
-      })
-    };
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getToken()
+    },
+    body: JSON.stringify({
+      source: courseLink
+    })
+  };
 
-  return dispatch => {
+  return (dispatch) => {
     fetch(BaseUrl + '/courses/suggestions', requestParams)
-      .then(res => errorHandler(res))
-      .then(data => {
+      .then((res) => errorHandler(res))
+      .then((data) => {
         if (data.errors) {
           alert('?');
           debugger;
         } else {
           debugger;
         }
-      })
-  }
+      });
+  };
 }
-
-

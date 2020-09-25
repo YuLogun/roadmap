@@ -15,14 +15,14 @@ const Roadmap = ({ roadmapData, managerView, styles }) => {
     let result = {
       slug: roadmapInfo.slug,
       name: roadmapInfo.name,
-      levels: [ ]
+      levels: []
     };
 
     for (let devLevelName in roadmapInfo.courses) {
       let currentLevel = {
         name: devLevelName,
-        technologies: [ ]
-      }
+        technologies: []
+      };
       let currentLevelRawData = roadmapInfo.courses[devLevelName];
       for (let technologyName in currentLevelRawData) {
         currentLevel.technologies.push({
@@ -35,47 +35,43 @@ const Roadmap = ({ roadmapData, managerView, styles }) => {
     }
 
     return result;
-  }
+  };
 
   ////Юля, вот так стало.
   const currentRoadmap = roadmapMapper(roadmapData);
 
   //Юля, вот так было
-  // const [currentRoadmap, setRoadmap] = useState(roadmapMapper(roadmapData)); 
+  // const [currentRoadmap, setRoadmap] = useState(roadmapMapper(roadmapData));
 
   console.log(roadmapData.name);
   console.warn(currentRoadmap.name);
   // debugger;
   return (
-    <div className={classes.container}>
+    <div className={classes.container} style={styles}>
       <div className={`container ${styles}`}>
         <ul className={classes.roadmapTitle}>
           {/* <ul className="list"> */}
           <li>
             <Typography variant="h1">{currentRoadmap.name}</Typography>
             <ul className={classes.skillLevelList}>
-              {
-                currentRoadmap.levels.map(skillLevel => (
-                  <li className={classes.skillLevelBlock}>
-                    <span className={classes.skillLevelTitle}>{skillLevel.name}</span>
-                    <ul className={classes.technologyTitle}>
-                      {
-                        skillLevel.technologies.map((technology, index) => (
-                          <Technology
-                            key={index}
-                            techTitle={technology.name}
-                            courses={technology.courses}
-                            managerView={managerView}
-                          />
-                        ))
-                      }
-                    </ul>
-                  </li>
-                ))
-              }
+              {currentRoadmap.levels.map((skillLevel) => (
+                <li className={classes.skillLevelBlock}>
+                  <span className={classes.skillLevelTitle}>{skillLevel.name}</span>
+                  <ul className={classes.technologyTitle}>
+                    {skillLevel.technologies.map((technology, index) => (
+                      <Technology
+                        key={index}
+                        techTitle={technology.name}
+                        courses={technology.courses}
+                        managerView={managerView}
+                      />
+                    ))}
+                  </ul>
+                </li>
+              ))}
             </ul>
 
-              {/* {roadmapData.courses.Junior.map((it) => (
+            {/* {roadmapData.courses.Junior.map((it) => (
                 <Technology
                   key={it.slug}
                   techTitle={it.name}
@@ -84,7 +80,6 @@ const Roadmap = ({ roadmapData, managerView, styles }) => {
                   managerView={managerView}
                 />
               ))} */}
-
           </li>
         </ul>
       </div>

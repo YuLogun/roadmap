@@ -23,7 +23,7 @@ const RoadmapList = ({ roadmapsData, setCurrentRoadmap, styles }) => {
         <Typography variant="h5" className={classes.roadmapListTitle}>
           Roadmaps List:
         </Typography>
-        <List component="nav">
+        {/* <List component="nav">
           {roadmapsData.map((roadmap, index) => (
             <ListItem
               button
@@ -34,7 +34,7 @@ const RoadmapList = ({ roadmapsData, setCurrentRoadmap, styles }) => {
               <ListItemText primary={roadmap.name} />
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </div>
     </div>
   );

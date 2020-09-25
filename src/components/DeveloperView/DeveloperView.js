@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getData } from '../../redux/reducer';
+import { Redirect, Switch, Route } from 'react-router-dom';
 import { getDeveloperRoadmap, savePresetOnDeveloper, saveCourse } from '../../redux/reducer';
 //services
 import { getUsername, getNameUser } from '../../services/Authorization.service';
@@ -18,6 +19,7 @@ const DeveloperView = () => {
 
   const loading = useSelector((state) => state.loading);
   const currentRoadmaps = useSelector((state) => state.currentDeveloperRoadmaps);
+  const isAuthorized = useSelector(state => state.isAuthorized);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -50,7 +52,7 @@ const DeveloperView = () => {
 
   console.log(currentRoadmaps);
 
-  return (
+  return isAuthorized ? (
     <div>
       <RolesAppBar manager="Иванов И.И." employee={getNameUser()} />
       {loading ? (
@@ -92,6 +94,8 @@ const DeveloperView = () => {
         </div>
       )}
     </div>
+  ) : (
+    <Redirect to="/auth" />
   );
 };
 

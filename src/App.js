@@ -7,6 +7,7 @@ import ManagerView from "./components/ManagerView/ManagerView";
 import DeveloperView from "./components/DeveloperView/DeveloperView";
 import AppBar from "./components/AppBar/AppBar";
 import ManagerPage from './components/ManagerPage/ManagerPage';
+import DeveloperPage from './components/DeveloperPage/DeveloperPage';
 
 //styles
 import "./App.css";
@@ -20,6 +21,7 @@ function App() {
           {/* <ManagerView /> */}
         </Route>
         <Route exact path="/roadmap">
+          {/* <DeveloperPage /> */}
           <DeveloperView />
         </Route>
         <Route exact path="/auth">

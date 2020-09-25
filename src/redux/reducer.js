@@ -10,6 +10,7 @@ const SET_DEVELOPER_LIST = 'SET_DEVELOPER_LIST';
 const SET_LOADING = 'SET_LOADING';
 const SET_CURRENT_DEVELOPER_ROADMAPS = 'SET_CURRENT_DEVELOPER_ROADMAPS';
 const SET_PRESETS_LIST = 'SET_PRESETS_LIST';
+/* const SET_RATING_AND_CERTIFICATE = 'SET_RATING_AND_CERTIFICATE'; */
 
 const initialState = {
   loading: true,
@@ -19,6 +20,8 @@ const initialState = {
   developersList: null,
   currentDeveloperRoadmaps: null,
   presetsList: null
+  /*   rating: null,
+  certificate: null */
 };
 
 function errorHandler(res) {
@@ -273,6 +276,76 @@ export function saveCourse(courseLink) {
           debugger;
         } else {
           debugger;
+        }
+      });
+  };
+}
+
+export function completeCourse(courseName) {
+  const requestParams = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getToken()
+    }
+  };
+
+  return (dispatch) => {
+    fetch(BaseUrl + `/courses/${courseName}/completions`, requestParams)
+      .then((res) => errorHandler(res))
+      .then((data) => {
+        if (data.errors) {
+          alert('?');
+        } else {
+          console.log('course is completed');
+        }
+      });
+  };
+}
+
+export function undoCompleteCourse(courseName) {
+  const requestParams = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getToken()
+    }
+  };
+
+  return (dispatch) => {
+    fetch(BaseUrl + `/courses/${courseName}/completions`, requestParams)
+      .then((res) => errorHandler(res))
+      .then((data) => {
+        if (data.errors) {
+          alert('?');
+        } else {
+          console.log('course is NOT completed');
+        }
+      });
+  };
+}
+
+export function rateCourseAndAddCertificate(courseName, rating, certificate) {
+  const requestParams = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getToken()
+    },
+    body: JSON.stringify({
+      rating,
+      certificate
+    })
+  };
+
+  return (dispatch) => {
+    fetch(BaseUrl + `/courses/${courseName}/completions`, requestParams)
+      .then((res) => errorHandler(res))
+      .then((data) => {
+        if (data.errors) {
+          alert('?');
+        } else {
+          console.log(`your rating is ${rating} and certificate link is ${certificate}`);
         }
       });
   };

@@ -23,6 +23,7 @@ const DeveloperView = () => {
   useEffect(() => {
     dispatch(getDeveloperRoadmap(getUsername()));
   }, []);
+  //qdoyle@example.net
 
   /*   const getUserRoadmap = (roadmapId, coursesTestData) => {
     const result = coursesTestData.filter((employee) => {
@@ -49,6 +50,7 @@ const DeveloperView = () => {
   ); */
 
   console.log(currentRoadmaps);
+  const roadmapsName = !loading && currentRoadmaps.map((it) => it.preset.name);
 
   return (
     <div>
@@ -60,20 +62,22 @@ const DeveloperView = () => {
           {/* <RoadmapList
             styles={classes.roadmapList}
             roadmapsData={currentRoadmaps}
+            setCurrentRoadmap={(presetName) => getPresetName(presetName)}
             setCurrentRoadmap={(userId, coursesTestData) =>
               userRoadmapInit(userId, coursesTestData)
             }
           /> */}
-          {currentRoadmaps ? (
+          {/* {currentRoadmaps ? (
             currentRoadmaps.map((roadmap) => (
               <RoadmapList
                 styles={{ top: '100px', position: 'relative' }}
-                roadmapsData={roadmap.preset}
+                roadmapsData={roadmap.preset.name}
               />
             ))
           ) : (
             <div>loading...</div>
-          )}
+          )} */}
+          <RoadmapList roadmapsData={roadmapsName} styles={{ top: '66px', position: 'relative' }} />
           {currentRoadmaps ? (
             currentRoadmaps.map((roadmap) => (
               <Roadmap

@@ -16,8 +16,8 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path="/">
-          {/* <ManagerPage /> */}
-          <ManagerView />
+          <ManagerPage />
+          {/* <ManagerView /> */}
         </Route>
         <Route exact path="/roadmap">
           <DeveloperView />

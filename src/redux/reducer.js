@@ -10,6 +10,7 @@ const SET_DEVELOPER_LIST = 'SET_DEVELOPER_LIST';
 const SET_LOADING = 'SET_LOADING';
 const SET_CURRENT_DEVELOPER_ROADMAPS = 'SET_CURRENT_DEVELOPER_ROADMAPS';
 const SET_PRESETS_LIST = 'SET_PRESETS_LIST';
+const UNSET_CURRENT_ROADMAPS = 'UNSET_CURRENT_ROADMAPS';
 
 const initialState = {
   loading: true,
@@ -22,7 +23,7 @@ const initialState = {
 };
 
 function errorHandler(res) {
-  debugger;
+  // debugger;
   switch(res.status) {
     case 200: {
       return res.json();
@@ -68,6 +69,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, currentDeveloperRoadmaps: action.roadmaps, loading: action.loading }
     case SET_PRESETS_LIST:
       return { ...state, presetsList: action.presetsList }
+    case UNSET_CURRENT_ROADMAPS:
+      return { ...state, currentDeveloperRoadmaps: action.currentDeveloperRoadmaps }
     default:
       return state;
   }
@@ -143,6 +146,15 @@ export function setAuthorized() {
     }
 }
 
+export function unsetRoadmaps() {
+  return dispatch => {
+    dispatch({
+      type: UNSET_CURRENT_ROADMAPS,
+      currentDeveloperRoadmaps: null
+    })
+  }
+}
+
 export function getDevelopers() {
   const requestParams = {
     method: 'GET',
@@ -160,6 +172,7 @@ export function getDevelopers() {
         alert('?');
         debugger;
       } else {
+        // debugger;
         dispatch({
           type: SET_DEVELOPER_LIST,
           developersList: data.data,

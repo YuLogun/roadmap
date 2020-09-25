@@ -22,7 +22,7 @@ const Authorization = () => {
     const [passwordInput, setPasswordInput] = useState("");
 
     const onSubmit = (e, email, password) => {
-        //kenny59@example.org
+        //nicolas.armand@example.com
         //password
         dispatch(login(email, password));
     }

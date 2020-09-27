@@ -17,16 +17,17 @@ import CardContent from '@material-ui/core/CardContent';
 // import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import PresetSetter from '../ModalsList/PresetSetter/PresetSetter';
+import PresetsAdder from '../PresetsAdder/PresetsAdder'
 
 //styles
 import { useStyles } from './PresetsList.styles';
-import { NavLink } from 'react-router-dom';
 
 const PresetsList = ({ currentUsername }) => {
   const classes = useStyles();
 
   const [selectedUser, setSelectedUser] = useState(-1);
   const [presetModalIsOpen, setPresetModalOpen] = useState(false);
+  const [presetAdderIsOpen, setPresetAdderOpen] = useState(false);
 
 //   const developersList = useSelector(state => state.developersList);
   const presetsList = useSelector(state => state.presetsList);
@@ -60,51 +61,57 @@ const PresetsList = ({ currentUsername }) => {
   return (
     <div>
       <PresetSetter
-            isOpen={presetModalIsOpen}
-            onCancel={onCancelPresetSetterModal}
-            onSubmit={onSubmitPresetSetterModal}
-            employeeList={employeeList}
-          />
-      <div className={classes.wideScreenList}>
-        <div className={classes.userListHeader}>
-            <div className={classes.finderInputBlock}>
-                <Grid container spacing={1} alignItems="flex-end">
-                    <Grid item>
-                        <TextField id="input-with-icon-grid" label="Найти по имени / должности" className={classes.finderInputField} />
+        isOpen={presetModalIsOpen}
+        onCancel={onCancelPresetSetterModal}
+        onSubmit={onSubmitPresetSetterModal}
+        employeeList={employeeList}
+      />
+      {
+        presetAdderIsOpen ? (
+          <PresetsAdder/>
+        ) : (
+          <div className={classes.wideScreenList}>
+            <div className={classes.userListHeader}>
+                <div className={classes.finderInputBlock}>
+                    <Grid container spacing={1} alignItems="flex-end">
+                        <Grid item>
+                            <TextField id="input-with-icon-grid" label="Найти по имени / должности" className={classes.finderInputField} />
+                        </Grid>
+                        <Grid item>
+                            <SearchIcon />
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <SearchIcon />
-                    </Grid>
-                </Grid>
+                </div>
+                <div className={classes.adderButtonBlock}>
+                    <Button variant="contained" color="primary">
+                        Добавить +
+                    </Button>
+                </div>
             </div>
-            <div className={classes.adderButtonBlock}>
-                <Button variant="contained" color="primary">
-                    Добавить +
-                </Button>
+            <div className={classes.presetsList}>
+            {
+                presetsList ? (
+                    presetsList.map((presetData, index) => (
+                        <Card
+                          className={classes.presetItem}
+                          onClick={(e) => initCurrentPreset(e, presetData)}
+                        >
+                            <CardContent>
+                                <div className={classes.emptyCardIcon}></div>
+                                <Typography variant="body2" component="p">
+                                    {presetData.name}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    ))
+                ) : (
+                  <div>Loading...</div>
+                )
+            }
             </div>
-        </div>
-        <div className={classes.presetsList}>
-        {
-            presetsList ? (
-                presetsList.map((presetData, index) => (
-                    <Card
-                      className={classes.presetItem}
-                      onClick={(e) => initCurrentPreset(e, presetData)}
-                    >
-                        <CardContent>
-                            <div className={classes.emptyCardIcon}></div>
-                            <Typography variant="body2" component="p">
-                                {presetData.name}
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                ))
-            ) : (
-              <div>Loading...</div>
-            )
-        }
-        </div>
-      </div>
+          </div>
+        )
+      }
     </div>
   );
 };

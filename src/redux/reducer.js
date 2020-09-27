@@ -34,6 +34,8 @@ function errorHandler(res) {
       alert('Данные сохранены');
       return res.json();
     }
+    case 401:
+    case 403:
     case 405: {
       alert('Авторизуйтесь');
       clearUserData();
@@ -41,14 +43,12 @@ function errorHandler(res) {
       break;
     }
     case 422: {
-      debugger;
       alert('Данные введены не корректно');
-      //return res.json();
       break;
     }
     default: {
-      debugger;
       alert('Неизвестная ошибка');
+      debugger;
     }
   }
 }
@@ -301,5 +301,25 @@ export function setCurrentPreset(preset) {
       type: SET_CURRENT_PRESET,
       currentPreset: preset
     })
+  }
+}
+
+export function sendInvite(email) {
+  const requestParams = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getToken()
+    },
+    body: JSON.stringify({
+      email: email
+    })
+  }
+  return dispatch => {
+    fetch(BaseUrl + "/invites", requestParams)
+      .then(res => errorHandler(res))
+      .then(data => {
+        if (data) alert(data.message);
+      })
   }
 }

@@ -58,6 +58,16 @@ const PresetsList = ({ currentUsername }) => {
     setPresetModalOpen(false);
   }
 
+  const onCancelPresetAdder = () => {
+    // debugger;
+    setPresetAdderOpen(false);
+  }
+
+  const onSubmitPresetAdder = (e, presetName, techList) => {
+    // debugger;
+    setPresetAdderOpen(false);
+  }
+
   return (
     <div>
       <PresetSetter
@@ -68,7 +78,10 @@ const PresetsList = ({ currentUsername }) => {
       />
       {
         presetAdderIsOpen ? (
-          <PresetsAdder/>
+          <PresetsAdder
+            onCancel={onCancelPresetAdder}
+            onSubmit={onSubmitPresetAdder}
+          />
         ) : (
           <div className={classes.wideScreenList}>
             <div className={classes.userListHeader}>
@@ -83,7 +96,11 @@ const PresetsList = ({ currentUsername }) => {
                     </Grid>
                 </div>
                 <div className={classes.adderButtonBlock}>
-                    <Button variant="contained" color="primary">
+                    <Button 
+                      variant="contained" 
+                      color="primary"
+                      onClick={(e) => setPresetAdderOpen(true)}
+                    >
                         Добавить +
                     </Button>
                 </div>

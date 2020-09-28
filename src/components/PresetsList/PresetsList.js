@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getDevelopers, getAllPresets, setCurrentPreset, savePresetOnDeveloper } from '../../redux/reducer';
+import { getDevelopers, getAllPresets, setCurrentPreset, savePresetOnDeveloper, savePreset } from '../../redux/reducer';
 import { useDispatch, useSelector } from 'react-redux';
 
 import List from '@material-ui/core/List';
@@ -64,7 +64,7 @@ const PresetsList = ({ currentUsername }) => {
   }
 
   const onSubmitPresetAdder = (e, presetName, techList) => {
-    // debugger;
+    dispatch(savePreset(presetName, "", techList));
     setPresetAdderOpen(false);
   }
 

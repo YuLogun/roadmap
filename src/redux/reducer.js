@@ -44,6 +44,12 @@ function errorHandler(res) {
     }
     case 422: {
       alert('Данные введены не корректно');
+      res.json()
+        .then(err => {
+          for (let key in err.errors) {
+            alert(key + ":" + err.errors[key]);
+          }
+        })
       break;
     }
     default: {
@@ -320,6 +326,53 @@ export function sendInvite(email) {
       .then(res => errorHandler(res))
       .then(data => {
         if (data) alert(data.message);
+      })
+  }
+}
+
+export function savePreset(name, description, techList) {
+  const requestParams = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getToken()
+    },
+    body: JSON.stringify({
+      name: name,
+      description: "Empty description",
+      technologies: techList
+    })
+  };
+
+  return dispatch => {
+    fetch(BaseUrl + "/presets/generation", requestParams)
+      .then(res => errorHandler(res))
+      .then(data => {
+        if(data) debugger;
+      })
+  }
+}
+
+export function register(token, name, username, password, passwordConfirmation) {
+  const requestParams = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "invite_token": token,
+      "name": name,
+      "username": username,
+      "password": password,
+      "password_confirmation": passwordConfirmation
+    })
+  };
+
+  return dispatch => {
+    fetch(BaseUrl + '/register', requestParams)
+      .then(res => errorHandler(res))
+      .then(data => {
+        if(data) alert(data.message);
       })
   }
 }

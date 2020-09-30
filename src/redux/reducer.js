@@ -166,12 +166,21 @@ export function unsetRoadmaps() {
 }
 
 export function getDevelopers() {
+debugger;
+
   const requestParams = {
     method: 'GET',
     headers: {
       Authorization: 'Bearer ' + getToken()
     }
   };
+
+  // const requestParams = {
+  //   method: 'GET',
+  //   headers: {
+  //     Authorization: 'Bearer ' + getToken()
+  //   }
+  // };
 
   return (dispatch) => {
     fetch(BaseUrl + '/employees', requestParams)

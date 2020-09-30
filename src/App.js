@@ -9,6 +9,7 @@ import AppBar from "./components/AppBar/AppBar";
 import ManagerPage from './components/ManagerPage/ManagerPage';
 import DeveloperPage from './components/DeveloperPage/DeveloperPage';
 import Registartion from './components/Registration/Registration';
+import RoadmapLineView from './components/RoadmapLineView/RoadmapLineView';
 
 //styles
 import "./App.css";
@@ -30,6 +31,9 @@ function App() {
         </Route>
         <Route exact path="/reg">
           <Registartion />
+        </Route>
+        <Route exact path="/test">
+          <RoadmapLineView />
         </Route>
       </Switch>
     </div>

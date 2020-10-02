@@ -38,9 +38,9 @@ function errorHandler(res) {
     case 403:
     case 405: {
       alert('Авторизуйтесь');
-      debugger;
-      // clearUserData();
-      // document.location.reload();
+      // debugger;
+      clearUserData();
+      document.location.reload();
       break;
     }
     case 422: {

@@ -50,7 +50,8 @@ const DeveloperView = () => {
     })
   ); */
 
-  console.log(currentRoadmaps);
+  console.log(JSON.stringify(currentRoadmaps));
+
 
   return isAuthorized ? (
     <div>

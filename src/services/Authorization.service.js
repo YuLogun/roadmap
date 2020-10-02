@@ -26,6 +26,7 @@ export function isAuthorized() {
 }
 
 export function storeUserData(userData) {
+  debugger;
   localStorage.setItem('authToken', userData.access_token);
   localStorage.setItem('user', userData.user.name);
   localStorage.setItem('role', userData.user.role);

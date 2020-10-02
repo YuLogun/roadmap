@@ -1,4 +1,4 @@
-import { storeUserData, getToken, clearUserData } from '../services/Authorization.service';
+import { storeUserData, getToken, clearUserData, getUsername } from '../services/Authorization.service';
 
 const BaseUrl = 'http://influx-roadmap.herokuapp.com/api';
 
@@ -34,21 +34,28 @@ function errorHandler(res) {
       alert('Данные сохранены');
       return res.json();
     }
+    case 401:
+    case 403:
     case 405: {
       alert('Авторизуйтесь');
-      clearUserData();
-      document.location.reload();
+      debugger;
+      // clearUserData();
+      // document.location.reload();
       break;
     }
     case 422: {
-      debugger;
       alert('Данные введены не корректно');
-      //return res.json();
+      res.json()
+        .then(err => {
+          for (let key in err.errors) {
+            alert(key + ":" + err.errors[key]);
+          }
+        })
       break;
     }
     default: {
-      debugger;
       alert('Неизвестная ошибка');
+      debugger;
     }
   }
 }
@@ -168,7 +175,7 @@ export function getDevelopers() {
   };
 
   return (dispatch) => {
-    fetch(BaseUrl + '/employees', requestParams)
+    fetch(BaseUrl + '/companies?filter[manager]=' + getUsername(), requestParams)
     .then(res => errorHandler(res))
     .then(data => {
       // debugger;
@@ -196,6 +203,7 @@ export function getDeveloperRoadmap(username) {
     }
   };
 
+  // debugger;
   return (dispatch) => {
     fetch(BaseUrl + '/roadmaps/' + username, requestParams)
       .then((res) => errorHandler(res))
@@ -301,5 +309,72 @@ export function setCurrentPreset(preset) {
       type: SET_CURRENT_PRESET,
       currentPreset: preset
     })
+  }
+}
+
+export function sendInvite(email) {
+  const requestParams = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getToken()
+    },
+    body: JSON.stringify({
+      email: email
+    })
+  }
+  return dispatch => {
+    fetch(BaseUrl + "/invites", requestParams)
+      .then(res => errorHandler(res))
+      .then(data => {
+        if (data) alert(data.message);
+      })
+  }
+}
+
+export function savePreset(name, description, techList) {
+  const requestParams = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getToken()
+    },
+    body: JSON.stringify({
+      name: name,
+      description: "Empty description",
+      technologies: techList
+    })
+  };
+
+  return dispatch => {
+    fetch(BaseUrl + "/presets/generation", requestParams)
+      .then(res => errorHandler(res))
+      .then(data => {
+        if(data) debugger;
+      })
+  }
+}
+
+export function register(token, name, username, password, passwordConfirmation) {
+  const requestParams = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "invite_token": token,
+      "name": name,
+      "username": username,
+      "password": password,
+      "password_confirmation": passwordConfirmation
+    })
+  };
+
+  return dispatch => {
+    fetch(BaseUrl + '/register', requestParams)
+      .then(res => errorHandler(res))
+      .then(data => {
+        if(data) alert(data.message);
+      })
   }
 }

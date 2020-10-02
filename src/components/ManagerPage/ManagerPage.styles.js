@@ -14,5 +14,14 @@ export const useStyles = makeStyles((theme) => ({
     },
     tabPanelContainer: {
         width: '75vw'
+    },
+    roadmapHeader: {
+        display: 'flex',
+        // justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+    },
+    backArrow: {
+        cursor: 'pointer'
     }
 }));

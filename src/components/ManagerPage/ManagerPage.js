@@ -7,13 +7,15 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import RoadmapLineView from '../RoadmapLineView/RoadmapLineView';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 //styles
 import { useStyles } from './ManagerPage.styles';
 import EmployeeList from '../EmployeeList/EmployeeList';
 import EmployeeRoadmap from '../EmployeeRoadmap/EmployeeRoadmap';
 import PresetsList from '../PresetsList/PresetsList';
-import { getDeveloperRoadmap } from '../../redux/reducer';
+import { getDeveloperRoadmap, unsetRoadmaps } from '../../redux/reducer';
 // import {  } from '@material-ui/core';
 
 const ManagerPage = () => {
@@ -26,6 +28,7 @@ const ManagerPage = () => {
   const dispatch = useDispatch();
 
   const [currentTab, setCurrentTab] = useState(0);
+  const [currentUsername, setCurrentUsername] = useState('');
 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -52,8 +55,14 @@ const ManagerPage = () => {
   };
 
   const initRoadmaps = (username) => {
-    // debugger;
+    setCurrentUsername(username)
     dispatch(getDeveloperRoadmap(username));
+  }
+
+  const backToEmployeeListHandler = () => {
+    setCurrentUsername('')
+    dispatch(unsetRoadmaps());
+    // debugger;
   }
 
   return isAuthorized ? (
@@ -88,10 +97,25 @@ const ManagerPage = () => {
         <TabPanel value={currentTab} index={0} className={classes.tabPanelContainer}>
           {
             currentRoadmaps ? (
-              <EmployeeRoadmap
-                roadmapData={currentRoadmaps[0].preset}
-                managerView
-              />
+              <div>
+                <div className={classes.roadmapHeader}>
+                  <ArrowBackIosIcon 
+                    onClick={backToEmployeeListHandler}
+                    className={classes.backArrow}
+                  />
+                  <div className={classes.roadmapTitleBlock}>
+                    <span className={classes.roadmapTitle}>Roadmap for {currentUsername}</span>
+                  </div>
+                </div>
+                <RoadmapLineView 
+                  currentRoadmap={currentRoadmaps[0]}
+                />
+              </div>
+              
+              // <EmployeeRoadmap
+              //   roadmapData={currentRoadmaps[0].preset}
+              //   managerView
+              // />
             ) : (
               <EmployeeList currentUsername={(username) => initRoadmaps(username)}/>
             )

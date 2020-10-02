@@ -10,10 +10,13 @@ import './RoadmapLineView.scss';
 
 import { testRoadmapsData } from '../../roadmaps-data'
 
-const RoadmapLineView = () => {
+const RoadmapLineView = (
+    { currentRoadmap }
+) => {
     const classes = useStyles();
 
-    const [currentRoadmap, setCurrentRoadmap] = useState(testRoadmapsData[0]);
+    // const [currentRoadmap, setCurrentRoadmap] = useState(testRoadmapsData[0]);
+    // conts currentRoadmap = 
 
     const [checked, setChecked] = React.useState([0]);
     const [technologyIndex, setTechIndex] = useState(0);

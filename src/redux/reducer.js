@@ -1,4 +1,4 @@
-import { storeUserData, getToken, clearUserData } from '../services/Authorization.service';
+import { storeUserData, getToken, clearUserData, getUsername } from '../services/Authorization.service';
 
 const BaseUrl = 'http://influx-roadmap.herokuapp.com/api';
 
@@ -38,8 +38,9 @@ function errorHandler(res) {
     case 403:
     case 405: {
       alert('Авторизуйтесь');
-      clearUserData();
-      document.location.reload();
+      debugger;
+      // clearUserData();
+      // document.location.reload();
       break;
     }
     case 422: {
@@ -166,8 +167,6 @@ export function unsetRoadmaps() {
 }
 
 export function getDevelopers() {
-debugger;
-
   const requestParams = {
     method: 'GET',
     headers: {
@@ -175,15 +174,8 @@ debugger;
     }
   };
 
-  // const requestParams = {
-  //   method: 'GET',
-  //   headers: {
-  //     Authorization: 'Bearer ' + getToken()
-  //   }
-  // };
-
   return (dispatch) => {
-    fetch(BaseUrl + '/employees', requestParams)
+    fetch(BaseUrl + '/companies?filter[manager]=' + getUsername(), requestParams)
     .then(res => errorHandler(res))
     .then(data => {
       // debugger;
@@ -211,6 +203,7 @@ export function getDeveloperRoadmap(username) {
     }
   };
 
+  // debugger;
   return (dispatch) => {
     fetch(BaseUrl + '/roadmaps/' + username, requestParams)
       .then((res) => errorHandler(res))

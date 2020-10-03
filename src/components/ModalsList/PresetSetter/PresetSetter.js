@@ -47,7 +47,6 @@ const PresetSetter = ({
                         {
                             employeeList ? (
                                 employeeList.map((userData, index) => (
-                                    // <NavLink to="/"
                                     <ListItem
                                         button
                                         selected={selectedUser === userData.username}

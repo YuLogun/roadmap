@@ -7,6 +7,10 @@ export const useStyles = makeStyles((theme) => ({
         height: '100vh'
     },
     leftSideMenu: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        height: '100vh',
         width: '15vw'
     },
     tabs: {
@@ -23,5 +27,13 @@ export const useStyles = makeStyles((theme) => ({
     },
     backArrow: {
         cursor: 'pointer'
+    },
+    exitBlock: {
+        paddingBottom: '15px',
+        cursor: 'pointer'
+    },
+    exitTitle: {
+        color: 'grey',
+        textDecoration: 'underline'
     }
 }));

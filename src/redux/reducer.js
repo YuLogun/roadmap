@@ -12,6 +12,7 @@ const SET_CURRENT_DEVELOPER_ROADMAPS = 'SET_CURRENT_DEVELOPER_ROADMAPS';
 const SET_PRESETS_LIST = 'SET_PRESETS_LIST';
 const UNSET_CURRENT_ROADMAPS = 'UNSET_CURRENT_ROADMAPS';
 const SET_CURRENT_PRESET = 'SET_CURRENT_PRESET';
+const SET_CURRENT_COURSES = 'SET_CURRENT_COURSES'
 
 const initialState = {
   loading: true,
@@ -21,7 +22,8 @@ const initialState = {
   developersList: null,
   currentDeveloperRoadmaps: null,
   presetsList: null,
-  currentPreset: null
+  currentPreset: null,
+  currentCoursesList: null
 };
 
 function errorHandler(res) {
@@ -81,7 +83,9 @@ const reducer = (state = initialState, action) => {
     case UNSET_CURRENT_ROADMAPS:
       return { ...state, currentDeveloperRoadmaps: action.currentDeveloperRoadmaps }
     case SET_CURRENT_PRESET:
-      return { ...state, currentPreset: action.currentPreset }
+      return { ...state, currentPreset: action.currentPreset };
+    case SET_CURRENT_COURSES:
+      return { ...state, currentCoursesList: action.currentCoursesList}
     default:
       return state;
   }
@@ -293,12 +297,7 @@ export function saveCourse(courseLink) {
     fetch(BaseUrl + '/courses/suggestions', requestParams)
       .then((res) => errorHandler(res))
       .then((data) => {
-        if (data.errors) {
-          alert('?');
-          debugger;
-        } else {
-          debugger;
-        }
+        if (data) alert(data.message);
       });
   };
 }
@@ -312,7 +311,7 @@ export function setCurrentPreset(preset) {
   }
 }
 
-export function sendInvite(email) {
+export function sendInvite(email, role) {
   const requestParams = {
     method: 'POST',
     headers: {
@@ -320,7 +319,8 @@ export function sendInvite(email) {
       Authorization: 'Bearer ' + getToken()
     },
     body: JSON.stringify({
-      email: email
+      email: email,
+      role: role
     })
   }
   return dispatch => {
@@ -375,6 +375,30 @@ export function register(token, name, username, password, passwordConfirmation) 
       .then(res => errorHandler(res))
       .then(data => {
         if(data) alert(data.message);
+      })
+  }
+}
+
+export function getCoursesByLevelAndTechnology(level, technology) {
+  const requestParams = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getToken()
+    }
+  };
+
+  return dispatch => {
+    fetch(BaseUrl + '/courses?filter[technologies]=' + technology, requestParams)
+    // fetch(BaseUrl + '/courses?filter[levels]=' + level + '&filter[technologies]=' + technology, requestParams)
+      .then(res => errorHandler(res))
+      .then(data => {
+        if (data) {
+          dispatch({
+            type: SET_CURRENT_COURSES,
+            currentCoursesList: data.data
+          });
+        }
       })
   }
 }

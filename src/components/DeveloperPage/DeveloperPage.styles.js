@@ -1,6 +1,20 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles((theme) => ({
+    roadmapsContainer: {
+        display: 'flex'
+    },
+
+    roadmapContainer: {
+        width: '50vw'
+    },
+
+    addCourseButton: {
+        position: 'fixed',
+        bottom: "25px",
+        right: '25px'
+    },
+
     managerPanelContainer: {
         display: 'flex',
         width: '100vw',

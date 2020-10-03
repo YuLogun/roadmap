@@ -23,8 +23,8 @@ function App() {
           {/* <ManagerView /> */}
         </Route>
         <Route exact path="/roadmap">
-          {/* <DeveloperPage /> */}
-          <DeveloperView />
+          <DeveloperPage />
+          {/* <DeveloperView /> */}
         </Route>
         <Route exact path="/auth">
           <Authorization />

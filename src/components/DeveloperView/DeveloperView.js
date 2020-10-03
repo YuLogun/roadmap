@@ -37,6 +37,7 @@ const DeveloperView = () => {
 
   const courseAdderSubmitHandler = (couseLink) => {
     dispatch(saveCourse(couseLink));
+    setCourseAdderIsOpen(false);
   }
 
 

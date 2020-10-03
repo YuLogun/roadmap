@@ -34,7 +34,7 @@ const EmployeeList = ({ currentUsername }) => {
   };
 
   const submitInviteSenderHandler = (e, email) => {
-    dispatch(sendInvite(email));
+    dispatch(sendInvite(email, 'employee'));
     setInviteSenderDisplay(false);
   }
 

@@ -69,28 +69,58 @@ const EmployeeList = ({ currentUsername }) => {
             </Button>
           </div>
         </div>
-        {/* <div className={classes.userListHeader}>
-            <div className={classes.finderInputBlock}>
-                <Grid container spacing={1} alignItems="flex-end">
-                    <Grid item>
-                        <TextField id="input-with-icon-grid" label="Найти по имени / должности" className={classes.finderInputField} />
-                    </Grid>
-                    <Grid item>
-                        <SearchIcon />
-                    </Grid>
-                </Grid>
+
+        <div className="employeeListBlock">
+          <div className="employeeListHeader">
+            <div className="employeeHeaderElement">
+              <span className="employeeHeaderElementTitle">Имя пользователя</span>
             </div>
-            <div className={classes.adderButtonBlock}>
-                <Button 
-                  variant="contained"
-                  color="primary"
-                  onClick={(e) => setInviteSenderDisplay(true)}
-                >
-                    Добавить +
-                </Button>
+            <div className="employeeHeaderElement">
+              <span className="employeeHeaderElementTitle">Должность</span>
             </div>
-        </div> */}
-        <List component="nav">
+            <div className="employeeHeaderElement">
+              <span className="employeeHeaderElementTitle">Статус</span>
+            </div>
+          </div>
+          <div className="employeeListBody">
+            {
+              developersList ? (
+                  developersList.map((userData, index) => (
+                    <div 
+                      className="employeeListItem"
+                      onClick={(e) => handleListItemClick(e, userData.username)}
+                    >
+                      <div className="listItemName">
+                        <img className="listItemNameIcon" />
+                        <span className="listItemNameTitle">{userData.name}</span>
+                      </div>
+                      <div className="listItemPosition">
+                        <span className="listItemPositionTitle">{userData.position}</span>
+                      </div>
+                      <div className="listItemStatus">
+                        <div className="listItemStatusMarker">
+                          <span className="listItemStatusTitle">Назначен</span>
+                        </div>
+                      </div>
+                    </div>
+                      // <ListItem
+                      //     button
+                      //     selected={selectedUser === userData.username}
+                      //     key={index}
+                      //     className={classes.userItem}
+                      //     onClick={(e) => handleListItemClick(e, userData.username)}
+                      // >
+                      // <ListItemText primary={userData.name + ' / ' + userData.position} />
+                      // </ListItem>
+                  ))
+              ) : (
+                <div>Loading...</div>
+              )
+            }
+          </div>
+        </div>
+        
+        {/* <List component="nav">
           {
             developersList ? (
                 developersList.map((userData, index) => (
@@ -108,7 +138,7 @@ const EmployeeList = ({ currentUsername }) => {
               <div>Loading...</div>
             )
           }
-        </List>
+        </List> */}
       </div>
     </div>
   );

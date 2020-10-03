@@ -16,6 +16,7 @@ import EmployeeList from '../EmployeeList/EmployeeList';
 import EmployeeRoadmap from '../EmployeeRoadmap/EmployeeRoadmap';
 import PresetsList from '../PresetsList/PresetsList';
 import { getDeveloperRoadmap, unsetRoadmaps } from '../../redux/reducer';
+import { clearUserData } from '../../services/Authorization.service'
 // import {  } from '@material-ui/core';
 
 const ManagerPage = () => {
@@ -65,6 +66,11 @@ const ManagerPage = () => {
     // debugger;
   }
 
+  const logoutHandler = () => {
+    clearUserData();
+    document.location.reload();
+  }
+
   return isAuthorized ? (
     <div className={classes.managerPanelContainer}>
       <div className={classes.leftSideMenu}>
@@ -92,6 +98,12 @@ const ManagerPage = () => {
               aria-controls="vertical-tabpanel-2"
             /> */}
         </Tabs>
+        <div 
+          className={classes.exitBlock}
+          onClick={logoutHandler}
+        >
+          <span className={classes.exitTitle}>Выход</span>
+        </div>
       </div>
 
         <TabPanel value={currentTab} index={0} className={classes.tabPanelContainer}>

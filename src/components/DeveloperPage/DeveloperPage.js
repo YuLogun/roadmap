@@ -1,112 +1,115 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { getData } from '../../redux/reducer';
 import { Redirect, Switch, Route } from 'react-router-dom';
+import { getDeveloperRoadmap, savePresetOnDeveloper, saveCourse } from '../../redux/reducer';
+//services
+import { getUsername, getNameUser } from '../../services/Authorization.service';
 
 //components
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
+import Roadmap from '../Roadmap/Roadmap';
+import RoadmapList from '../RoadmapList/RoadmapList';
+import RolesAppBar from '../RolesAppBar/RolesAppBar';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import CourseAdder from '../ModalsList/CourseAdder/CourseAdder';
+import EmployeeRoadmap from '../EmployeeRoadmap/EmployeeRoadmap';
+import RoadmapLineView from '../RoadmapLineView/RoadmapLineView';
 
 //styles
 import { useStyles } from './DeveloperPage.styles';
-import EmployeeList from '../EmployeeList/EmployeeList';
-import EmployeeRoadmap from '../EmployeeRoadmap/EmployeeRoadmap';
-import PresetsList from '../PresetsList/PresetsList';
-import { getDeveloperRoadmap } from '../../redux/reducer';
-// import {  } from '@material-ui/core';
 
-const DeveloperPage = () => {
+const DeveloperView = () => {
   const classes = useStyles();
 
-  //redux hooks
-  const courses = useSelector((state) => state.courses);
+  const loading = useSelector((state) => state.loading);
+  const currentRoadmaps = useSelector((state) => state.currentDeveloperRoadmaps);
   const isAuthorized = useSelector(state => state.isAuthorized);
-  const currentRoadmaps = useSelector(state => state.currentDeveloperRoadmaps);
   const dispatch = useDispatch();
 
-  const [currentTab, setCurrentTab] = useState(0);
+  const [courseAdderIsOpen, setCourseAdderIsOpen] = useState(false);
 
-  function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+  useEffect(() => {
+    dispatch(getDeveloperRoadmap(getUsername()));
+  }, []);
 
-    return (
-      <div
-        role="tabpanel"
-        hidden={currentTab !== index}
-        id={`vertical-tabpanel-${index}`}
-        aria-labelledby={`vertical-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box p={3}>
-            <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    );
+  const courseAdderCancelHandler = () => {
+    setCourseAdderIsOpen(false);
   }
 
-  const handleChangeTab = (event, newValue) => {
-    setCurrentTab(newValue);
-  };
-
-  const initRoadmaps = (username) => {
-    // debugger;
-    dispatch(getDeveloperRoadmap(username));
+  const courseAdderSubmitHandler = (couseLink) => {
+    dispatch(saveCourse(couseLink));
+    setCourseAdderIsOpen(false);
   }
+
+
+  // debugger;
 
   return isAuthorized ? (
-    <div className={classes.managerPanelContainer}>
-      <div className={classes.leftSideMenu}>
-        <Tabs
-            orientation="vertical"
-            variant="scrollable"
-            value={currentTab}
-            onChange={handleChangeTab}
-            aria-label="Vertical tabs example"
-            className={classes.tabs}
-        >
-            <Tab
-              label="Сотрудники"
-              id="vertical-tab-0"
-              aria-controls="vertical-tabpanel-0"
-            />
-            <Tab
-              label="Роадмапы"
-              id="vertical-tab-1"
-              aria-controls="vertical-tabpanel-1"
-            />
-            <Tab
-              label="Статистика"
-              id="vertical-tab-2"
-              aria-controls="vertical-tabpanel-2"
-            />
-        </Tabs>
-      </div>
+    <div>
+      <CourseAdder 
+        isOpen={courseAdderIsOpen}
+        onCancel={courseAdderCancelHandler} 
+        onSubmit={courseAdderSubmitHandler}
+      />
+      <RolesAppBar manager="Иванов И.И." employee={getNameUser()} />
 
-        <TabPanel value={currentTab} index={0} className={classes.tabPanelContainer}>
-          {
-            currentRoadmaps ? (
-              <EmployeeRoadmap
-                roadmapData={currentRoadmaps[0].preset}
-                managerView
+      {
+        currentRoadmaps ? (
+          <div className={classes.roadmapsContainer}>
+            {
+              currentRoadmaps.map(roadmapData => (
+                <dis className={classes.roadmapContainer}>
+                  <RoadmapLineView
+                    currentRoadmap={roadmapData}
+                  />
+                </dis>
+              ))
+            }
+          </div>
+        ) : (
+          <div>Loading...</div>
+        )
+      }
+
+      {/* {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <div className={classes.container}>
+          {currentRoadmaps ? (
+            currentRoadmaps.map((roadmap) => (
+              <RoadmapList
+                styles={{ top: '100px', position: 'relative' }}
+                roadmapsData={roadmap.preset}
               />
-            ) : (
-              <EmployeeList currentUsername={(username) => initRoadmaps(username)}/>
-            )
-          }
-        </TabPanel>
-        <TabPanel value={currentTab} index={1} className={classes.tabPanelContainer}>
-          <PresetsList />
-        </TabPanel>
-        <TabPanel value={currentTab} index={2} className={classes.tabPanelContainer}>
-            Item Three
-        </TabPanel>
+            ))
+          ) : (
+            <div>loading...</div>
+          )}
+          {currentRoadmaps ? (
+            currentRoadmaps.map((roadmap) => (
+              <Roadmap
+                styles={{ top: '100px', position: 'relative' }}
+                roadmapData={roadmap.preset}
+              />
+            ))
+          ) : (
+            <div>loading...</div>
+          )}
+        </div>
+      )} */}
+      <Fab 
+        color="primary" 
+        aria-label="add"
+        className={classes.addCourseButton}
+        onClick={(e) => setCourseAdderIsOpen(true)}
+      >
+        <AddIcon />
+      </Fab>
     </div>
   ) : (
     <Redirect to="/auth" />
-  )
+  );
 };
 
-export default DeveloperPage;
+export default DeveloperView;

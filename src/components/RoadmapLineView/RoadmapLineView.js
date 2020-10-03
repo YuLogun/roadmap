@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getCoursesByLevelAndTechnology } from '../../redux/reducer';
 
 
 import Fab from '@material-ui/core/Fab';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
+import CoursesList from '../ModalsList/CoursesList/CoursesList';
 
 import { useStyles } from './RoadmapLineView.styles';
 import './RoadmapLineView.scss';
@@ -15,11 +18,12 @@ const RoadmapLineView = (
 ) => {
     const classes = useStyles();
 
-    // const [currentRoadmap, setCurrentRoadmap] = useState(testRoadmapsData[0]);
-    // conts currentRoadmap = 
+    const currentCoursesList = useSelector(state => state.currentCoursesList);
+    const dispatch = useDispatch();
 
     const [checked, setChecked] = React.useState([0]);
     const [technologyIndex, setTechIndex] = useState(0);
+    const [coursesListIsOpen, setCoursesListIsOpen] = useState(false);
 
     const incTechIndex = () => {
         let temp = technologyIndex;
@@ -52,11 +56,26 @@ const RoadmapLineView = (
         return result;
     }
 
+    const showAllCoursesHandler = (level, technology) => {
+        dispatch(getCoursesByLevelAndTechnology(level, technology));
+        setCoursesListIsOpen(true);
+        // debugger;
+    }
+
+    const coursesListOnCancelHandler = () => {
+        setCoursesListIsOpen(false);
+    }
+
     const roadmap = roadmapMapper(currentRoadmap);
     console.log(roadmap);
 
     return (
         <div className={classes.roadmapContainer}>
+            <CoursesList 
+                isOpen={coursesListIsOpen}
+                onCancel={coursesListOnCancelHandler}
+                coursesList={currentCoursesList}
+            />
             {
                 roadmap.levels.map(level => {
                     let technologies = level.technologies.map((technology, index) => {
@@ -96,7 +115,10 @@ const RoadmapLineView = (
                                                 </div>
                                             ))
                                         }
-                                        <div className={classes.showAllLinkBlock}>
+                                        <div 
+                                            className={classes.showAllLinkBlock}
+                                            onClick={(e) => showAllCoursesHandler(level.name, technology.name)}
+                                        >
                                             <span className={classes.showAllLink}>Показать все</span>
                                         </div>
                                     </div>
@@ -122,169 +144,7 @@ const RoadmapLineView = (
                         </div>
                     );
                 })
-
-
-
-
-                // roadmap.levels.map(level => {
-                //     let levelHeader = (
-                //         <div className={classes.levelTitle}>
-                //             <h1>{level.name}</h1>
-                //         </div>
-                //     );
-
-                //     let technologies = level.technologies.map(technology => (
-                //         <div className={classes.technologyBlock}>
-                //             <div className={classes.roadmapLine}></div>
-                //             <div className={classes.coursesListBlock}>
-                //                 <List className={classes.root}>
-                //                     {[0, 1, 2, 3].map((value) => {
-                //                         const labelId = `checkbox-list-label-${value}`;
-
-                //                         return (
-                //                         <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
-                //                             <ListItemIcon>
-                //                             <Checkbox
-                //                                 edge="start"
-                //                                 checked={checked.indexOf(value) !== -1}
-                //                                 tabIndex={-1}
-                //                                 disableRipple
-                //                                 inputProps={{ 'aria-labelledby': labelId }}
-                //                             />
-                //                             </ListItemIcon>
-                //                             <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-                //                         </ListItem>
-                //                         );
-                //                     })}
-                //                 </List>
-                //             </div>
-                //             <div className={classes.technologyNameBlock}>
-                //                 <span className={classes.technologyTitle}>{technology.name}</span>
-                //             </div>
-                //         </div>
-                //     ));
-
-                //     return levelHeader + technologies
-                // })
             }
-            {/* <div className={classes.levelTitle}>
-                <h1>Junior</h1>
-            </div>
-            <div className={classes.technologyBlock}>
-                <div className={classes.roadmapLine}></div>
-                <div className={classes.coursesListBlock}>
-                    <List className={classes.root}>
-                        {[0, 1, 2, 3].map((value) => {
-                            const labelId = `checkbox-list-label-${value}`;
-
-                            return (
-                            <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
-                                <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={checked.indexOf(value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{ 'aria-labelledby': labelId }}
-                                />
-                                </ListItemIcon>
-                                <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-                            </ListItem>
-                            );
-                        })}
-                    </List>
-                </div>
-                <div className={classes.technologyNameBlock}>
-                    <span className={classes.technologyTitle}>Технология 1</span>
-                </div>
-            </div>
-            <div className={classes.technologyBlock}>
-                <div className={classes.roadmapLine}></div>
-                <div className={classes.coursesListBlock}>
-                    <List className={classes.root}>
-                        {[0, 1, 2, 3].map((value) => {
-                            const labelId = `checkbox-list-label-${value}`;
-
-                            return (
-                            <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
-                                <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={checked.indexOf(value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{ 'aria-labelledby': labelId }}
-                                />
-                                </ListItemIcon>
-                                <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-                            </ListItem>
-                            );
-                        })}
-                    </List>
-                </div>
-                <div className={classes.technologyNameBlock}>
-                    <span className={classes.technologyTitle}>Технология 2</span>
-                </div>
-            </div>
-            <div className={classes.technologyBlock}>
-                <div className={classes.roadmapLine}></div>
-                <div className={classes.coursesListBlock}>
-                    <List className={classes.root}>
-                        {[0, 1, 2, 3].map((value) => {
-                            const labelId = `checkbox-list-label-${value}`;
-
-                            return (
-                            <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
-                                <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={checked.indexOf(value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{ 'aria-labelledby': labelId }}
-                                />
-                                </ListItemIcon>
-                                <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-                            </ListItem>
-                            );
-                        })}
-                    </List>
-                </div>
-                <div className={classes.technologyNameBlock}>
-                    <span className={classes.technologyTitle}>Технология 3</span>
-                </div>
-            </div>
-            <div className={classes.levelTitle}>
-                <h1>Middle</h1>
-            </div>
-            <div className={classes.technologyBlock}>
-                <div className={classes.roadmapLine}></div>
-                <div className={classes.coursesListBlock}>
-                    <List className={classes.root}>
-                        {[0, 1, 2, 3].map((value) => {
-                            const labelId = `checkbox-list-label-${value}`;
-
-                            return (
-                            <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
-                                <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={checked.indexOf(value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{ 'aria-labelledby': labelId }}
-                                />
-                                </ListItemIcon>
-                                <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-                            </ListItem>
-                            );
-                        })}
-                    </List>
-                </div>
-                <div className={classes.technologyNameBlock}>
-                    <span className={classes.technologyTitle}>Технология 5</span>
-                </div>
-            </div> */}
         </div>
     )
 }

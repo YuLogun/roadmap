@@ -19,5 +19,10 @@ export const useStyles = makeStyles((theme) => ({
     top: '56px',
     position: 'relative',
     border: '1px solid gray'
+  },
+  addCourseButton: {
+    position: 'fixed',
+    bottom: '25px',
+    right: '25px'
   }
 }));

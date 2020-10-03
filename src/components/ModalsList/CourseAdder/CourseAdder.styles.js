@@ -38,7 +38,10 @@ export const useStyles = makeStyles((theme) => ({
     },
     modalFooter: {
         display: 'flex',
-        justifyContent: 'space-between'
+        justifyContent: 'flex-end'
+    },
+    inputField: {
+        width: '100%'
     }
     // menuItem: {
     //     zIndex: '10001'

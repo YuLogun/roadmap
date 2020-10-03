@@ -24,22 +24,23 @@ const CourseAdder = ({
                         <TextField 
                             label="Ссылка"
                             onChange={(e) => setCourseLink(e.target.value)}
+                            className={classes.inputField}
                         />
                     </form>
                 </div>
                 <div className={classes.modalFooter}>
-                    <Button 
+                    {/* <Button 
                         variant="contained"
                         onClick={onCancel}
                     >
                         Отмена
-                    </Button>
+                    </Button> */}
                     <Button 
                         variant="contained" 
                         color="primary"
                         onClick={(e) => { onSubmit(e, courseLink) }}
                     >
-                        Отправить
+                        Предложить
                     </Button>
                 </div>
                 

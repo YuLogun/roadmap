@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getData } from '../../redux/reducer';
 import { Redirect, Switch, Route } from 'react-router-dom';
@@ -10,6 +10,9 @@ import { getUsername, getNameUser } from '../../services/Authorization.service';
 import Roadmap from '../Roadmap/Roadmap';
 import RoadmapList from '../RoadmapList/RoadmapList';
 import RolesAppBar from '../RolesAppBar/RolesAppBar';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import CourseAdder from '../ModalsList/CourseAdder/CourseAdder';
 
 //styles
 import { useStyles } from './DeveloperView.styles';
@@ -22,51 +25,34 @@ const DeveloperView = () => {
   const isAuthorized = useSelector(state => state.isAuthorized);
   const dispatch = useDispatch();
 
+  const [courseAdderIsOpen, setCourseAdderIsOpen] = useState(false);
+
   useEffect(() => {
     dispatch(getDeveloperRoadmap(getUsername()));
   }, []);
 
-  /*   const getUserRoadmap = (roadmapId, coursesTestData) => {
-    const result = coursesTestData.filter((employee) => {
-      return employee.roadmap.roadmap_id === roadmapId;
-    })[0];
-    return result.roadmap;
-  }; */
+  const courseAdderCancelHandler = () => {
+    setCourseAdderIsOpen(false);
+  }
 
-  /*  const [currentRoadmap, setCurrentRoadmap] = useState(() => getUserRoadmap(111, coursesTestData));
-  const [currentRoadmap1, setCurrentRoadmap1] = useState(() =>
-    getUserRoadmap(111, coursesTestData)
-  );
+  const courseAdderSubmitHandler = (couseLink) => {
+    dispatch(saveCourse(couseLink));
+  }
 
-  const userRoadmapInit = (roadmapId) => {
-    let userRoadmap = getUserRoadmap(roadmapId);
-    setCurrentRoadmap(userRoadmap);
-  };
-
-  const roadmapsTitlesAndIds = coursesTestData.map(
-    ({ roadmap: { roadmap_title: name, roadmap_id: id } }) => ({
-      name,
-      id
-    })
-  ); */
-
-  console.log(JSON.stringify(currentRoadmaps));
 
 
   return isAuthorized ? (
     <div>
+      <CourseAdder 
+        isOpen={courseAdderIsOpen}
+        onCancel={courseAdderCancelHandler} 
+        onSubmit={courseAdderSubmitHandler}
+      />
       <RolesAppBar manager="Иванов И.И." employee={getNameUser()} />
       {loading ? (
         <div>Loading...</div>
       ) : (
         <div className={classes.container}>
-          {/* <RoadmapList
-            styles={classes.roadmapList}
-            roadmapsData={currentRoadmaps}
-            setCurrentRoadmap={(userId, coursesTestData) =>
-              userRoadmapInit(userId, coursesTestData)
-            }
-          /> */}
           {currentRoadmaps ? (
             currentRoadmaps.map((roadmap) => (
               <RoadmapList
@@ -87,13 +73,16 @@ const DeveloperView = () => {
           ) : (
             <div>loading...</div>
           )}
-          {/* <Roadmap
-            styles={classes.roadmapContainer}
-            roadmapTitle={currentRoadmap1.roadmap_title}
-            coursesTestData={currentRoadmap1.roadmap_info}
-          /> */}
         </div>
       )}
+      <Fab 
+        color="primary" 
+        aria-label="add"
+        className={classes.addCourseButton}
+        onClick={(e) => setCourseAdderIsOpen(true)}
+      >
+        <AddIcon />
+      </Fab>
     </div>
   ) : (
     <Redirect to="/auth" />

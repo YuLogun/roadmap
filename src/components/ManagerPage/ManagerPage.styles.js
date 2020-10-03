@@ -23,5 +23,8 @@ export const useStyles = makeStyles((theme) => ({
     },
     backArrow: {
         cursor: 'pointer'
+    },
+    tabItem: {
+        
     }
 }));

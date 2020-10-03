@@ -53,5 +53,9 @@ export const useStyles = makeStyles((theme) => ({
     },
     finderInputField: {
         width: '60vw'
+    },
+    navButtonElem: {
+        borderRadius: '100px',
+        // padding: '9px 30px 16px'
     }
 }));

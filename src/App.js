@@ -10,6 +10,7 @@ import ManagerPage from './components/ManagerPage/ManagerPage';
 import DeveloperPage from './components/DeveloperPage/DeveloperPage';
 import Registartion from './components/Registration/Registration';
 import RoadmapLineView from './components/RoadmapLineView/RoadmapLineView';
+import AppHeader from './components/AppHeader/AppHeader';
 
 //styles
 import "./App.css";
@@ -17,6 +18,7 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
+      <AppHeader/>
       <Switch>
         <Route exact path="/">
           <ManagerPage />

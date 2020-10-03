@@ -62,6 +62,7 @@ const DeveloperView = () => {
                 <dis className={classes.roadmapContainer}>
                   <RoadmapLineView
                     currentRoadmap={roadmapData}
+                    className={classes.roadmapElement}
                   />
                 </dis>
               ))

@@ -27,10 +27,11 @@ const PresetSetter = ({
 
     const presetsList = useSelector(state => state.presetsList);
     const currentPreset = useSelector(state => state.currentPreset);
-    const employeeList = useSelector(state => state.developersList);
+    const employeeList1 = useSelector(state => state.developersList);
     const dispatch = useDispatch();
 
     const [selectedUser, setSelectedUser] = useState(-1);
+    const [employeeList, setEmpList] = useState(employeeList1);
 
     const handleListItemClick = (event, username) => {
         setSelectedUser(username);

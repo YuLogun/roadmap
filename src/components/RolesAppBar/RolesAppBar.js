@@ -31,6 +31,9 @@ const RolesAppBar = ({ manager, employee }) => {
           <span className={classes.boldText}>Менеджер: </span>
           <span>{manager}</span>
         </p>
+        <p >
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdKsIRr30pSPVxjyUv-ZpXmty2TPQ7EOqq3hTdAaq5pEchkUw/viewform?usp=send_form" className={classes.exitTitle}>Отзыв</a>
+        </p>
       </div>
     </div>
   )

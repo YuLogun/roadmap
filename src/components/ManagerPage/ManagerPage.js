@@ -92,11 +92,12 @@ const ManagerPage = () => {
               id="vertical-tab-1"
               aria-controls="vertical-tabpanel-1"
             />
-            {/* <Tab
-              label="Статистика"
+            <Tab
+              label={<a href="https://docs.google.com/forms/d/e/1FAIpQLSdKsIRr30pSPVxjyUv-ZpXmty2TPQ7EOqq3hTdAaq5pEchkUw/viewform?usp=send_form">Отзыв</a>}
               id="vertical-tab-2"
               aria-controls="vertical-tabpanel-2"
-            /> */}
+              // onClick={}
+            />
         </Tabs>
         <div 
           className={classes.exitBlock}

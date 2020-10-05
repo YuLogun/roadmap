@@ -25,3 +25,17 @@ export const mapIntensity = intensityResponse => {
     technologyIntensity: development_speed_technology_intensity,
   };
 };
+
+export const mapIntensity1 = intensityResponse => {
+  debugger;
+  const {
+    manager_id,
+    development_speed_course_intensity,
+    count
+  } = intensityResponse;
+  return {
+    manager_id,
+    courseIntensity: development_speed_course_intensity,
+    technologyIntensity: count,
+  };
+};

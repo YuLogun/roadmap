@@ -3,13 +3,13 @@
     margin-right: 56px;
 }
 
-.employeeListHeaderBlock {
+.presetListHeaderBlock {
     width: 100%;
     display: flex;
     margin-bottom: 30px;
 }
 
-.employeeListHeaderTitle {
+.presetListHeaderTitle {
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -19,7 +19,7 @@
     color: #858585;
 }
 
-.employeeFinderBlock {
+.presetFinderBlock {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -30,7 +30,7 @@
     border-radius: 35px;
 }
 
-.employeeNavBlock {
+.presetNavBlock {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -62,7 +62,7 @@
     height: 42px;
 }
 
-.employeeBtnBlock {
+.presetBtnBlock {
     
 }
 
@@ -75,7 +75,7 @@
     text-transform: none;
 }
 
-.employeeListBlock {
+.presetListBlock {
     margin-top: 20px;
     padding: 45px 25px;
     border: 2px solid #F0F0F0;
@@ -84,20 +84,20 @@
     overflow: overlay;
 }
 
-.employeeListHeader {
+.presetListHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 55px;
 }
 
-.employeeHeaderElement {
+.presetHeaderElement {
     width: 30%;
     display: flex;
     padding-left: 90px;
 }
 
-.employeeHeaderElementTitle {
+.presetHeaderElementTitle {
     font-size: 12px;
     font-style: normal;
     font-weight: 700;
@@ -106,7 +106,7 @@
     color: #858585;
 }
 
-.employeeListItem {
+.presetListItem {
     display: flex;
     justify-content: space-between;
     align-items: center;

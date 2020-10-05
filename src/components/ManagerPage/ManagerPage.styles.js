@@ -4,7 +4,7 @@ export const useStyles = makeStyles((theme) => ({
     managerPanelContainer: {
         display: 'flex',
         width: '100vw',
-        height: '100vh'
+        height: '92vh'
     },
     leftSideMenu: {
         display: 'flex',
@@ -17,7 +17,7 @@ export const useStyles = makeStyles((theme) => ({
         borderRight: `1px solid ${theme.palette.divider}`,
     },
     tabPanelContainer: {
-        width: '75vw'
+        width: '80vw'
     },
     roadmapHeader: {
         display: 'flex',
@@ -29,11 +29,15 @@ export const useStyles = makeStyles((theme) => ({
         cursor: 'pointer'
     },
     exitBlock: {
+        position: 'fixed',
+        width: '20vw',
+        bottom: '0',
+        marginLeft: '45px',
         paddingBottom: '15px',
         cursor: 'pointer'
     },
     exitTitle: {
-        color: 'grey',
-        textDecoration: 'underline'
+        // color: 'grey',
+        // textDecoration: 'underline'
     }
 }));

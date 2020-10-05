@@ -1,0 +1,74 @@
+.authorizationContainer {
+    display: flex;
+    width: 100vw;
+    height: 100vh
+}
+.authFormContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 85px;
+    width: 50vw;
+}
+
+.formHeader {
+    margin-bottom: 100px;
+}
+.formHeaderTitle {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 36px;
+    color: #858585;
+}
+
+.formBody {
+    display: flex;
+    flex-direction: column;
+    min-width: 360px;
+}
+
+.formElementBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    // justify-content: flex-start;
+}
+
+.formElementLabel {
+    margin-bottom: 35px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    color: #858585;
+}
+
+.formElementInput {
+    margin-bottom: 35px;
+    padding: 20px 0 20px 40px;
+    width: 100%;
+    border: 1px solid #F0F0F0;
+    border-radius: 100px;
+}
+
+
+.authLogoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    background: linear-gradient(90.22deg, rgba(0, 224, 255, 0) 0.18%, #0047FF 99.81%)
+}
+
+.formField {
+    margin-bottom: 20px
+}
+
+.formBtnTitle {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.49370455741882324px;
+
+}

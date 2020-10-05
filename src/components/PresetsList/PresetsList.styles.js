@@ -61,12 +61,15 @@ export const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-around'
     },
     presetItem: {
-        marginTop: '30px',
-        width: '19vw',
+        marginBottom: '30px',
+        width: '14vw', //19vw
         cursor: 'pointer'
     },
     emptyCardIcon: {
-        height: '150px',
+        height: '130px', //150px
         background: '#cbcbcb'
+    },
+    navButtonElem: {
+        borderRadius: '100px',
     }
 }));

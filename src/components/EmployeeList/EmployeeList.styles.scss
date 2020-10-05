@@ -1,0 +1,170 @@
+.wideScreenList {
+    margin-left: 66px;
+    margin-right: 56px;
+}
+
+.employeeListHeaderBlock {
+    width: 100%;
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.employeeListHeaderTitle {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #858585;
+}
+
+.employeeFinderBlock {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 32px;
+    width: 30vw;
+    height: 42px;
+    border: 1px solid #0047FF;
+    border-radius: 35px;
+}
+
+.employeeNavBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.finderIcon {
+    margin-right: 20px;
+}
+
+.finderInput {
+    width: 90%;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #858585;
+    border: 0;
+    background-color: unset;
+}
+
+.finderInput:focus {
+    border: 0
+}
+
+.navButtonElem {
+    background: linear-gradient(180deg, #00E0FF 0%, #0047FF 122.82%);
+    height: 42px;
+}
+
+.employeeBtnBlock {
+    
+}
+
+.navButtonTitle {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 0px;
+    letter-spacing: 0px;
+    text-transform: none;
+}
+
+.employeeListBlock {
+    margin-top: 20px;
+    padding: 45px 25px;
+    border: 2px solid #F0F0F0;
+    border-radius: 10px;
+    height: 70vh;
+    overflow: overlay;
+}
+
+.employeeListHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 55px;
+}
+
+.employeeHeaderElement {
+    width: 30%;
+    display: flex;
+    padding-left: 90px;
+}
+
+.employeeHeaderElementTitle {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 0px;
+    letter-spacing: 0em;
+    color: #858585;
+}
+
+.employeeListItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 1px solid #F0F0F0;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.listItemNameTitle, .listItemPositionTitle {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 0px;
+    letter-spacing: 0em;
+    color: #858585;
+    white-space: nowrap;
+}
+
+.listItemNameIcon {
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+    background-color: #F0F0F0;
+    border-radius: 50%;
+}
+
+.listItemName, .listItemPosition {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 30px;
+}
+
+.listItemName, .listItemPosition, .listItemStatus {
+    padding: 22px 30px;
+    width: 30%;
+}
+
+.listItemStatus {
+    display: flex;
+    // justify-content: flex-start;
+    justify-content: center;
+    // margin-left: 40px;
+}
+
+.listItemStatusMarker {
+    display: flex;
+    padding: 5px 30px;
+    background: #5DF888;
+    border-radius: 100px;
+}
+
+.listItemStatusTitle {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 18px;
+    letter-spacing: 0em;
+    color: white;
+}

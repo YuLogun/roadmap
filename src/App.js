@@ -12,6 +12,7 @@ import ManagerPage from './components/ManagerPage/ManagerPage';
 import DeveloperPage from './components/DeveloperPage/DeveloperPage';
 import Registartion from './components/Registration/Registration';
 import RoadmapLineView from './components/RoadmapLineView/RoadmapLineView';
+import AppHeader from './components/AppHeader/AppHeader';
 
 //styles
 import "./App.css";
@@ -21,10 +22,12 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path={ROUTES.HOME}>
+          <AppHeader/>
           <ManagerPage />
           {/* <ManagerView /> */}
         </Route>
         <Route exact path={ROUTES.ROADMAP}>
+          <AppHeader/>
           <DeveloperPage />
           {/* <DeveloperView /> */}
         </Route>
@@ -38,6 +41,7 @@ function App() {
           <RoadmapLineView />
         </Route>
         <Route exact path={ROUTES.EMPLOYEE_METRICS}>
+          <AppHeader/>
           <EmployeeMetricsPage />
         </Route>
       </Switch>

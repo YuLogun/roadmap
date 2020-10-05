@@ -17,6 +17,8 @@ import EmployeeRoadmap from '../EmployeeRoadmap/EmployeeRoadmap';
 import PresetsList from '../PresetsList/PresetsList';
 import { getDeveloperRoadmap, unsetRoadmaps } from '../../redux/reducer';
 import { clearUserData } from '../../services/Authorization.service'
+import { GOOGLE_FORMS_COMMENT_LINK } from '../../constants/commonLinks';
+import ManagerMetrics from '../ManagerMetrics/ManagerMetrics';
 // import {  } from '@material-ui/core';
 
 const ManagerPage = () => {
@@ -93,10 +95,18 @@ const ManagerPage = () => {
               aria-controls="vertical-tabpanel-1"
             />
             <Tab
-              label={<a href="https://docs.google.com/forms/d/e/1FAIpQLSdKsIRr30pSPVxjyUv-ZpXmty2TPQ7EOqq3hTdAaq5pEchkUw/viewform?usp=send_form">Отзыв</a>}
+              label={
+                <a href={GOOGLE_FORMS_COMMENT_LINK}>
+                  Отзыв
+                </a>
+              }
               id="vertical-tab-2"
               aria-controls="vertical-tabpanel-2"
-              // onClick={}
+            />
+            <Tab
+              label="Статистика"
+              id="vertical-tab-3"
+              aria-controls="vertical-tabpanel-3"
             />
         </Tabs>
         <div 
@@ -137,9 +147,9 @@ const ManagerPage = () => {
         <TabPanel value={currentTab} index={1} className={classes.tabPanelContainer}>
           <PresetsList />
         </TabPanel>
-        {/* <TabPanel value={currentTab} index={2} className={classes.tabPanelContainer}>
-            Item Three
-        </TabPanel> */}
+        <TabPanel value={currentTab} index={3} className={classes.tabPanelContainer}>
+          <ManagerMetrics />
+        </TabPanel>
     </div>
   ) : (
     <Redirect to="/auth" />

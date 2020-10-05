@@ -6,6 +6,7 @@ import { Toolbar, Typography } from "@material-ui/core";
 
 //styles
 import { useStyles } from "./RolesAppBar.styles";
+import { Link } from 'react-router-dom';
 
 const RolesAppBar = ({ manager, employee }) => {
   const classes = useStyles();
@@ -13,7 +14,7 @@ const RolesAppBar = ({ manager, employee }) => {
   const logoutHandler = () => {
     clearUserData();
     document.location.reload();
-  }
+  };
 
   return (
     <div className={classes.rolesAppBarContainer}>
@@ -34,6 +35,9 @@ const RolesAppBar = ({ manager, employee }) => {
         <p >
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSdKsIRr30pSPVxjyUv-ZpXmty2TPQ7EOqq3hTdAaq5pEchkUw/viewform?usp=send_form" className={classes.exitTitle}>Отзыв</a>
         </p>
+      </div>
+      <div>
+        <Link to="/metrics">Статистика</Link>
       </div>
     </div>
   )

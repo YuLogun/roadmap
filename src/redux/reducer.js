@@ -1,4 +1,9 @@
-import { storeUserData, getToken, clearUserData, getUsername } from '../services/Authorization.service';
+import {
+  storeUserData,
+  getToken,
+  clearUserData,
+  getUsername
+} from '../services/Authorization.service';
 
 const BaseUrl = 'http://influx-roadmap.herokuapp.com/api';
 
@@ -12,7 +17,7 @@ const SET_CURRENT_DEVELOPER_ROADMAPS = 'SET_CURRENT_DEVELOPER_ROADMAPS';
 const SET_PRESETS_LIST = 'SET_PRESETS_LIST';
 const UNSET_CURRENT_ROADMAPS = 'UNSET_CURRENT_ROADMAPS';
 const SET_CURRENT_PRESET = 'SET_CURRENT_PRESET';
-const SET_CURRENT_COURSES = 'SET_CURRENT_COURSES'
+const SET_CURRENT_COURSES = 'SET_CURRENT_COURSES';
 
 const initialState = {
   loading: true,

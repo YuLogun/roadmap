@@ -17,7 +17,11 @@ import EmployeeList from '../EmployeeList/EmployeeList';
 import EmployeeRoadmap from '../EmployeeRoadmap/EmployeeRoadmap';
 import PresetsList from '../PresetsList/PresetsList';
 import { getDeveloperRoadmap, unsetRoadmaps } from '../../redux/reducer';
+
 import './ManagerPage.styles.scss';
+import { clearUserData } from '../../services/Authorization.service'
+import { GOOGLE_FORMS_COMMENT_LINK } from '../../constants/commonLinks';
+import ManagerMetrics from '../ManagerMetrics/ManagerMetrics';
 // import {  } from '@material-ui/core';
 
 const ManagerPage = () => {
@@ -126,6 +130,11 @@ const ManagerPage = () => {
     )
   }
 
+  const logoutHandler = () => {
+    clearUserData();
+    document.location.reload();
+  }
+
   return isAuthorized ? (
     <div className={classes.managerPanelContainer}>
       <div className="leftSideMenu">
@@ -157,12 +166,27 @@ const ManagerPage = () => {
               id="vertical-tab-1"
               aria-controls="vertical-tabpanel-1"
             />
-            {/* <Tab
-              label="Статистика"
+            <Tab
+              label={
+                <a href={GOOGLE_FORMS_COMMENT_LINK}>
+                  Отзыв
+                </a>
+              }
               id="vertical-tab-2"
               aria-controls="vertical-tabpanel-2"
-            /> */}
+            />
+            <Tab
+              label="Статистика"
+              id="vertical-tab-3"
+              aria-controls="vertical-tabpanel-3"
+            />
         </Tabs>
+        <div 
+          className={classes.exitBlock}
+          onClick={logoutHandler}
+        >
+          <span className={classes.exitTitle}>Выход</span>
+        </div>
       </div>
 
         <TabPanel value={currentTab} index={0} className={classes.tabPanelContainer}>
@@ -195,9 +219,9 @@ const ManagerPage = () => {
         <TabPanel value={currentTab} index={1} className={classes.tabPanelContainer}>
           <PresetsList />
         </TabPanel>
-        {/* <TabPanel value={currentTab} index={2} className={classes.tabPanelContainer}>
-            Item Three
-        </TabPanel> */}
+        <TabPanel value={currentTab} index={3} className={classes.tabPanelContainer}>
+          <ManagerMetrics />
+        </TabPanel>
     </div>
   ) : (
     <Redirect to="/auth" />

@@ -52,6 +52,7 @@ const PresetsAdder = (
                             label="Название технологий"
                             onChange={(e) => setIPresetCurrentTech(e.target.value)}
                             onKeyPress={(e) => enterTechHandler(e, iPresetCurrentTech)}
+                            helperText='Для добавления технологии нажмите "Enter"'
                         />
                         <div className={classes.techTags}>
                             {

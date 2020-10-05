@@ -38,7 +38,7 @@ const CourseAdder = ({
                     <Button 
                         variant="contained" 
                         color="primary"
-                        onClick={(e) => { onSubmit(e, courseLink) }}
+                        onClick={(e) => { onSubmit(courseLink) }}
                     >
                         Предложить
                     </Button>

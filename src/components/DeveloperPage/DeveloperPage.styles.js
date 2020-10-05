@@ -1,6 +1,24 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles((theme) => ({
+    roadmapsContainer: {
+        display: 'flex',
+        overflow: 'scroll',
+    },
+
+    roadmapContainer: {
+        width: '50vw',
+        minWidth: "95vw",
+        border: "1px solid black",
+        padding: '0 10vw'
+    },
+
+    addCourseButton: {
+        position: 'fixed',
+        bottom: "25px",
+        right: '25px'
+    },
+
     managerPanelContainer: {
         display: 'flex',
         width: '100vw',
@@ -14,5 +32,10 @@ export const useStyles = makeStyles((theme) => ({
     },
     tabPanelContainer: {
         width: '75vw'
-    }
+    },
+    // roadmapElement: {
+    //     minWidth: "95vw",
+    //     border: "1px solid black",
+    //     padding: '0 10vw'
+    // }
 }));

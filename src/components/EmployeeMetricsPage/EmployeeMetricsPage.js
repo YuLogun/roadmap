@@ -1,15 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ROADMAP as ROADMAP_ROUTE } from '../../constants/routes';
 import Container from '@material-ui/core/Container';
-import EmployeeMetrics from '../EmployeeMetrics/EmployeeMetrics';
+import EmployeeMetricsContainer from '../EmployeeMetrics/EmployeeMetrics.container';
 
 const EmployeeMetricsPage = () => (
   <Container>
     <div style={{ textAlign: 'right' }}>
-      <Link to={ROADMAP_ROUTE}>Вернуться обратно</Link>
+      <a href="/">Вернуться обратно</a>
     </div>
-    <EmployeeMetrics />
+    <EmployeeMetricsContainer />
   </Container>
 );
 

@@ -1,5 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import EmployeeMetricsPage from './components/EmployeeMetricsPage/EmployeeMetricsPage';
+import * as ROUTES from './constants/routes';
 
 //components
 import Authorization from './components/Authorization/Authorization';
@@ -18,22 +20,25 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/">
+        <Route exact path={ROUTES.HOME}>
           <ManagerPage />
           {/* <ManagerView /> */}
         </Route>
-        <Route exact path="/roadmap">
+        <Route exact path={ROUTES.ROADMAP}>
           <DeveloperPage />
           {/* <DeveloperView /> */}
         </Route>
-        <Route exact path="/auth">
+        <Route exact path={ROUTES.AUTH}>
           <Authorization />
         </Route>
-        <Route exact path="/reg">
+        <Route exact path={ROUTES.REGISTRATION}>
           <Registartion />
         </Route>
-        <Route exact path="/test">
+        <Route exact path={ROUTES.TEST}>
           <RoadmapLineView />
+        </Route>
+        <Route exact path={ROUTES.EMPLOYEE_METRICS}>
+          <EmployeeMetricsPage />
         </Route>
       </Switch>
     </div>

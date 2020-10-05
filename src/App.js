@@ -20,13 +20,14 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <AppHeader/>
       <Switch>
         <Route exact path={ROUTES.HOME}>
+          <AppHeader/>
           <ManagerPage />
           {/* <ManagerView /> */}
         </Route>
         <Route exact path={ROUTES.ROADMAP}>
+          <AppHeader/>
           <DeveloperPage />
           {/* <DeveloperView /> */}
         </Route>
@@ -40,6 +41,7 @@ function App() {
           <RoadmapLineView />
         </Route>
         <Route exact path={ROUTES.EMPLOYEE_METRICS}>
+          <AppHeader/>
           <EmployeeMetricsPage />
         </Route>
       </Switch>

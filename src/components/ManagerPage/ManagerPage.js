@@ -19,7 +19,7 @@ import PresetsList from '../PresetsList/PresetsList';
 import { getDeveloperRoadmap, unsetRoadmaps } from '../../redux/reducer';
 
 import './ManagerPage.styles.scss';
-import { clearUserData } from '../../services/Authorization.service'
+import { clearUserData, getNameUser } from '../../services/Authorization.service'
 import { GOOGLE_FORMS_COMMENT_LINK } from '../../constants/commonLinks';
 import ManagerMetrics from '../ManagerMetrics/ManagerMetrics';
 // import {  } from '@material-ui/core';
@@ -130,6 +130,43 @@ const ManagerPage = () => {
     )
   }
 
+  const statisticLabelContent = () => {
+    return (
+      <div className="tabItem">
+        <svg className="leftSideMenuTabIcon" width="24" height="24" viewBox="0 0 18 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.9609 28.0001L11.9609 9.31865" stroke="url(#paint0_linear)" stroke-width="1.55831" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M17.0566 28.0001L17.0566 4.22372" stroke="url(#paint1_linear)" stroke-width="1.55831" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6.8667 28.0001L6.8667 14.4136" stroke="url(#paint2_linear)" stroke-width="1.55831" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1.77148 28.0001L1.77148 17.8102" stroke="url(#paint3_linear)" stroke-width="1.55831" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1 12.2828L12.2828 1" stroke="url(#paint4_linear)" stroke-width="1.55831" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+          <linearGradient id="paint0_linear" x1="11.9609" y1="18.6594" x2="10.7327" y2="18.6594" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#00E0FF"/>
+          <stop offset="1" stop-color="#0047FF"/>
+          </linearGradient>
+          <linearGradient id="paint1_linear" x1="17.0566" y1="16.1119" x2="18.2848" y2="16.1119" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#00E0FF"/>
+          <stop offset="1" stop-color="#0047FF"/>
+          </linearGradient>
+          <linearGradient id="paint2_linear" x1="6.8667" y1="21.2068" x2="8.09489" y2="21.2068" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#00E0FF"/>
+          <stop offset="1" stop-color="#0047FF"/>
+          </linearGradient>
+          <linearGradient id="paint3_linear" x1="1.77148" y1="22.9051" x2="2.99967" y2="22.9051" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#00E0FF"/>
+          <stop offset="1" stop-color="#0047FF"/>
+          </linearGradient>
+          <linearGradient id="paint4_linear" x1="6.64141" y1="1" x2="6.64141" y2="14.8574" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#00E0FF"/>
+          <stop offset="1" stop-color="#0047FF"/>
+          </linearGradient>
+          </defs>
+        </svg>
+        <span className="lefSideMenuTabTitle">Статистика</span>
+      </div>
+    )
+  }
+
   const logoutHandler = () => {
     clearUserData();
     document.location.reload();
@@ -143,7 +180,7 @@ const ManagerPage = () => {
             <img />
           </div>
           <span className="userNameTitle">
-            Игорь Николаев
+            {getNameUser()}
           </span>
         </div>
         <Tabs
@@ -167,6 +204,11 @@ const ManagerPage = () => {
               aria-controls="vertical-tabpanel-1"
             />
             <Tab
+              label={statisticLabelContent()}
+              id="vertical-tab-3"
+              aria-controls="vertical-tabpanel-3"
+            />
+            {/* <Tab
               label={
                 <a href={GOOGLE_FORMS_COMMENT_LINK}>
                   Отзыв
@@ -174,18 +216,43 @@ const ManagerPage = () => {
               }
               id="vertical-tab-2"
               aria-controls="vertical-tabpanel-2"
-            />
-            <Tab
-              label="Статистика"
-              id="vertical-tab-3"
-              aria-controls="vertical-tabpanel-3"
-            />
+            /> */}
         </Tabs>
         <div 
-          className={classes.exitBlock}
+          className={classes.feedbackLink}
+        >
+          <a
+            target="_blank"
+            className={classes.exitTitle}
+            href={GOOGLE_FORMS_COMMENT_LINK}
+          >
+              Отзыв
+          </a>
+        </div>
+        <div 
+          className={classes.exitBlock + " tabItem"}
           onClick={logoutHandler}
         >
-          <span className={classes.exitTitle}>Выход</span>
+          <svg className="leftSideMenuTabIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23Z" stroke="url(#paint0_linear)"/>
+            <path d="M23 12H8.85714" stroke="url(#paint1_linear)" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 8.85712L8.22857 12L12 15.1428" stroke="url(#paint2_linear)" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+            <linearGradient id="paint0_linear" x1="12" y1="1" x2="12" y2="28.0201" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#00E0FF"/>
+            <stop offset="1" stop-color="#0047FF"/>
+            </linearGradient>
+            <linearGradient id="paint1_linear" x1="15.9286" y1="12" x2="15.9286" y2="13.2282" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#00E0FF"/>
+            <stop offset="1" stop-color="#0047FF"/>
+            </linearGradient>
+            <linearGradient id="paint2_linear" x1="10.1143" y1="8.85712" x2="10.1143" y2="16.5772" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#00E0FF"/>
+            <stop offset="1" stop-color="#0047FF"/>
+            </linearGradient>
+            </defs>
+          </svg>
+          <span className={classes.exitTitle + " exitLink"}>Выход</span>
         </div>
       </div>
 

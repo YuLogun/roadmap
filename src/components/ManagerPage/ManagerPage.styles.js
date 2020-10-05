@@ -29,11 +29,15 @@ export const useStyles = makeStyles((theme) => ({
         cursor: 'pointer'
     },
     exitBlock: {
+        position: 'fixed',
+        width: '20vw',
+        bottom: '0',
+        marginLeft: '45px',
         paddingBottom: '15px',
         cursor: 'pointer'
     },
     exitTitle: {
-        color: 'grey',
-        textDecoration: 'underline'
+        // color: 'grey',
+        // textDecoration: 'underline'
     }
 }));

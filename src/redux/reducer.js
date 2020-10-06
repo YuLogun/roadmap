@@ -229,7 +229,7 @@ export function getAllPresets() {
   };
 
   return (dispatch) => {
-    fetch(BaseUrl + '/presets', requestParams)
+    fetch(BaseUrl + '/presets?per=100&filter[creator]=' + getUsername(), requestParams)
       .then((res) => errorHandler(res))
       .then((data) => {
         if (data.errors) {

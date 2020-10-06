@@ -11,8 +11,7 @@ const EmployeeMetricsContainer = () => {
   const userName = getUsername();
 
   useEffect(() => {
-    const metrics = fetchManagerMetrics(userId, userName).then(() => setMetrics(metrics));
-    // const metrics = await fetchEmployeeMetrics(userName);
+    fetchManagerMetrics(userId, userName).then((metrics) => { debugger; setMetrics(metrics)});
   }, []);
 
   return (

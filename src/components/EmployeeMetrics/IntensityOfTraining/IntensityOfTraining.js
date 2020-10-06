@@ -8,8 +8,8 @@ import { Bar } from 'react-chartjs-2';
 const IntensityOfTraining = ({ data }) => {
   const labels = useMemo(() => {
     if (data) {
-      return data.map(({ name }) => name),
-      [data]
+      return data.map(({ name }) => name)
+      // [data]
     } else {
       return []
       // return data.map((item) => false), [data]
@@ -18,8 +18,8 @@ const IntensityOfTraining = ({ data }) => {
 
   const courseData = useMemo(() => {
     if (data) {
-      return data.map(({ courseIntensity }) => courseIntensity),
-      [data]
+      return data.map(({ courseIntensity }) => courseIntensity)
+      // [data]
     } else {
       return []
       // return data.map((item) => false), [data]
@@ -28,8 +28,8 @@ const IntensityOfTraining = ({ data }) => {
 
   const technologyData = useMemo(() => {
     if (data) {
-      return data.map(({ technologyIntensity }) => technologyIntensity),
-      [data]
+      return data.map(({ technologyIntensity }) => technologyIntensity)
+      // [data]
     } else {
       return []
       // return data.map((item) => false), [data]

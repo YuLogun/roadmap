@@ -11,12 +11,16 @@ const ManagerPie = ({
     const classes = useStyles();
 
     const getLabels = (data) => {
-        return data.map(item => item.status);
+        if (data) {
+            return data.map(item => item.status);
+        } else {
+            return [ ]
+        }
     }
 
     const getDatasets = (data) => {
         return [{
-            data: data.map(item => item.count),
+            data: data ? data.map(item => item.count) : [],
             backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)']
         }]
     }

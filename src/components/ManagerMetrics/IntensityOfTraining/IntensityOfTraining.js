@@ -8,18 +8,43 @@ import { Bar } from 'react-chartjs-2';
 const IntensityOfTraining = ({ data }) => {
   const classes = useStyles();
 
-  const labels = useMemo(() =>
-    data.map(({ courseIntensity }) => courseIntensity),
-    [data]
-  );
+  const labels = useMemo(() => {
+    if (data) {
+      return data.map(({ name }) => name),
+      [data]
+    } else {
+      return []
+      // return data.map((item) => false), [data]
+    }
+  });
 
-  const courseData = useMemo(() =>
-  data.map(({ courseIntensity }) => courseIntensity),
-  [data]);
+  const courseData = useMemo(() => {
+    if (data) {
+      return data.map(({ courseIntensity }) => courseIntensity),
+      [data]
+    } else {
+      return []
+      // return data.map((item) => false), [data]
+    }
+  });
+  
+  const technologyData = useMemo(() => {
+    if (data) {
+      return data.map(({ technologyIntensity }) => technologyIntensity),
+      [data]
+    } else {
+      return []
+      // return data.map((item) => false), [data]
+    }
+  })
 
-  const technologyData = useMemo(() =>
-      data.map(({ technologyIntensity }) => technologyIntensity),
-    [data]);
+  // const courseData = useMemo(() =>
+  // data.map(({ courseIntensity }) => courseIntensity),
+  // [data]);
+
+  // const technologyData = useMemo(() =>
+  //     data.map(({ technologyIntensity }) => technologyIntensity),
+  //   [data]);
   return (
     <Card className={classes.testClass}>
       <CardContent>

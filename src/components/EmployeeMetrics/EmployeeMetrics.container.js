@@ -8,10 +8,9 @@ const EmployeeMetricsContainer = () => {
   const [metrics, setMetrics] = useState(false);
   const userName = getUsername();
 
-  useEffect(async () => {
-    const metrics = await fetchEmployeeMetrics(userName);
-    setMetrics(metrics);
-  }, [setMetrics, userName]);
+  useEffect(() => {
+    const metrics = fetchEmployeeMetrics(userName).then(() => setMetrics(metrics));
+  }, []);
 
   return (
     <>

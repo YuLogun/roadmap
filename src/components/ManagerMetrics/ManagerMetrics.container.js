@@ -10,11 +10,10 @@ const EmployeeMetricsContainer = () => {
   const userId = getUserId();
   const userName = getUsername();
 
-  useEffect(async () => {
-    const metrics = await fetchManagerMetrics(userId, userName);
+  useEffect(() => {
+    const metrics = fetchManagerMetrics(userId, userName).then(() => setMetrics(metrics));
     // const metrics = await fetchEmployeeMetrics(userName);
-    setMetrics(metrics);
-  }, [setMetrics, userId]);
+  }, []);
 
   return (
     <div className="wideScreenList">

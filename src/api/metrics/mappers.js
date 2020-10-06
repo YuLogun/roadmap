@@ -27,7 +27,6 @@ export const mapIntensity = intensityResponse => {
 };
 
 export const mapIntensity1 = intensityResponse => {
-  // debugger;
   const {
     manager_id,
     development_speed_course_intensity,

@@ -11,7 +11,6 @@ const Roadmap = ({ roadmapData, managerView, styles }) => {
   const classes = useStyles();
 
   const roadmapMapper = (roadmapInfo) => {
-    // debugger;
     let result = {
       slug: roadmapInfo.slug,
       name: roadmapInfo.name,
@@ -45,7 +44,6 @@ const Roadmap = ({ roadmapData, managerView, styles }) => {
 
   console.log(roadmapData.name);
   console.warn(currentRoadmap.name);
-  // debugger;
   return (
     <div className={classes.container} style={styles}>
       <div className={`container ${styles}`}>

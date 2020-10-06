@@ -8,7 +8,6 @@ import './ManagerMetrics.styles.scss'
 const EmployeeMetricsContainer = () => {
   const [metrics, setMetrics] = useState(false);
   const userId = getUserId();
-//   debugger;
   const userName = getUsername();
 
   useEffect(async () => {

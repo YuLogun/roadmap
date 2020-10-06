@@ -59,7 +59,6 @@ const RoadmapLineView = (
     const showAllCoursesHandler = (level, technology) => {
         dispatch(getCoursesByLevelAndTechnology(level, technology));
         setCoursesListIsOpen(true);
-        // debugger;
     }
 
     const coursesListOnCancelHandler = () => {
@@ -91,8 +90,8 @@ const RoadmapLineView = (
                                             technology.courses.map((course, index) => (
                                                 <div className={classes.courseListItem + ' course-list-item'}>
                                                     <div className={classes.listItemDesc}>
-                                                        <span className={classes.courseTitle}>{course.name}</span>
-                                                        <a href={course.source}>Ссылка</a>
+                                                        {/* <span className={classes.courseTitle}>{course.name}</span> */}
+                                                        <a className={classes.courseTitle} target="_blank" href={course.source}>{course.name}</a>
                                                     </div>
                                                     {
                                                         <div className={classes.completableBlock}>

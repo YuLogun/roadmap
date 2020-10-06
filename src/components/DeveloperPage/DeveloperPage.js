@@ -148,8 +148,6 @@ const DeveloperView = () => {
     );
   }
 
-  // debugger;
-
   return isAuthorized ? (
     <div className={classes.managerPanelContainer}>
       <CourseAdder 

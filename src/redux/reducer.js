@@ -32,7 +32,6 @@ const initialState = {
 };
 
 function errorHandler(res) {
-  // debugger;
   switch(res.status) {
     case 200: {
       return res.json();
@@ -45,7 +44,6 @@ function errorHandler(res) {
     case 403:
     case 405: {
       alert('Авторизуйтесь');
-      // debugger;
       clearUserData();
       document.location.reload();
       break;
@@ -62,7 +60,6 @@ function errorHandler(res) {
     }
     default: {
       alert('Неизвестная ошибка');
-      debugger;
     }
   }
 }
@@ -151,7 +148,6 @@ export function login(login, password) {
         if (data) {
           storeUserData(data);
           dispatch({ type: SET_CURRENT_USER, user: data.user, isAuth: true, loading: false });
-          // debugger;
         }
       });
   };
@@ -187,12 +183,9 @@ export function getDevelopers() {
     fetch(BaseUrl + '/companies?filter[manager]=' + getUsername(), requestParams)
     .then(res => errorHandler(res))
     .then(data => {
-      // debugger;
       if (data.errors) {
         alert('?');
-        debugger;
       } else {
-        // debugger;
         dispatch({
           type: SET_DEVELOPER_LIST,
           developersList: data.data,
@@ -204,25 +197,19 @@ export function getDevelopers() {
 }
 
 export function getDeveloperRoadmap(username) {
-  // debugger;
   const requestParams = {
     method: 'GET',
     headers: {
       Authorization: 'Bearer ' + getToken()
     }
   };
-
-  // debugger;
   return (dispatch) => {
     fetch(BaseUrl + '/roadmaps/' + username, requestParams)
       .then((res) => errorHandler(res))
       .then((data) => {
-        // debugger;
         if (data.errors) {
           alert('?');
-          debugger;
         } else {
-          // debugger;
           dispatch({
             type: SET_CURRENT_DEVELOPER_ROADMAPS,
             roadmaps: data.data,
@@ -247,7 +234,6 @@ export function getAllPresets() {
       .then((data) => {
         if (data.errors) {
           alert('?');
-          debugger;
         } else {
           dispatch({
             type: SET_PRESETS_LIST,
@@ -259,7 +245,6 @@ export function getAllPresets() {
 }
 
 export function savePresetOnDeveloper(username, preset) {
-  debugger;
   const requestParams = {
     method: 'POST',
     headers: {
@@ -278,9 +263,7 @@ export function savePresetOnDeveloper(username, preset) {
       .then((data) => {
         if (data.errors) {
           alert('?');
-          debugger;
         } else {
-          debugger;
         }
       });
   };

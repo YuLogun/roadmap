@@ -18,6 +18,7 @@ export const fetchPresetProgress = async (usersName) => {
       return await result.map(mapPresetProgress);
     } else {
       alert('Ошибка запроса');
+      return null;
     }
   } catch (e) {
     alert('Неизвестная ошибка');
@@ -42,6 +43,7 @@ export const fetchIntensityOfTraining = async (usersName) => {
       return await result.map(mapIntensity);
     } else {
       alert('Ошибка запроса');
+      return null;
     }
   } catch (e) {
     alert('Неизвестная ошибка');
@@ -58,7 +60,6 @@ export const fetchEmployeeMetrics = async (userName) => {
 };
 
 export const fetchTestData1 = async (userId) => {
-  // debugger;
   try {
     const response = await fetch(`${QUERY_ENDPOINT}`, {
       method: 'POST',
@@ -74,6 +75,7 @@ export const fetchTestData1 = async (userId) => {
       return await result.map(mapIntensity1);
     } else {
       alert('Ошибка запроса');
+      return null;
     }
   } catch (e) {
     alert('Неизвестная ошибка');
@@ -82,7 +84,6 @@ export const fetchTestData1 = async (userId) => {
 };
 
 export const fetchTestData2 = async (userName) => {
-  // debugger;
   try {
     const response = await fetch(`${QUERY_ENDPOINT}`, {
       method: 'POST',
@@ -95,11 +96,11 @@ export const fetchTestData2 = async (userName) => {
     });
     if (response.ok) {
       const result = await response.json();
-        // result.then((data) => {debugger;})
       return await result
       // result.map(mapIntensity1);
     } else {
       alert('Ошибка запроса');
+      return null;
     }
   } catch (e) {
     alert('Неизвестная ошибка');
@@ -112,6 +113,5 @@ export const fetchManagerMetrics = async (userId, userName) => {
     fetchTestData1(userId),
     fetchTestData2(userId)
   ]);
-  // debugger;
   return { testData1, testData2 };
 }

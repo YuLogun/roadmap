@@ -19,6 +19,10 @@ export function getTeam() {
   return localStorage.getItem('team');
 }
 
+export function getUserId() {
+  return localStorage.getItem('userId');
+}
+
 export function isAuthorized() {
   // debugger;
   if (getToken()) return true;
@@ -26,12 +30,13 @@ export function isAuthorized() {
 }
 
 export function storeUserData(userData) {
-  debugger;
+  // debugger;
   localStorage.setItem('authToken', userData.access_token);
   localStorage.setItem('user', userData.user.name);
   localStorage.setItem('role', userData.user.role);
   localStorage.setItem('username', userData.user.username);
   localStorage.setItem('team', userData.user.teams[0]);
+  localStorage.setItem('userId', userData.user_id);
 }
 
 export function clearUserData() {

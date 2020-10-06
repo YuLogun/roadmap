@@ -208,15 +208,6 @@ const ManagerPage = () => {
               id="vertical-tab-2"
               aria-controls="vertical-tabpanel-2"
             />
-            {/* <Tab
-              label={
-                <a href={GOOGLE_FORMS_COMMENT_LINK}>
-                  Отзыв
-                </a>
-              }
-              id="vertical-tab-2"
-              aria-controls="vertical-tabpanel-2"
-            /> */}
         </Tabs>
         <div 
           className={classes.feedbackLink}

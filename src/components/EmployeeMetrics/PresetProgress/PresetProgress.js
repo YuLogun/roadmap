@@ -8,7 +8,7 @@ const PresetProgress = ({ data = [] }) => {
   const classes = useStyles();
 
   return (
-    <Card style={{ marginBottom: 20 }}>
+    <Card style={{ marginBottom: 20, width: '100%' }}>
       <CardContent>
         <h4>Прогресс по пресетам</h4>
         {

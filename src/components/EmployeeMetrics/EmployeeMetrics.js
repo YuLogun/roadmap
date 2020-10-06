@@ -8,9 +8,13 @@ const EmployeeMetrics = ({ metrics }) => {
 
   return (
     <>
-      <h1 className={classes.title}>Метрики</h1>
+    <div className="employeeListHeaderBlock">
+      <span className="employeeListHeaderTitle">Метрики</span>
+    </div>
+    <div className="employeeListBlock2">
       <PresetProgress data={metrics.presetProgress} />
       <IntensityOfTraining data={metrics.intensityOfTraining} />
+    </div>
     </>
   );
 };

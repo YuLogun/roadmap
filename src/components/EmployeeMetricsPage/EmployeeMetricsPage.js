@@ -4,9 +4,9 @@ import EmployeeMetricsContainer from '../EmployeeMetrics/EmployeeMetrics.contain
 
 const EmployeeMetricsPage = () => (
   <Container>
-    <div style={{ textAlign: 'right' }}>
+    {/* <div style={{ textAlign: 'right' }}>
       <a href="/">Вернуться обратно</a>
-    </div>
+    </div> */}
     <EmployeeMetricsContainer />
   </Container>
 );

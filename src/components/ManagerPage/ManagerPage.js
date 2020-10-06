@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import RoadmapLineView from '../RoadmapLineView/RoadmapLineView';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import PhoneIcon from '@material-ui/icons/Phone';
+import ManagerMetricsContainer from '../ManagerMetrics/ManagerMetrics.container';
 
 //styles
 import { useStyles } from './ManagerPage.styles';
@@ -205,8 +206,8 @@ const ManagerPage = () => {
             />
             <Tab
               label={statisticLabelContent()}
-              id="vertical-tab-3"
-              aria-controls="vertical-tabpanel-3"
+              id="vertical-tab-2"
+              aria-controls="vertical-tabpanel-2"
             />
             {/* <Tab
               label={
@@ -273,11 +274,6 @@ const ManagerPage = () => {
                   currentRoadmap={currentRoadmaps[0]}
                 />
               </div>
-              
-              // <EmployeeRoadmap
-              //   roadmapData={currentRoadmaps[0].preset}
-              //   managerView
-              // />
             ) : (
               <EmployeeList currentUsername={(username) => initRoadmaps(username)}/>
             )
@@ -286,8 +282,8 @@ const ManagerPage = () => {
         <TabPanel value={currentTab} index={1} className={classes.tabPanelContainer}>
           <PresetsList />
         </TabPanel>
-        <TabPanel value={currentTab} index={3} className={classes.tabPanelContainer}>
-          <ManagerMetrics />
+        <TabPanel value={currentTab} index={2} className={classes.tabPanelContainer}>
+          <ManagerMetricsContainer />
         </TabPanel>
     </div>
   ) : (

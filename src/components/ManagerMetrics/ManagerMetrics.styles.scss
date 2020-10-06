@@ -1,0 +1,32 @@
+.wideScreenList {
+    margin-left: 66px;
+    margin-right: 56px;
+}
+
+.employeeListHeaderBlock {
+    width: 100%;
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.employeeListHeaderTitle {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #858585;
+}
+
+.employeeListBlock1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+    padding: 45px 25px;
+    border: 2px solid #F0F0F0;
+    border-radius: 10px;
+    height: 80vh;
+    overflow: overlay;
+}

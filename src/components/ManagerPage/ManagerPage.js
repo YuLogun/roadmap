@@ -69,7 +69,6 @@ const ManagerPage = () => {
   const backToEmployeeListHandler = () => {
     setCurrentUsername('')
     dispatch(unsetRoadmaps());
-    // debugger;
   }
 
   const employeeLabelContent = () => {

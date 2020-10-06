@@ -13,5 +13,4 @@ export function getRoadmapData(roadmap) {
         title: roadmap.name,
 
     }
-    debugger;
 }

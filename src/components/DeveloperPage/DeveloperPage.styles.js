@@ -10,7 +10,7 @@ export const useStyles = makeStyles((theme) => ({
         // width: '50vw',
         minWidth: "80vw", //95vh
         height: '83vh',
-        border: "1px solid black",
+        // borderRight: "1px solid black",
         // padding: '0 10vw'
     },
 

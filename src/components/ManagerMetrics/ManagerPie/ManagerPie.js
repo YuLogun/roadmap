@@ -12,12 +12,9 @@ const ManagerPie = ({
 
     const getLabels = (data) => {
         return data.map(item => item.status);
-        debugger;
-        return ['test1', 'test2', 'test3']
     }
 
     const getDatasets = (data) => {
-        // debugger;
         return [{
             data: data.map(item => item.count),
             backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)']

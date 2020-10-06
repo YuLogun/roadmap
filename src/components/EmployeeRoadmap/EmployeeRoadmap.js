@@ -15,8 +15,6 @@ const EmployeeRoadmap = ({ roadmapData, managerView, styles }) => {
 
   const dispatch = useDispatch();
 
-  // debugger;
-
   const roadmapMapper = (roadmapInfo) => {
     let result = {
       slug: roadmapInfo.slug,
@@ -55,7 +53,6 @@ const EmployeeRoadmap = ({ roadmapData, managerView, styles }) => {
 
   console.log(roadmapData.name);
   console.warn(currentRoadmap.name);
-  debugger;
   return (
     <div className={classes.container}>
         <div className={classes.roadmapHeader}>

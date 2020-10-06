@@ -60,7 +60,6 @@ const PresetsList = ({ currentUsername }) => {
   }
 
   const onCancelPresetAdder = () => {
-    // debugger;
     setPresetAdderOpen(false);
   }
 

@@ -20,8 +20,6 @@ const IntensityOfTraining = ({ data }) => {
   const technologyData = useMemo(() =>
       data.map(({ technologyIntensity }) => technologyIntensity),
     [data]);
-
-  // debugger;
   return (
     <Card className={classes.testClass}>
       <CardContent>
